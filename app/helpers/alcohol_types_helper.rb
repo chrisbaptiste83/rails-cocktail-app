@@ -1,0 +1,2 @@
+module AlcoholTypesHelper
+end

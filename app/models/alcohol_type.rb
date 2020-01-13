@@ -1,0 +1,2 @@
+class AlcoholType < ApplicationRecord
+end

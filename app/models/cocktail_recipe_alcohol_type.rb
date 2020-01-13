@@ -1,0 +1,2 @@
+class CocktailRecipeAlcoholType < ApplicationRecord
+end

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :alcohol_types
   resources :comments
   resources :ingredients
   resources :cocktail_recipes

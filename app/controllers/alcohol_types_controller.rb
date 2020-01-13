@@ -1,0 +1,2 @@
+class AlcoholTypesController < ApplicationController
+end
