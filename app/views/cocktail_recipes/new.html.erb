@@ -1,0 +1,21 @@
+
+<h1> Create a Coktail Recipe!:</h1>
+
+<%= form_for(@cocktail_recipe) do |f| %>
+   
+    <label>Title:</label><br>
+    <p><%= f.text_field :title %></p>
+    
+    <label>Directions:</label><br>
+    <p><%= f.text_field :description %> </p>
+    
+    <label>Directions:</label><br>
+    <p><%= f.text_field :directions %></p>
+    <p><%= f.submit %></p> 
+
+    <label>Category id:</label><br>
+    <%= f.text_field :category_id %><br>
+  
+    <label>User id:</label><br>
+    <%= f.text_field :user_id %><br>
+  <% end %>
