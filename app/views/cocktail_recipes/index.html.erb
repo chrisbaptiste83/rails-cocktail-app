@@ -1,0 +1,7 @@
+<h1> All Cocktail Recipes:</h1>
+
+<% @cocktail_recipes.each do |cocktail_recipe| %>
+    <h1><%= cocktail_recipe.title %></h1> 
+    <h2><%= cocktail_recipe.description %></h2>
+    <h3><%= cocktail_recipe.directions %></h3>
+<% end %>
