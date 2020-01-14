@@ -4,9 +4,10 @@ class CocktailRecipesController < ApplicationController
         @cocktail_recipe = CocktailRecipe.new 
     end 
 
-    def create
+    def create 
         @cocktail_recipe = CocktailRecipe.new(cocktail_recipe_params) 
         @cocktail_recipe.save
+
         redirect_to cocktail_recipe_path(@cocktail_recipe)
       end
     
@@ -21,6 +22,6 @@ class CocktailRecipesController < ApplicationController
       private
 
       def cocktail_recipe_params
-        params.require(:cocktail_recipe).permit(:id, :user_id, :category_id, :title, :directions, :description)
+        params.require(:cocktail_recipe).permit(:user_id, :category_id, :title, :directions, :description)
       end
 end

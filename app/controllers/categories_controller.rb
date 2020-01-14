@@ -1,2 +1,5 @@
-class CategoriesController < ApplicationController
+class CategoriesController < ApplicationController 
+    def new 
+    end 
+    
 end
