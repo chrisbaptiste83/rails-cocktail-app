@@ -1,0 +1,16 @@
+<h1>Sign up with an email and password to begin browsing cocktail recipes:</h1> 
+
+ 
+<%= form_for(@user) do |f| %>
+  <label>Email:</label><br>
+  <%= f.text_field :email %><br> 
+
+  <label>Username:</label><br>
+  <%= f.text_field :username %><br> 
+
+ 
+  <label>Password:</label><br>
+  <%= f.text_area :password %><br>
+ 
+  <%= f.submit %>
+<% end %>
