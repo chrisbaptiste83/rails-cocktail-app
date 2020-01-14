@@ -19,6 +19,18 @@ class CocktailRecipesController < ApplicationController
         @cocktail_recipes = CocktailRecipe.all  
     end 
 
+    def edit 
+        @cocktail_recipe = CocktailRecipe.find(params[:id])
+    end
+     
+    def update 
+        @cocktail_recipe = CocktailRecipe.find(params[:id]) 
+        @cocktail_recipe.update(cocktail_recipe_params) 
+
+        redirect_to cocktail_recipe_path(@cocktail_recipe)
+
+    end
+
       private
 
       def cocktail_recipe_params
