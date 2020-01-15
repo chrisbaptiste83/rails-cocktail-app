@@ -6,9 +6,12 @@ class CocktailRecipesController < ApplicationController
 
     def create 
         @cocktail_recipe = CocktailRecipe.new(cocktail_recipe_params) 
+        if @cocktail_recipe.valid? 
         @cocktail_recipe.save
 
-        redirect_to cocktail_recipe_path(@cocktail_recipe)
+        redirect_to cocktail_recipe_path(@cocktail_recipe) 
+        else render :new
+        end
       end
     
       def show

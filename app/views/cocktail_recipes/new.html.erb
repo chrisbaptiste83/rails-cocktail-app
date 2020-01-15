@@ -20,4 +20,19 @@
     <%= f.text_field :user_id %><br> 
 
     <p><%= f.submit %></p>
-  <% end %>
+  <% end %> 
+
+  <% if @cocktail_recipe.errors.any? %>
+  <div id="error_explanation">
+    <h2>
+      <%= pluralize(@cocktail_recipe.errors.count, "error") %>
+      prohibited this article from being saved:
+    </h2>
+ 
+    <ul>
+    <% @cocktail_recipe.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
