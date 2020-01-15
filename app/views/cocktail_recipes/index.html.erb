@@ -1,7 +1,10 @@
 <h1> All Cocktail Recipes:</h1>
 
 <% @cocktail_recipes.each do |cocktail_recipe| %>
-    <h1><%= cocktail_recipe.title %></h1> 
-    <h2><%= cocktail_recipe.description %></h2>
-    <h3><%= cocktail_recipe.directions %></h3>
+    <div class="cocktail_recipe">
+  <h2><span><%= cocktail_recipe.title %></span></h2> 
+  <h3><span><%= cocktail_recipe.description %></span></h3>  
+  <h3><span><%= cocktail_recipe.directions%></span></h3> 
+  <%= link_to "Delete", cocktail_recipe, method: :delete, data: { confirm: "Do you really want to delte this recipe?" } %>
+</div>
 <% end %>

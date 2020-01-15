@@ -22,6 +22,11 @@ class CocktailRecipesController < ApplicationController
         @cocktail_recipes = CocktailRecipe.all  
     end 
 
+    def destroy
+        CocktailRecipe.find(params[:id]).destroy
+        redirect_to cocktail_recipes_url
+      end
+
     def edit 
         @cocktail_recipe = CocktailRecipe.find(params[:id])
     end
