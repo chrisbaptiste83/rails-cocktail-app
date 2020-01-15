@@ -13,13 +13,26 @@
     <p><%= f.text_field :directions %></p>
      
 
-    <label>Category id:</label><br>
-    <%= f.text_field :category_id %><br>
-  
-    <label>User id:</label><br>
-    <%= f.text_field :user_id %><br> 
+    <label>Category:</label><br>
+    <%= f.text_field :category_name, list: "categories_autocomplete" %>
+  <datalist id="categories_autocomplete">
+    <% Category.all.each do |category| %>
+      <option value="<%= category.name %>">
+    <% end %>
+  </datalist> 
 
-    <p><%= f.submit %></p>
+  <p><label>Ingredients:</label><br></p> 
+  <%= f.fields_for :ingredients do |ingredient| %> 
+    <label>Ingredient Name:</label><br>
+    <%= ingredient.text_field :name %><br> 
+    <% end %>
+
+  
+    <p><label>User id:</label><br></p>
+    <p><%= f.text_field :user_id %><br></p> 
+
+    <p><%= f.submit %></p> 
+
   <% end %> 
 
   <% if @cocktail_recipe.errors.any? %>
