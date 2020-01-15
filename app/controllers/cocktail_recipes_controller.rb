@@ -2,6 +2,8 @@ class CocktailRecipesController < ApplicationController
    
     def new 
         @cocktail_recipe = CocktailRecipe.new 
+        @cocktail_recipe.ingredients.build(name: 'water')
+        @cocktail_recipe.ingredients.build(name: 'ice')
     end 
 
     def create 
@@ -10,6 +12,7 @@ class CocktailRecipesController < ApplicationController
         @cocktail_recipe.save
 
         redirect_to cocktail_recipe_path(@cocktail_recipe) 
+        binding.pry
         else render :new
         end
       end
@@ -42,6 +45,6 @@ class CocktailRecipesController < ApplicationController
       private
 
       def cocktail_recipe_params
-        params.require(:cocktail_recipe).permit(:user_id, :category_id, :title, :directions, :description)
+        params.require(:cocktail_recipe).permit(:user_id, :category_name, :title, :directions, :description, ingredients_attributes:[:name])
       end
 end
