@@ -25,8 +25,15 @@
   <%= f.fields_for :ingredients do |ingredient| %> 
     <label>Ingredient Name:</label><br>
     <%= ingredient.text_field :name %><br> 
+    <% end %> 
+    
+    <p>
+  
+    <p><label>Alcohol Types:</label><br></p>
+    <%= f.fields_for :alcohol_types, @cocktail_recipe.alcohol_types.build do |alcohol_types_attribute| %>
+      <%= alcohol_types_attribute.text_field :name%>
     <% end %>
-
+  </p>
   
     <p><label>User id:</label><br></p>
     <p><%= f.text_field :user_id %><br></p> 
