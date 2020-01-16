@@ -16,6 +16,13 @@ class CocktailRecipe < ApplicationRecord
     
       def category_name
          self.category ? self.category.name : nil
+      end 
+
+      def alcohol_types_attributes=(alcohol_types_attributes)
+        alcohol_types_attributes.values.each do |alcohol_types_attribute|
+          new_alcohol_type = AlcoholType.find_or_create_by(alcohol_types_attribute)
+          self.alcohol_types << new_alcohol_type
+        end
       end
 
 end
