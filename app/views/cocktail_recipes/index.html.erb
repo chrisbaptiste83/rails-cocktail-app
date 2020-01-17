@@ -2,9 +2,13 @@
 
 <% @cocktail_recipes.each do |cocktail_recipe| %>
     <div class="cocktail_recipe">
-  <h2><span><%= cocktail_recipe.title %></span></h2> 
+    
+  <h2><span><%= link_to cocktail_recipe.title, cocktail_recipe_path(cocktail_recipe)%></h2></span> 
+  <h2><span><%= link_to cocktail_recipe.category.name, category_path(cocktail_recipe)%></h2></span>
   <h3><span><%= cocktail_recipe.description %></span></h3>  
   <h3><span><%= cocktail_recipe.directions%></span></h3> 
-  <%= link_to "Delete", cocktail_recipe, method: :delete, data: { confirm: "Do you really want to delte this recipe?" } %>
-</div>
+  <%= link_to "Delete", cocktail_recipe, method: :delete, data: { confirm: "Do you really want to delte this recipe?" } %> 
+  
+</div> 
+
 <% end %>
