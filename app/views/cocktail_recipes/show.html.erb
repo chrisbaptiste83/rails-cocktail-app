@@ -1,3 +1,4 @@
+<% title @cocktail_recipe.title %>
 <h1><%= @cocktail_recipe.title %></h1> 
 <h2><%= @cocktail_recipe.directions %></h2>
 <p><%= @cocktail_recipe.description %></p> 
@@ -5,5 +6,7 @@
     <h3><%= i.name %></h3> 
     <%end%>
 <h3>Category: <%= link_to @cocktail_recipe.category.name, category_path(@cocktail_recipe.category) if @cocktail_recipe.category %></h3> 
+<p><%= last_updated @cocktail_recipe %></p>
+
 
 <h3><%= link_to "View All Recipes", cocktail_recipes_path%></h3>

@@ -1,0 +1,10 @@
+<h1> All Recipe Categories:</h1> 
+
+<% @categories.each do |category| %>
+    <div class="cocktail_recipe">
+    
+  <h2><span><%= link_to category.name, category_path(category)%></h2></span> 
+
+  <% end %> 
+   
+  

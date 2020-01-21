@@ -29,6 +29,8 @@
     
     <p>
   
+    <% title "New Cocktail Recipe" %> 
+
     <p><label>Alcohol Types:</label><br></p>
     <%= f.fields_for :alcohol_types, @cocktail_recipe.alcohol_types.build do |alcohol_types_attribute| %>
       <%= alcohol_types_attribute.text_field :name%>

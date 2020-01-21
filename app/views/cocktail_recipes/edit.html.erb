@@ -1,7 +1,7 @@
 <h1> Edit a Coktail Recipe!:</h1>
 
 <%= form_for(@cocktail_recipe) do |f| %>
-   
+    <label><%= last_updated @cocktail_recipe %></label><br>
     <label>Title:</label><br>
     <p><%= f.text_field :title %></p>
     
