@@ -8,6 +8,7 @@ class CocktailRecipesController < ApplicationController
 
     def create 
         @cocktail_recipe = CocktailRecipe.new(cocktail_recipe_params) 
+        @cocktail_recipe.user_id = current_user.id 
         if @cocktail_recipe.valid? 
         @cocktail_recipe.save
 
