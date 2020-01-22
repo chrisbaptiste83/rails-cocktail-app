@@ -1,12 +1,24 @@
 <% title @cocktail_recipe.title %>
 <h1><%= @cocktail_recipe.title %></h1> 
-<h2><%= @cocktail_recipe.directions %></h2>
-<p><%= @cocktail_recipe.description %></p> 
-<p><% @cocktail_recipe.ingredients.each do |i| %></p> 
+<h2>Directions: <%= @cocktail_recipe.directions %></h2>
+<h2>Description: <%= @cocktail_recipe.description %></h2> 
+<h2>Ingredients:</h2> 
+<h3><% @cocktail_recipe.ingredients.each do |i| %></h3> 
+    <ul>
+        <h3><%= i.name %></h3> 
+    </ul>
+    <%end%> 
+    
+<h2>Category: <%= link_to @cocktail_recipe.category.name, category_path(@cocktail_recipe.category) if @cocktail_recipe.category %></h2> 
+
+<h2>Types of Alcohol Involved:</h2> 
+<p><% @cocktail_recipe.alcohol_types.each do |i| %></p> 
+    <ul>
     <h3><%= i.name %></h3> 
+    </ul>
     <%end%>
-<h3>Category: <%= link_to @cocktail_recipe.category.name, category_path(@cocktail_recipe.category) if @cocktail_recipe.category %></h3> 
-<p><%= last_updated @cocktail_recipe %></p>
+
+<p><%= last_updated @cocktail_recipe%></p> 
+<p>Originally By: <%=@cocktail_recipe.user.username%></p>
 
 
-<h3><%= link_to "View All Recipes", cocktail_recipes_path%></h3>

@@ -3,4 +3,9 @@
     <h2>Create a Recipe:</h2>
     <%= link_to('Create a Cocktail Recipe', new_cocktail_recipe_path) %>  
 
-    <h2>Your Cocktail Recipes</h2>
+    <h2>Your Cocktail Recipes:</h2> 
+    <p><% @user.cocktail_recipes.each do |i| %></p> 
+        <ul>
+        <h3><%= link_to i.title, cocktail_recipe_path(i) %></h3> 
+        </ul>
+        <%end%>
