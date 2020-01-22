@@ -6,5 +6,5 @@ Rails.application.routes.draw do
   resources :cocktail_recipes
   resources :categories
   resources :users
-  root to: 'categories#index'
+  root to: 'users#home'
 end

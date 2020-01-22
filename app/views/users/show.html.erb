@@ -1,2 +1,6 @@
-<h1>Hello, Welcome to your profile page. What would you like to do? </h1> 
+<h1>Hello, <%=@user.username %>, welcome to your profile page. What would you like to do? </h1> 
 
+    <h2>Create a Recipe:</h2>
+    <%= link_to('Create a Cocktail Recipe', new_cocktail_recipe_path) %>  
+
+    <h2>Your Cocktail Recipes</h2>

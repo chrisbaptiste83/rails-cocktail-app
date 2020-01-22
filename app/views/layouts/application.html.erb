@@ -9,15 +9,18 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head> 
 
+ 
+  <nav> 
   <% if user_signed_in? %>  
-  <li>
-  <%= link_to('Logout', destroy_user_session_path, method: :delete) %>        
-  </li>
-<% else %>
-  <li>
-  <%= link_to('Login', new_user_session_path) %>  
-  </li>
-<% end %>
+  <%= link_to('Logout', destroy_user_session_path, method: :delete) %> 
+  <%= link_to('View all Cocktail Recipes', cocktail_recipes_path)%> 
+  <%= link_to('View all Cocktail Recipes by Categories', categories_path) %>
+  <%= link_to('Create a Cocktail Recipe', new_cocktail_recipe_path) %> 
+  <%= link_to('Your Profile Page', user_path) %>
+  
+  </nav> 
+  
+<% end %> 
 
   <body>
     <%= yield %> 
