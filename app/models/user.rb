@@ -10,4 +10,14 @@ class User < ApplicationRecord
     validates :email, presence: true
     validates :password, length: { in: 8..15 } 
     
-end
+    validates :birthday, :presence => true
+    validate :validate_age
+  
+    private
+  
+    def validate_age
+        if birthday.present? && birthday > 21.years.ago
+            errors.add(:birthday, 'You should be over 21 years old.')
+        end
+    end
+  end

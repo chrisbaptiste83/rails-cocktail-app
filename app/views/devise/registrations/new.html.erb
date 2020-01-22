@@ -1,7 +1,12 @@
 <h2>Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource)) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource)) do |f| %> 
   <%= render "devise/shared/error_messages", resource: resource %> 
+  <div class="field">
+    <%= f.label :birthday %><br />
+    <%= f.date_select :birthday, {order: [:month, :day, :year], prompt: { day: 'Select day', month: 'Select month', year: 'Select year' }, start_year: Date.today.year - 18, end_year: Date.today.year - 100}, {required: true} %>
+
+  </div>
   <div class="field">
     <%= f.label :username %><br />
     <%= f.text_field :username, autofocus: true, autocomplete: "username" %>
