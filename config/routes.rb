@@ -14,6 +14,7 @@ Rails.application.routes.draw do
  
 
   resources :categories, only: [:show, :index]
-  root to: 'users#home'
+  
+  root to: 'home#index'
   
 end
