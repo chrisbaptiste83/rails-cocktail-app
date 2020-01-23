@@ -13,8 +13,11 @@ class CocktailRecipesController < ApplicationController
         @cocktail_recipe = CocktailRecipe.new(cocktail_recipe_params) 
         @cocktail_recipe.user_id = current_user.id 
         
-        if @cocktail_recipe.save
+        
+        if @cocktail_recipe.save 
+          
         redirect_to cocktail_recipe_path(@cocktail_recipe) 
+        binding.pry
         else render :new
         end
       end
@@ -47,6 +50,6 @@ class CocktailRecipesController < ApplicationController
       private
 
       def cocktail_recipe_params
-        params.require(:cocktail_recipe).permit(:user_id, :category_name, :title, :directions, :description, ingredients_attributes:[:id, :name, :_destroy], alcohol_types_attributes:[:name])
+        params.require(:cocktail_recipe).permit(:user_id, :category_name, :title, :directions, :description, ingredients_attributes:[:name], alcohol_types_attributes:[:name], alcohol_type_ids: [])
       end
 end

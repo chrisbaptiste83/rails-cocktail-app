@@ -9,7 +9,7 @@ class CocktailRecipe < ApplicationRecord
     accepts_nested_attributes_for :ingredients, reject_if: :all_blank, allow_destroy: true 
     accepts_nested_attributes_for :cocktail_recipe_alcohol_types
 
-    #validates :title, :description, :directions, presence: true  
+    validates :title, :description, :directions, presence: true  
 
     def category_name=(name)
         self.category = Category.find_or_create_by(name: name)
@@ -26,6 +26,8 @@ class CocktailRecipe < ApplicationRecord
         end 
 
 
-      end
+      end 
+
+      
 
 end
