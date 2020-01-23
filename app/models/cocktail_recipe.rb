@@ -6,7 +6,8 @@ class CocktailRecipe < ApplicationRecord
     has_many :alcohol_types, :through => :cocktail_recipe_alcohol_types 
     has_many :ingredients
 
-    accepts_nested_attributes_for :ingredients, reject_if: :all_blank, allow_destroy: true
+    accepts_nested_attributes_for :ingredients, reject_if: :all_blank, allow_destroy: true 
+    accepts_nested_attributes_for :cocktail_recipe_alcohol_types
 
     #validates :title, :description, :directions, presence: true  
 
@@ -22,7 +23,9 @@ class CocktailRecipe < ApplicationRecord
         alcohol_types_attributes.values.each do |alcohol_types_attribute|
           new_alcohol_type = AlcoholType.find_or_create_by(alcohol_types_attribute)
           self.alcohol_types << new_alcohol_type
-        end
+        end 
+
+
       end
 
 end

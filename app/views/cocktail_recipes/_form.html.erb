@@ -24,12 +24,19 @@
        <p> <%= ingredient.text_field :name %> </p>
         <% end %> 
         
+        <p><label>Alcohol Type:</label><br></p> 
+        <%= f.collection_select :cocktail_recipe_alcohol_types, CocktailRecipeAlcoholType.all, :name, :name %> 
+
+        <p>Add a New Alcohol Type:</p>
+    <%= f.fields_for :cocktail_recipe_alcohol_types, @cocktail_recipe.cocktail_recipe_alcohol_types.build do |cocktail_recipe_alcohol_types_attribute| %>
+     <%= cocktail_recipe_alcohol_types_attribute.text_field :name%>
+    <% end %>
 
 
     <p><label>Alcohol Name:</label><br></p> 
         <%= f.collection_select :alcohol_types, AlcoholType.all, :name, :name %> 
 
-        <p>Add a new alcohol name:</p>
+        <p>Add a New Alcohol Name:</p>
     <%= f.fields_for :alcohol_types, @cocktail_recipe.alcohol_types.build do |alcohol_types_attribute| %>
      <%= alcohol_types_attribute.text_field :name%>
     <% end %>
