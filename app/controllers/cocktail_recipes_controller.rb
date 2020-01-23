@@ -17,7 +17,7 @@ class CocktailRecipesController < ApplicationController
         if @cocktail_recipe.save 
           
         redirect_to cocktail_recipe_path(@cocktail_recipe) 
-        binding.pry
+        
         else render :new
         end
       end

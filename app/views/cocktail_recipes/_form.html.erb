@@ -24,7 +24,6 @@
        <p> <%= ingredient.text_field :name %> </p>
         <% end %> 
 
-
     <p><label>Alcohol Name:</label><br></p> 
     <%=f.collection_check_boxes(:alcohol_type_ids, AlcoholType.all, :id, :name) do |b| 
         b.label { b.check_box + b.text } 
