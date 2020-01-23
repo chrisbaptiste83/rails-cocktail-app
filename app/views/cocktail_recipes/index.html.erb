@@ -1,8 +1,8 @@
 <% title "All Recipes" %>
-<h1> All Cocktail Recipes:</h1>
+    <h1> All Cocktail Recipes:</h1>
 
 <% @cocktail_recipes.each do |cocktail_recipe| %>
-<div class="cocktail_recipe">
+    <div class="cocktail_recipe">
     
   <h2><span><%= link_to cocktail_recipe.title, cocktail_recipe_path(cocktail_recipe)%></h2></span> 
   <h2>Category: <span><%= link_to cocktail_recipe.category.name, category_path(cocktail_recipe)%></h2></span>
@@ -11,6 +11,6 @@
   <%= last_updated cocktail_recipe %><br>
   <p><%= link_to "Delete", cocktail_recipe, method: :delete, data: { confirm: "Do you really want to delte this recipe?" } %></p>
 
-</div> 
+    </div> 
 
 <% end %>
