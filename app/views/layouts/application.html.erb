@@ -53,11 +53,15 @@
             <li class="active">Home</li>
             <li><%= link_to('Login', new_user_session_path) %>Login</li>
             <li><%= link_to('Sign Up', new_user_registration_path)%>Sign Up</li> 
-            <li><%= button_to('Logout', destroy_user_session_path, method: :delete) %></li>
+            <li><%= link_to('All Recipes', cocktail_recipes_path)%></li> 
+            <li><%= link_to('Categories', categories_path)%></li> 
+            <li><%= link_to('Recipes by Alcohol', alcohol_types_path)%></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
-    </nav>
+    </nav> 
+
+    
 
     <div class="container">
 
@@ -67,10 +71,15 @@
     
     
         <%= yield %> 
+        
         <p class="notice"><%= notice %></p>
         <p class="alert"><%= alert %></p>
       
-      </div>
+      </div> 
+
+      <%if user_signed_in?%>
+      <p><%= button_to('Logout', destroy_user_session_path, method: :delete) %></p> 
+      <%end%> 
 
     </div><!-- /.container -->
 
