@@ -20,7 +20,9 @@ gem 'jbuilder', '~> 2.7'
 
 gem 'bcrypt' 
 
-gem 'devise'
+gem 'devise' 
+
+gem 'cocoon'
 
 gem 'pry'
 # Use Redis adapter to run Action Cable in production

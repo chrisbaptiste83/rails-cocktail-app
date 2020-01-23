@@ -1,0 +1,43 @@
+
+<%= form_for(@cocktail_recipe) do |f| %>
+   
+    <p><%= f.label :title %></p>
+    <p><%= f.text_field :title %></p>
+    
+    <p><%= f.label :description %></p>
+    <p><%= f.text_field :description %> </p>
+    
+    <p><%= f.label :directions %></p>
+    <p><%= f.text_field :directions %></p>
+     
+
+    <p><%= f.label :category %></p>
+    <%= f.text_field :category_name, list: "categories_autocomplete" %>
+  <datalist id="categories_autocomplete">
+    <% Category.all.each do |category| %>
+      <option value="<%= category.name %>">
+    <% end %>
+  </datalist> 
+
+  <p><%= f.label :ingredients %></p> 
+    <%= f.fields_for :ingredients do |ingredient| %>
+       <p> <%= ingredient.text_field :name %> </p>
+        <% end %> 
+        
+
+
+    <p><label>Alcohol Name:</label><br></p> 
+        <%= f.collection_select :alcohol_types, AlcoholType.all, :name, :name %> 
+
+        <p>Add a new alcohol name:</p>
+    <%= f.fields_for :alcohol_types, @cocktail_recipe.alcohol_types.build do |alcohol_types_attribute| %>
+     <%= alcohol_types_attribute.text_field :name%>
+    <% end %>
+  </p>
+  
+
+    <p><%= f.submit %></p> 
+
+  <% end %> 
+
+  

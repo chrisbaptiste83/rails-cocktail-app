@@ -1,58 +1,21 @@
+<% title "New Cocktail Recipe" %>
+<h1>Create a Cocktail Recipe </h1>
 
-<h1> Create a Coktail Recipe!:</h1>
+<%= render 'form' %>
 
-<%= form_for(@cocktail_recipe) do |f| %>
-   
-    <label>Title:</label><br>
-    <p><%= f.text_field :title %></p>
-    
-    <label>Description:</label><br>
-    <p><%= f.text_field :description %> </p>
-    
-    <label>Directions:</label><br>
-    <p><%= f.text_field :directions %></p>
-     
+<% if @cocktail_recipe.errors.any? %>
+<div id="error_explanation">
+  <h2>
+    <%= pluralize(@cocktail_recipe.errors.count, "error") %>
+    prohibited this article from being saved:
+  </h2>
 
-    <label>Category:</label><br>
-    <%= f.text_field :category_name, list: "categories_autocomplete" %>
-  <datalist id="categories_autocomplete">
-    <% Category.all.each do |category| %>
-      <option value="<%= category.name %>">
-    <% end %>
-  </datalist> 
-
-  <p><label>Ingredients:</label><br></p> 
-  <%= f.fields_for :ingredients do |ingredient| %> 
-    <label>Ingredient Name:</label><br>
-    <%= ingredient.text_field :name %><br> 
-    <% end %> 
-    
-    <p>
-  
-    <% title "New Cocktail Recipe" %> 
-
-    <p><label>Alcohol Types:</label><br></p>
-    <%= f.fields_for :alcohol_types, @cocktail_recipe.alcohol_types.build do |alcohol_types_attribute| %>
-      <%= alcohol_types_attribute.text_field :name%>
-    <% end %>
-  </p>
-  
-
-    <p><%= f.submit %></p> 
-
-  <% end %> 
-
-  <% if @cocktail_recipe.errors.any? %>
-  <div id="error_explanation">
-    <h2>
-      <%= pluralize(@cocktail_recipe.errors.count, "error") %>
-      prohibited this article from being saved:
-    </h2>
- 
-    <ul>
-    <% @cocktail_recipe.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
+  <ul>
+  <% @cocktail_recipe.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+  </ul>
+</div>
 <% end %>
+
+

@@ -2,9 +2,12 @@ class CocktailRecipesController < ApplicationController
    
     def new 
         @cocktail_recipe = CocktailRecipe.new 
-        @cocktail_recipe.ingredients.build(name: 'water')
-        @cocktail_recipe.ingredients.build(name: 'ice')
-    end 
+        @cocktail_recipe.ingredients.build 
+        @cocktail_recipe.ingredients.build 
+        @cocktail_recipe.ingredients.build 
+        @cocktail_recipe.ingredients.build 
+    end  
+
 
     def create 
         @cocktail_recipe = CocktailRecipe.new(cocktail_recipe_params) 
@@ -44,6 +47,6 @@ class CocktailRecipesController < ApplicationController
       private
 
       def cocktail_recipe_params
-        params.require(:cocktail_recipe).permit(:user_id, :category_name, :title, :directions, :description, ingredients_attributes:[:name], alcohol_types_attributes:[:name])
+        params.require(:cocktail_recipe).permit(:user_id, :category_name, :title, :directions, :description, ingredients_attributes:[:id, :name, :_destroy], alcohol_types_attributes:[:name])
       end
 end

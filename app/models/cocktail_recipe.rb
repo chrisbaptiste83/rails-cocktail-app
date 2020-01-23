@@ -6,7 +6,7 @@ class CocktailRecipe < ApplicationRecord
     has_many :alcohol_types, :through => :cocktail_recipe_alcohol_types 
     has_many :ingredients
 
-    accepts_nested_attributes_for :ingredients
+    accepts_nested_attributes_for :ingredients, reject_if: :all_blank, allow_destroy: true
 
     #validates :title, :description, :directions, presence: true  
 
