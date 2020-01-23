@@ -1,5 +1,6 @@
 class CocktailRecipesController < ApplicationController 
-   
+    before_action :authenticate_user! 
+
     def new 
         @cocktail_recipe = CocktailRecipe.new 
         @cocktail_recipe.ingredients.build 

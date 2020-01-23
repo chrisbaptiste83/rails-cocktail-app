@@ -22,7 +22,11 @@ gem 'bcrypt'
 
 gem 'devise' 
 
-gem 'cocoon'
+gem 'cocoon' 
+
+gem 'font_awesome5_rails'
+
+gem 'bootstrap',  '~>4.3.1'
 
 gem 'pry'
 # Use Redis adapter to run Action Cable in production
