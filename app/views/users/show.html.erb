@@ -1,4 +1,4 @@
-<h1>Hello, <%=@user.username %>, welcome to your profile page. What would you like to do? </h1> 
+<h1>Welcome to Your Profile Page</h1> 
 
     <h2>Create a Recipe:</h2>
     <%= link_to('Create a Cocktail Recipe', new_cocktail_recipe_path) %>  
@@ -8,4 +8,6 @@
         <ul>
         <h3><%= link_to i.title, cocktail_recipe_path(i) %></h3> 
         </ul>
-        <%end%>
+        <%end%> 
+
+        <%= link_to "Log out", destroy_user_session_path, :method => :delete  %> 
