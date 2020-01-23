@@ -53,7 +53,7 @@
             <li class="active">Home</li>
             <li><%= link_to('Login', new_user_session_path) %>Login</li>
             <li><%= link_to('Sign Up', new_user_registration_path)%>Sign Up</li> 
-            <li><%= link_to('Logout', destroy_user_session_path, method: :delete) %>Log Out</li>
+            <li><%= button_to('Logout', destroy_user_session_path, method: :delete) %></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

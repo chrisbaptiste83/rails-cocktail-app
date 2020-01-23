@@ -1,9 +1,9 @@
-<% title @category.name %>
+
 <h1><%= @category.name %></h1>
  
-<h3><%= pluralize(@category.cocktail_recipes.count, 'Cocktail Recipe') %></h3>
+<h2><%= pluralize(@category.cocktail_recipes.count, 'Cocktail Recipe') %> for this Category:</h2>
 <ul>
   <% @category.cocktail_recipes.each do |c| %>
-    <li><%= link_to c.title, cocktail_recipe_path(c) %></li>
+    <h3><li><%= link_to c.title, cocktail_recipe_path(c) %></li></h3>
   <% end %>
 </ul>
