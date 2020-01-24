@@ -22,8 +22,6 @@ gem 'bcrypt'
 
 gem 'devise' 
 
-gem 'cocoon' 
-
 gem 'font_awesome5_rails'
 
 gem 'bootstrap',  '~>4.3.1'

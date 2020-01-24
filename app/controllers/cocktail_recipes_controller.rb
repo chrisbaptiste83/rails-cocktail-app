@@ -3,10 +3,9 @@ class CocktailRecipesController < ApplicationController
 
     def new 
         @cocktail_recipe = CocktailRecipe.new 
-        @cocktail_recipe.ingredients.build 
-        @cocktail_recipe.ingredients.build 
-        @cocktail_recipe.ingredients.build 
-        @cocktail_recipe.ingredients.build 
+        7.times do 
+            @cocktail_recipe.ingredients.build 
+        end  
     end  
 
 

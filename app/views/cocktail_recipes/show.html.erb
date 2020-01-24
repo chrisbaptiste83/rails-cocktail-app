@@ -1,24 +1,27 @@
-<% title @cocktail_recipe.title %>
+
 <h1><%= @cocktail_recipe.title %></h1> 
-<h2>Directions: <%= @cocktail_recipe.directions %></h2>
-<h2>Description: <%= @cocktail_recipe.description %></h2> 
-<h2>Ingredients:</h2> 
-<h3><% @cocktail_recipe.ingredients.each do |i| %></h3> 
+
+<center><h5><%= @cocktail_recipe.description %></h5></center> 
+
+<h3>Ingredients:</h3>  
+    <h3><% @cocktail_recipe.ingredients.each do |i| %></h3> 
+        <li>
+           <h4><%= i.name %></h4>
+        </li>
+    <%end%> 
+
+<h3>Directions: <%= @cocktail_recipe.directions %></h3>
+  
+<h3>Types of Alcohol Involved:</h3> 
+<p><% @cocktail_recipe.alcohol_types.each do |i| %></p> 
     <ul>
-        <h3><%= i.name %></h3> 
+    <h4><%= i.name %></h4> 
     </ul>
     <%end%> 
     
-<h2>Category: <%= link_to @cocktail_recipe.category.name, category_path(@cocktail_recipe.category) if @cocktail_recipe.category %></h2> 
-
-<h2>Types of Alcohol Involved:</h2> 
-<p><% @cocktail_recipe.alcohol_types.each do |i| %></p> 
-    <ul>
-    <h3><%= i.name %></h3> 
-    </ul>
-    <%end%>
+<h3>Category: <%= link_to @cocktail_recipe.category.name, category_path(@cocktail_recipe.category) if @cocktail_recipe.category %></h3>
 
 <p><%= last_updated @cocktail_recipe%></p> 
+<small>Originally By: <%=@cocktail_recipe.user.username%></small> 
 
-
-<%= link_to 'Edit This Recipe', edit_cocktail_recipe_path%>
+<h3><%= button_to 'Edit This Recipe', edit_cocktail_recipe_path%></h3>
