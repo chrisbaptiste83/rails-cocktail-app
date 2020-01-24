@@ -11,7 +11,7 @@
   <h2>Description: <span><%= cocktail_recipe.description %></span></h3>  
   <h2>Directions: <span><%= cocktail_recipe.directions%></span></h3> 
   <%= last_updated cocktail_recipe %><br>
-  <p><%= link_to "Delete", cocktail_recipe, method: :delete, data: { confirm: "Do you really want to delte this recipe?" } %></p>
+  <p><%= button_to "Delete", cocktail_recipe, method: :delete, data: { confirm: "Do you really want to delte this recipe?" } %></p>
 
     </div> 
     
