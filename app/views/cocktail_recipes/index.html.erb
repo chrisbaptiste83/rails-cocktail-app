@@ -1,19 +1,11 @@
-
 <h1> All Cocktail Recipes:</h1>
-
    
+    <% @cocktail_recipes.each do |cocktail_recipe| %> 
 
-<% @cocktail_recipes.each do |cocktail_recipe| %>
-    <div class="cocktail_recipe">
-    
-  <h2><span><%= link_to cocktail_recipe.title, cocktail_recipe_path(cocktail_recipe)%></h2></span> 
-  <h2>Category: <span><%= link_to cocktail_recipe.category.name, category_path(cocktail_recipe)%></h2></span>
-  <h2>Description: <span><%= cocktail_recipe.description %></span></h3>  
-  <h2>Directions: <span><%= cocktail_recipe.directions%></span></h3> 
-  <%= last_updated cocktail_recipe %><br>
-  <p><%= button_to "Delete", cocktail_recipe, method: :delete, data: { confirm: "Do you really want to delte this recipe?" } %></p>
+        <h3><%= link_to cocktail_recipe.title, cocktail_recipe_path(cocktail_recipe)%></h3>
+        <h4>Category: <%= link_to cocktail_recipe.category.name, category_path(cocktail_recipe.category) if cocktail_recipe.category %></h4>
+        <h4>Description: <%= cocktail_recipe.description %></h4>  
+        <small><%= last_updated cocktail_recipe %></small>
+        
 
-    </div> 
-    
-
-<% end %>
+    <% end %>

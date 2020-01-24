@@ -24,4 +24,5 @@
 <p><%= last_updated @cocktail_recipe%></p> 
 <small>Originally By: <%=@cocktail_recipe.user.username%></small> 
 
-<h3><%= button_to 'Edit This Recipe', edit_cocktail_recipe_path%></h3>
+<h3><%= button_to "Edit This Recipe", edit_cocktail_recipe_path(@cocktail_recipe)%></h3> 
+<h3><%= button_to "Delete", @cocktail_recipes_path, method: :delete%></h3>

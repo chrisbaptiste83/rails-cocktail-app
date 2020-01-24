@@ -1,10 +1,9 @@
-<h1>Welcome to Your Profile Page, <%=@user.username%></h1> 
-      
+<h1>Hello, <%=@user.username%>.</h1> 
 
-    <h2>Your Cocktail Recipes:</h2> 
+<h3>You currently have <%=@user.cocktail_recipes.count%> cocktail recipes:</h3>
+
     <p><% @user.cocktail_recipes.each do |i| %></p> 
-        <ul>
         <h3><%= link_to i.title, cocktail_recipe_path(i) %></h3> 
-        </ul>
+
         <%end%> 
 

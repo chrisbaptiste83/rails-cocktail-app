@@ -1,22 +1,22 @@
 
 <%= form_for(@cocktail_recipe) do |f| %>
    
-    <p><%= f.label :title %></p>
-    <p><%= f.text_field :title %></p>
+    <h3><%= f.label :title %></h3>
+    <p><%= f.text_field :title, :class => "form-control"%></p>
     
-    <p><%= f.label :description %></p>
-    <p><%= f.text_area :description %> </p> 
+    <h3><%= f.label :description %></h3>
+    <p><%= f.text_area :description, :class => "form-control" %> </p> 
 
-    <p><%= f.label :ingredients %></p> 
+    <h3><%= f.label :ingredients %></h3> 
     <%= f.fields_for :ingredients do |ingredient| %>
-       <p> <%= ingredient.text_field :name %> </p>
+       <p> <%= ingredient.text_field :name, size: 40 %> </p>
         <% end %> 
     
-    <p><%= f.label :directions %></p>
-    <p><%= f.text_area :directions %></p>
+    <h3><%= f.label :directions %></h3>
+    <p><%= f.text_area :directions, :class => "form-control" %></p>
      
 
-    <p><%= f.label :category %></p>
+    <h3><%= f.label :category %></h3>
     <p><%= f.text_field :category_name, list: "categories_autocomplete" %>
   <datalist id="categories_autocomplete">
     <% Category.all.each do |category| %>
@@ -25,18 +25,16 @@
   </datalist>
 
 
-  <p><%=f.label :alcohol_type%>:</p> 
-    <p><%=f.collection_check_boxes(:alcohol_type_ids, AlcoholType.all, :id, :name) do |b| 
+  <h3>Types of Alcohol:</h3> 
+    <p><%=f.collection_check_boxes(:alcohol_type_ids, AlcoholType.all, :id, :name,) do |b| 
         b.label { b.check_box + b.text } 
     end %></p>
     
-  
-
-        <p>Add a New Alcohol Name:</p>
-    <%= f.fields_for :alcohol_types, @cocktail_recipe.alcohol_types.build do |alcohol_types_attribute| %>
-     <%= alcohol_types_attribute.text_field :name%>
-    <% end %>
-  </p>
+    <h3>Add a New Alcohol Name:</h3>
+        <%= f.fields_for :alcohol_types, @cocktail_recipe.alcohol_types.build do |alcohol_types_attribute| %>
+            <%= alcohol_types_attribute.text_field :name, size: 40%>
+        <% end %>
+    </p>
   
 
     <p><%= f.submit %></p> 
