@@ -3,11 +3,6 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource)) do |f| %> 
   <%= render "devise/shared/error_messages", resource: resource %> 
   <div class="field">
-    <h3><%= f.label :birthday %><br /></h3>
-    <%= f.date_select :birthday, {order: [:month, :day, :year], prompt: { day: 'Select day', month: 'Select month', year: 'Select year' }, start_year: Date.today.year - 18, end_year: Date.today.year - 100}, {required: true} %>
-
-  </div>
-  <div class="field">
   <h3><%= f.label :username %><br /></h3>
     <%= f.text_field :username, autofocus: true, autocomplete: "username", :class => "form-control" %>
   </div>

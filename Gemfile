@@ -20,13 +20,17 @@ gem 'jbuilder', '~> 2.7'
 
 gem 'bcrypt' 
 
+gem 'dotenv-rails'
+
 gem 'devise' 
 
 gem 'font_awesome5_rails'
 
 gem 'bootstrap',  '~>4.3.1'
 
-gem 'pry'
+gem 'pry' 
+
+gem 'omniauth-github'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
