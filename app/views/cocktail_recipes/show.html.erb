@@ -11,13 +11,7 @@
     <%end%> 
 
 <h3>Directions: <%= @cocktail_recipe.directions %></h3>
-  
-<h3>Types of Alcohol Involved:</h3> 
-<p><% @cocktail_recipe.alcohol_types.each do |i| %></p> 
-    <ul>
-    <h4><%= i.name %></h4> 
-    </ul>
-    <%end%> 
+
     
 <h3>Category: <%= link_to @cocktail_recipe.category.name, category_path(@cocktail_recipe.category) if @cocktail_recipe.category %></h3>
 

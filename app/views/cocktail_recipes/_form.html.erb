@@ -2,19 +2,7 @@
 <%= form_for(@cocktail_recipe) do |f| %>
    
     <h3><%= f.label :title %></h3>
-    <p><%= f.text_field :title, :class => "form-control"%></p>
-    
-    <h3><%= f.label :description %></h3>
-    <p><%= f.text_area :description, :class => "form-control" %> </p> 
-
-    <h3><%= f.label :ingredients %></h3> 
-    <%= f.fields_for :ingredients do |ingredient| %>
-       <p> <%= ingredient.text_field :name, size: 40 %> </p>
-        <% end %> 
-    
-    <h3><%= f.label :directions %></h3>
-    <p><%= f.text_area :directions, :class => "form-control" %></p>
-     
+    <p><%= f.text_field :title, :class => "form-control"%></p> 
 
     <h3><%= f.label :category %></h3>
     <p><%= f.text_field :category_name, list: "categories_autocomplete" %>
@@ -23,19 +11,27 @@
       <option value="<%= category.name %>">
     <% end %></p>
   </datalist>
-
-
-  <h3>Types of Alcohol:</h3> 
-    <p><%=f.collection_check_boxes(:alcohol_type_ids, AlcoholType.all, :id, :name,) do |b| 
-        b.label { b.check_box + b.text } 
-    end %></p>
     
-    <h3>Add a New Alcohol Name:</h3>
-        <%= f.fields_for :alcohol_types, @cocktail_recipe.alcohol_types.build do |alcohol_types_attribute| %>
-            <%= alcohol_types_attribute.text_field :name, size: 40%>
-        <% end %>
-    </p>
+    <h3><%= f.label :description %></h3>
+    <p><%= f.text_area :description, :class => "form-control" %> </p> 
+    
+    <h3><%= f.label :directions %></h3>
+    <p><%= f.text_area :directions, :class => "form-control" %></p>
+     
+
+    <h3><%= f.label :ingredients %></h3>
+    <div>
+    <%= f.fields_for :recipe_ingredients, @ingredients do |recipe_ingredient| %>
+    <div>
+      Quantity: <%= recipe_ingredient.text_field :quantity %>
   
+    Select Ingredient: <%= recipe_ingredient.collection_select :ingredient_id, Ingredient.order('name ASC').all, :id, :name, include_blank: 'Select Ingredient' %>
+    <%= recipe_ingredient.fields_for :ingredient, @cocktail_recipe.ingredients.build do |ingredient| %>
+    Or Create New Ingredient: <%= ingredient.text_field :name %>
+    <% end %>
+    </div>
+      <% end %>
+   </div>
 
     <p><%= f.submit %></p> 
 

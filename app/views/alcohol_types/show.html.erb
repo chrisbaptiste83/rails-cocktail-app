@@ -1,6 +1,0 @@
-<h1><%= @alcohol_type.name %></h1>
- 
-<h2><%= pluralize(@alcohol_type.cocktail_recipes.count, 'Cocktail Recipe') %> containing this type of alcohol:</h2>
-  <% @alcohol_type.cocktail_recipes.each do |c| %>
-    <center><h3><ul><%= link_to c.title, cocktail_recipe_path(c) %></li></h3></center>
-  <% end %>

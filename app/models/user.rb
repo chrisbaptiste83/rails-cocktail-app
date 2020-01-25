@@ -8,16 +8,14 @@ class User < ApplicationRecord
     has_many :comments 
     validates :username, presence: true, uniqueness: true    
     validates :email, presence: true
-    #validates :birthday, presence: true
-    validate :validate_age
+    
+    has_many :ingredients, through: :cocktail_recipes
+
+
+
   
     private
      
-    def validate_age
-        if birthday.present? && birthday > 21.years.ago
-            errors.add(:birthday, 'You should be over 21 years old to create an Account.')
-        end
-    end 
 
     def self.from_omniauth(auth)
         where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

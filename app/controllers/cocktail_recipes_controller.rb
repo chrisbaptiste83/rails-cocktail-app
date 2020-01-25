@@ -3,22 +3,18 @@ class CocktailRecipesController < ApplicationController
 
     def new 
         @cocktail_recipe = CocktailRecipe.new 
-        7.times do 
-            @cocktail_recipe.ingredients.build 
-        end  
+        @ingredients = 6.times.collect { @cocktail_recipe.recipe_ingredients.build }  
     end  
 
 
-    def create 
-        @cocktail_recipe = CocktailRecipe.new(cocktail_recipe_params) 
-        @cocktail_recipe.user_id = current_user.id 
-        
-        
-        if @cocktail_recipe.save 
-          
-        redirect_to cocktail_recipe_path(@cocktail_recipe) 
-        
-        else render :new
+    def create
+        @cocktail_recipe = current_user.cocktail_recipes.new(cocktail_recipe_params)
+        if @cocktail_recipe.save
+          @cocktail_recipe.add_ingredients_to_recipe(recipe_ingredient_params)
+          redirect_to @cocktail_recipe, notice: "Your recipe has successfully been added"
+        else
+          @cocktail_recipe = CocktailRecipe.new
+          redirect_to new_cocktail_recipe_path, alert: recipe.errors.full_messages.each {|m| m}.join
         end
       end
     
@@ -43,17 +39,25 @@ class CocktailRecipesController < ApplicationController
         @cocktail_recipe = CocktailRecipe.find(params[:id])
     end
      
-    def update 
-        @cocktail_recipe = CocktailRecipe.find(params[:id]) 
-        @cocktail_recipe.update(cocktail_recipe_params) 
-
-        redirect_to cocktail_recipe_path(@cocktail_recipe)
-
-    end
+    def update
+        @cocktail_recipe = find_by_id(CocktailRecipe)
+        if @recipe.update(cocktail_recipe_params)
+          @recipe.add_ingredients_to_recipe(recipe_ingredient_params)
+          redirect_to recipe_path(recipe), notice: "Your recipe has successfully been updated"
+        else 
+          redirect_to new_recipe_path, alert: recipe.errors.full_messages.each {|m| m}.join
+        end
+      end
 
       private
 
       def cocktail_recipe_params
-        params.require(:cocktail_recipe).permit(:user_id, :category_name, :title, :directions, :description, ingredients_attributes:[:name], alcohol_types_attributes:[:name], alcohol_type_ids: [])
-      end
+        params.require(:cocktail_recipe).permit(:category_name, :title, :directions, :description) 
+      end 
+
+      def recipe_ingredient_params
+            params.require(:cocktail_recipe).permit(recipe_ingredients_attributes: [:quantity, :ingredient_id, ingredient: [:name]])
+          end
+        
+
 end
