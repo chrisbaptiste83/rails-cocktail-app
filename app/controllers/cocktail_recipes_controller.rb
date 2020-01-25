@@ -27,8 +27,12 @@ class CocktailRecipesController < ApplicationController
       end 
 
     def index 
-        @cocktail_recipes = CocktailRecipe.all  
-    end 
+        if params[:user_id]
+            @cocktail_recipes = User.find(params[:user_id]).cocktail_recipes
+          else
+            @cocktail_recipes = CocktailRecipe.all
+          end
+        end
 
     def destroy
         CocktailRecipe.find(params[:id]).destroy

@@ -1,9 +1,5 @@
 <h1>Hello, <%=@user.username%>.</h1> 
 
-<h3>You currently have <%=@user.cocktail_recipes.count%> cocktail recipes:</h3>
-
-    <p><% @user.cocktail_recipes.each do |i| %></p> 
-        <h3><%= link_to i.title, cocktail_recipe_path(i) %></h3> 
-
-        <%end%> 
-
+<h2>You currently have <%=@user.cocktail_recipes.count%> cocktail recipes:</h2>
+    
+<center><%= link_to "View Your Cocktail Recipes", user_cocktail_recipes_url(@user), class: "btn btn-primary btn-l"%></center>

@@ -5,13 +5,12 @@ Rails.application.routes.draw do
         
 
   resources :alcohol_types, only: [:show, :index] 
-
-  resources :cocktail_recipe_alcohol_types, only: [:show, :index]
   
-  resources :users, only: [:show] 
-
-  resources :cocktail_recipes
+  resources :users, only: [:show] do 
+    resources :cocktail_recipes 
+  end 
  
+  resources :cocktail_recipes
 
   resources :categories, only: [:show, :index]
   
