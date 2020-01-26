@@ -4,9 +4,11 @@
 <center><h5><%= @cocktail_recipe.description %></h5></center> 
 
 <h3>Ingredients:</h3>  
-    <h3><% @cocktail_recipe.ingredients.each do |i| %></h3> 
+    <h3><% @cocktail_recipe.recipe_ingredients.each do |i| %></h3> 
         <li>
-           <h4><%= i.name %></h4>
+           <h4><%= i.quantity%> 
+           <%= i.ingredient.name%></h4>
+
         </li>
     <%end%> 
 

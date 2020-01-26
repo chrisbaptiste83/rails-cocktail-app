@@ -10,11 +10,12 @@ class CocktailRecipesController < ApplicationController
     def create
         @cocktail_recipe = current_user.cocktail_recipes.new(cocktail_recipe_params)
         if @cocktail_recipe.save
-          @cocktail_recipe.add_ingredients_to_recipe(recipe_ingredient_params)
+          @cocktail_recipe.add_ingredients_to_recipe(recipe_ingredient_params) 
+        
           redirect_to @cocktail_recipe, notice: "Your recipe has successfully been added"
         else
           @cocktail_recipe = CocktailRecipe.new
-          redirect_to new_cocktail_recipe_path, alert: recipe.errors.full_messages.each {|m| m}.join
+          redirect_to new_cocktail_recipe_url
         end
       end
     
@@ -34,18 +35,19 @@ class CocktailRecipesController < ApplicationController
         CocktailRecipe.find(params[:id]).destroy
         redirect_to cocktail_recipes_url
       end
-
+ 
     def edit 
-        @cocktail_recipe = CocktailRecipe.find(params[:id])
+        @cocktail_recipe = CocktailRecipe.find(params[:id]) 
+        @ingredients = 6.times.collect { @cocktail_recipe.recipe_ingredients.build }
     end
      
     def update
-        @cocktail_recipe = find_by_id(CocktailRecipe)
-        if @recipe.update(cocktail_recipe_params)
-          @recipe.add_ingredients_to_recipe(recipe_ingredient_params)
-          redirect_to recipe_path(recipe), notice: "Your recipe has successfully been updated"
+      @cocktail_recipe = CocktailRecipe.find(params[:id])
+        if @cocktail_recipe.update(cocktail_recipe_params)
+          @cocktail_recipe.add_ingredients_to_recipe(recipe_ingredient_params)
+          redirect_to @cocktail_recipe, notice: "Your recipe has successfully been updated"
         else 
-          redirect_to new_recipe_path, alert: recipe.errors.full_messages.each {|m| m}.join
+          redirect_to new_cocktail_recipe_path
         end
       end
 
