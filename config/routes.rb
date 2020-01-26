@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     resources :cocktail_recipes 
   end 
  
+  resources :ingredients, only: [:show, :index]
+
   resources :cocktail_recipes
 
   resources :categories, only: [:show, :index]
