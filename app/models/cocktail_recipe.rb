@@ -33,7 +33,7 @@ class CocktailRecipe < ApplicationRecord
       params[:recipe_ingredients_attributes].each do |k, recipe_ingredient|
   
         if recipe_ingredient[:ingredient][:name].present?
-          ingredient_name = recipe_ingredient[:ingredient][:name].downcase
+          ingredient_name = recipe_ingredient[:ingredient][:name]
           ingredient = Ingredient.find_or_create_by(name: ingredient_name)
         elsif recipe_ingredient[:ingredient_id].present?
           ingredient = Ingredient.find_by(id: recipe_ingredient[:ingredient_id])

@@ -24,9 +24,9 @@
   
     Select Ingredient: <%=recipe_ingredient.collection_select :ingredient_id, Ingredient.all, :id, :name, include_blank: 'Select Ingredient' %>
 
-    <%= recipe_ingredient.fields_for :ingredient, @cocktail_recipe.ingredients.build do |ingredient| %> 
+    <%= recipe_ingredient.fields_for :ingredient, @cocktail_recipe.ingredients.build do |ingredient| %> </p>
 
-      Or Create New Ingredient: <%= ingredient.text_field :name %>
+      <p>Or Create New Ingredient: <%= ingredient.text_field :name %>
     <% end %></p></h4>
     </br> 
     

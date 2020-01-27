@@ -21,6 +21,6 @@
 <small>Originally By: <%=@cocktail_recipe.user.username%></small> 
 
 <% if @cocktail_recipe.user == current_user %>
-<h3><%= link_to "Edit This Recipe", edit_cocktail_recipe_path, class: "btn btn-primary btn-xs"%></h3> 
-<h3><%= button_to "Delete", @cocktail_recipes_path, method: :delete%></h3>
+<h3><%= link_to "Edit This Recipe", edit_cocktail_recipe_path, class: "btn btn-primary btn-l" %></h3> 
+<h3><%= button_to "Delete", @cocktail_recipes_path, method: :delete, class: "btn btn-secondary"%></h3>
 <% end %>

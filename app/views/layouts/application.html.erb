@@ -13,9 +13,12 @@
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
 
+  
+
     <style>
     body {
-      padding-top: 50px;
+      padding-top: 90px; 
+      background: url(bartender.jpg);
     }
     .starter-template {
       padding: 40px 15px;
@@ -57,6 +60,7 @@
             <li><%= link_to('All Recipes', cocktail_recipes_path)%></li> 
             <li><%= link_to('Categories', categories_path)%></li> 
             <li><%= link_to('Create a Cocktail Recipe', new_cocktail_recipe_path) %></li> 
+            <li><%= link_to('All Ingredients', ingredients_path)%></li> 
             <li><%= link_to "Profile Page", current_user %></li> 
             <%end%>
           </ul>
@@ -72,19 +76,22 @@
       
       
     
-    
+      <div class="jumbotron jumbotron-fluid">
+      <div class="container">
         <%= yield %> 
         
         <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
-      
+        <p class="alert"><%= alert %></p> 
+
+        </div>
+        </div>
       </div> 
 
     </div><!-- /.container -->
 
 
     <%if user_signed_in?%>
-    <center><h4><%= button_to('Logout', destroy_user_session_path, method: :delete) %></h4></center>
+    <center><h2><%= button_to('Logout', destroy_user_session_path, method: :delete) %></h2></center>
     <%end%> 
 
 
