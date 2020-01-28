@@ -1,8 +1,14 @@
-<h1> All Recipe Categories:</h1> 
+<h1> All Recipes by Categories:</h1> 
 
 <% @categories.each do |category| %>
 
-  <h3><%= link_to category.name, category_path(category)%></h3>
+  <h3><%= link_to category.name, category_path(category)%> </h3> 
+  <h4><%= pluralize(category.cocktail_recipes.count, 'Cocktail Recipe')%> for this Category:</h4>
+
+  <% category.cocktail_recipes.each do |c|%> 
+    <h5><li><%=c.title  %></li></h5>
+    <%  end%>  
+  
 
   <% end %> 
    
