@@ -19,8 +19,8 @@ class CocktailRecipesController < ApplicationController
         end
       end
     
-      def show
-        @cocktail_recipe = CocktailRecipe.find(params[:id])
+      def show 
+        @cocktail_recipe = CocktailRecipe.find(params[:id])  
       end 
 
     def index 
@@ -55,7 +55,7 @@ class CocktailRecipesController < ApplicationController
       private
 
       def cocktail_recipe_params
-        params.require(:cocktail_recipe).permit(:category_name, :title, :directions, :description) 
+        params.require(:cocktail_recipe).permit(:user_id, :category_name, :title, :directions, :description) 
       end 
 
       def recipe_ingredient_params
