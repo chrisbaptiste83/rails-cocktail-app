@@ -2,4 +2,8 @@
 
 <h2>You currently have <%=@user.cocktail_recipes.count%> cocktail recipes:</h2>
     
-<center><%= link_to "View Your Cocktail Recipes", user_cocktail_recipes_url(@user), class: "btn btn-primary btn-l"%></center>
+<center><%= link_to "View Your Cocktail Recipes", user_cocktail_recipes_url(@user), class: "btn btn-primary btn-l"%></center> 
+
+<h3>Create a New Recipe:</h3>
+
+<%= link_to "New Recipe", new_user_cocktail_recipe_path(@user), class: "btn btn-primary btn-m" %>
