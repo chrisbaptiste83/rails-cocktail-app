@@ -17,20 +17,23 @@
     
 
     <h3><%= f.label :ingredients %></h3>
-    
+   
         <%= f.fields_for :recipe_ingredients, @ingredients do |recipe_ingredient| %>
     
-          <h4><p>Quantity:<%= recipe_ingredient.text_field :quantity %>
+          <center><h5>Quantity:<%= recipe_ingredient.text_field :quantity %>
   
     Select Ingredient: <%=recipe_ingredient.collection_select :ingredient_id, Ingredient.all, :id, :name, include_blank: 'Select Ingredient' %>
 
-    <%= recipe_ingredient.fields_for :ingredient, @cocktail_recipe.ingredients.build do |ingredient| %> </p>
+    <%= recipe_ingredient.fields_for :ingredient, @cocktail_recipe.ingredients.build do |ingredient| %> 
 
-      <p>Or Create New Ingredient: <%= ingredient.text_field :name %>
-    <% end %></p></h4>
-    </br> 
+      Or Create New Ingredient: <%= ingredient.text_field :name %>
+    <% end %></br></h5>
+      </center>
+    <% end %>  
     
-      <% end %> 
+
+    
+      
 
       <h3><%= f.label :directions %></h3>
       <p><%= f.text_area :directions, :class => "form-control" %></p></br>

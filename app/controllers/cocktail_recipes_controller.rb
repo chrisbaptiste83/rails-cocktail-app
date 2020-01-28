@@ -32,13 +32,14 @@ class CocktailRecipesController < ApplicationController
         end
 
     def destroy
-        CocktailRecipe.find(params[:id]).destroy
+      @cocktail_recipe = CocktailRecipe.find(params[:id]) 
+      @cocktail_recipe.destroy
         redirect_to cocktail_recipes_url
       end
  
     def edit 
         @cocktail_recipe = CocktailRecipe.find(params[:id]) 
-        @ingredients = 6.times.collect { @cocktail_recipe.recipe_ingredients.build }
+        @i = 2.times.collect { @cocktail_recipe.recipe_ingredients.build } 
     end
      
     def update

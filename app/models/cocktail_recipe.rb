@@ -5,7 +5,7 @@ class CocktailRecipe < ApplicationRecord
     has_many :recipe_ingredients
     has_many :ingredients, through: :recipe_ingredients
 
-    accepts_nested_attributes_for :ingredients, reject_if: lambda {|attributes| attributes['name'].blank?} 
+    
     accepts_nested_attributes_for :recipe_ingredients, reject_if: lambda {|attributes| attributes['name'].blank?}
 
     validates :title, :description, :directions, presence: true  
