@@ -5,7 +5,6 @@ class CocktailRecipe < ApplicationRecord
     has_many :recipe_ingredients
     has_many :ingredients, through: :recipe_ingredients
 
-    
     accepts_nested_attributes_for :recipe_ingredients, reject_if: lambda {|attributes| attributes['name'].blank?}
 
     validates :title, :description, :directions, presence: true  
@@ -18,14 +17,19 @@ class CocktailRecipe < ApplicationRecord
          self.category ? self.category.name : nil
       end 
 
+      def self.latest_cocktail_recipe
+        order('created_at desc').first
+      end
+
 
       def delete_ingredients_from_recipe
         ingredients.size.times do
         ingredient = RecipeIngredient.find_by(cocktail_recipe_id: self.id)
         ingredient.delete
       end
-    end
-  
+    end 
+
+
     def add_ingredients_to_recipe(params)
   
       delete_ingredients_from_recipe
