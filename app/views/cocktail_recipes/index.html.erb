@@ -3,7 +3,8 @@
    
     <% @cocktail_recipes.each do |cocktail_recipe| %> 
 
-        <h3><%= link_to cocktail_recipe.title, cocktail_recipe_path(cocktail_recipe)%></h3>
+        
+        <h3><%= link_to cocktail_recipe.title, cocktail_recipe_path(cocktail_recipe)%></h3> 
         <h4>Category: <%= link_to cocktail_recipe.category.name, category_path(cocktail_recipe.category) if cocktail_recipe.category %></h4>
         <h4>Description: <%= cocktail_recipe.description %></h4>  
         <small><%= last_updated cocktail_recipe %></small>

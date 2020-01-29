@@ -1,7 +1,11 @@
-<h1> All Cocktail Recipe Ingredients</h1> 
+<h1> All Cocktail Recipes by Ingredient</h1> 
 
 <% @ingredients.each do |ingredient| %> 
 
-    <h3><%= ingredient.name%></h3>
+    <h3><%= link_to ingredient.name, ingredient_path(ingredient) %></h3> 
+
+    <% ingredient.cocktail_recipes.each do |c|%> 
+        <h5><li><%=c.title  %></li></h5>
+        <%  end%>  
 
     <%end%>

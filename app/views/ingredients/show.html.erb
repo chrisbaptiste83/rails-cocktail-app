@@ -1,0 +1,7 @@
+<h1>All Cocktails for Ingredient: <%=@ingredient.name%></h1> 
+
+<h3><%= pluralize(@ingredient.cocktail_recipes.count, 'Cocktail Recipe') %> for this Ingredient:</h3>
+
+<% @ingredient.cocktail_recipes.each do |c|%>
+    <li><h3><%=link_to c.title, cocktail_recipe_url(c)%></h3></li>
+    <%end%>

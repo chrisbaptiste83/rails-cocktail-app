@@ -19,8 +19,8 @@ class CocktailRecipesController < ApplicationController
         end
       end
     
-      def show 
-        @cocktail_recipe = CocktailRecipe.find(params[:id])  
+      def show  
+        @cocktail_recipe = CocktailRecipe.find(params[:id])
       end 
 
     def index 
