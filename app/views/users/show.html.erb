@@ -1,9 +1,23 @@
 <h1>Hello, <%=@user.username%>.</h1> 
 
-<h2>You currently have <%=@user.cocktail_recipes.count%> cocktail recipes:</h2>
+    <h2>You currently have <%=@user.cocktail_recipes.count%> cocktail recipes:</h2>
     
-<center><%= link_to "View Your Cocktail Recipes", user_cocktail_recipes_url(@user), class: "btn btn-primary btn-l"%></center> 
+
+
+    <%= link_to "View Your Cocktail Recipes", user_cocktail_recipes_url(@user), class: "btn btn-primary btn-l"%> 
+
+<h2>What would you like to do?</h3> 
 
 <h3>Create a New Recipe:</h3>
 
-<%= link_to "New Recipe", new_user_cocktail_recipe_path(@user), class: "btn btn-primary btn-m" %>
+    <%= link_to "New Recipe", new_user_cocktail_recipe_path(@user), class: "btn btn-primary btn-m" %> 
+
+ 
+<h3>Browse Cocktail Recipes by Category:</h3>
+
+    <%= link_to "Categories", categories_path, class: "btn btn-primary btn-m" %> 
+
+<h3>Browse Cocktail Recipes by Ingredient:</h3>
+
+    <%= link_to "Ingredients", ingredients_path, class: "btn btn-primary btn-m" %>
+
