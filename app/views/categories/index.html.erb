@@ -6,7 +6,7 @@
   <h4><%= pluralize(category.cocktail_recipes.count, 'Cocktail Recipe')%> for this Category:</h4>
 
   <% category.cocktail_recipes.each do |c|%> 
-    <h5><li><%=c.title  %></li></h5>
+    <h5><li><%=link_to c.title, cocktail_recipe_path(c) %></li></h5>
     <%  end%>  
   
 
