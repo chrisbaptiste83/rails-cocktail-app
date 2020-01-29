@@ -61,21 +61,35 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">The Cantina</a>
+          <strong><a class="navbar-brand" href="/">The Cantina</a></strong>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active">Home</li>
-            <li><%= link_to('Login', new_user_session_path) %>Login</li>
-            <li><%= link_to('Sign Up', new_user_registration_path)%>Sign Up</li> 
-            <%if user_signed_in?%>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active">The Cantina</li> 
+            
+            <%unless user_signed_in?%> 
+            <li><%= link_to new_user_session_path, :class => "glyphicon glyphicon-log-in" do %>
+              <strong>Login</strong> 
+            <% end %></li>
+            <li><%= link_to new_user_registration_path, :class => "glyphicon glyphicon-user" do %>
+              <strong>SignUp</strong>
+            <% end %></li>
+            <%end%> 
+            <%if user_signed_in?%> 
             <li><%= link_to('All Recipes', cocktail_recipes_path)%></li> 
             <li><%= link_to('Categories', categories_path)%></li> 
             <li><%= link_to('Create a Cocktail Recipe', new_cocktail_recipe_path) %></li> 
             <li><%= link_to('Ingredients', ingredients_path)%></li> 
             <li><%= link_to "Profile Page", current_user %></li> 
-            <%end%>
+            <%end%> 
+            
+           
           </ul>
+        </div> 
+
+     
+
+          
         </div><!--/.nav-collapse -->
       </div>
     </nav> 
@@ -89,24 +103,27 @@
       
     
       <div class="jumbotron">
-      <div class="container"> 
+    
 
         <%= yield %> 
         
         <p class="notice"><%= notice %></p>
         <p class="alert"><%= alert %></p> 
 
-        </div>
+
+        <%if user_signed_in?%>
+        <center><h2><%= button_to('Logout', destroy_user_session_path, method: :delete) %></h2></center>
+        <%end%> 
+    
+
+        
         </div>
       </div> 
 
     </div><!-- /.container -->
 
 
-    <%if user_signed_in?%>
-    <center><h2><%= button_to('Logout', destroy_user_session_path, method: :delete) %></h2></center>
-    <%end%> 
-
+   
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
