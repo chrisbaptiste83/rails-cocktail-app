@@ -1,4 +1,5 @@
 class CocktailRecipesController < ApplicationController 
+    helper_method :params
     before_action :authenticate_user! 
 
     def new 
