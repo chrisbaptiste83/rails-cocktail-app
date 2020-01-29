@@ -8,7 +8,7 @@
 <div>
   <h3>Filter Recipes:</h3>
   <%= form_tag("/cocktail_recipes", method: "get") do %>
-    <%= select_tag "user", options_from_collection_for_select(User.all, "id", "username"), include_blank: true %>
+    <%= select_tag "user", options_from_collection_for_select(User.all, "id", "username"), include_blank: true, :class => "form-control" %>
     <%= submit_tag "Filter" %>
   <% end %>
 </div>
