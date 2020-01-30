@@ -1,10 +1,12 @@
 class CocktailRecipesController < ApplicationController 
-    helper_method :params
     before_action :authenticate_user! 
 
     def new 
         @cocktail_recipe = CocktailRecipe.new 
-        @ingredients = 6.times.collect { @cocktail_recipe.recipe_ingredients.build }  
+        @ingredients = 6.times.collect { @cocktail_recipe.recipe_ingredients.build } 
+        @comment = Comment.new 
+        @comment.cocktail_recipe_id = @cocktail_recipe 
+
     end  
 
 
@@ -12,6 +14,7 @@ class CocktailRecipesController < ApplicationController
         @cocktail_recipe = current_user.cocktail_recipes.new(cocktail_recipe_params)
         if @cocktail_recipe.save
           @cocktail_recipe.add_ingredients_to_recipe(recipe_ingredient_params) 
+          raise.params
         
           redirect_to @cocktail_recipe, notice: "Your recipe has successfully been added"
         else
@@ -21,11 +24,17 @@ class CocktailRecipesController < ApplicationController
       end
     
       def show  
-        @cocktail_recipe = CocktailRecipe.find(params[:id])
+        @cocktail_recipe = CocktailRecipe.find(params[:id]) 
+        @comment = @cocktail_recipe.comments.new 
       end 
 
     def index 
-        if params[:user_id]
+
+      @users = User.all 
+
+        if !params[:user].blank?
+          @cocktail_recipes = CocktailRecipe.by_user(params[:user]) 
+        elsif params[:user_id]
             @cocktail_recipes = User.find(params[:user_id]).cocktail_recipes
           else
             @cocktail_recipes = CocktailRecipe.all
