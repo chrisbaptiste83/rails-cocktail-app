@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   resources :users, only: [:show] do 
     resources :cocktail_recipes, only: [:show, :index, :new]
   end 
+
+  resources :cocktail_recipes do
+    resources :comments
+  end
  
   resources :ingredients, only: [:show, :index]
 
