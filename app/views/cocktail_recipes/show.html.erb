@@ -23,4 +23,14 @@
 <% if @cocktail_recipe.user == current_user %>
 <h3><%= link_to "Edit This Recipe", edit_cocktail_recipe_path, class: "btn btn-primary btn-l" %></h3> 
 <h3><%= button_to "Delete", @cocktail_recipes_path, method: :delete, class: "btn btn-secondary"%></h3>
-<% end %>
+<% end %> 
+
+<h5>Comments:</h5> 
+<% @cocktail_recipe.comments.each do |c| %> 
+    <%=c.content %> 
+    
+    er.username %>
+    <%end%>
+
+<h5>Add a comment:</h5>
+<%= render partial: "comments/form" %>
