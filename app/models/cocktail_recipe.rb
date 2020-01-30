@@ -19,6 +19,18 @@ class CocktailRecipe < ApplicationRecord
 
       def self.latest_cocktail_recipe
         order('created_at desc').first
+      end 
+
+      def self.by_user(user_id)
+        where(user: user_id)
+      end 
+
+      def self.search(search)
+        if search
+          find(:all, :conditions => ['title LIKE ?', "%#{search}%"])
+        else
+          find(:all)
+        end
       end
 
 
