@@ -18,19 +18,22 @@
 <h3>Category: <%= link_to @cocktail_recipe.category.name, category_path(@cocktail_recipe.category) if @cocktail_recipe.category %></h3>
 
 <p><%= last_updated @cocktail_recipe%></p> 
-<small>Originally By: <%=@cocktail_recipe.user.username%></small> 
+<small>Originally By: <%=@cocktail_recipe.user.username%></small><br></br>
 
 <% if @cocktail_recipe.user == current_user %>
 <h3><%= link_to "Edit This Recipe", edit_cocktail_recipe_path, class: "btn btn-primary btn-l" %></h3> 
 <h3><%= button_to "Delete", @cocktail_recipes_path, method: :delete, class: "btn btn-secondary"%></h3>
-<% end %> 
+<% end %></br>
 
-<h5>Comments:</h5> 
-<% @cocktail_recipe.comments.each do |c| %> 
-    <%=c.content %> 
+<h5><%=@cocktail_recipe.comments.count %> Comments:</h5> 
+<% @cocktail_recipe.comments.each do |comment| %> 
+    <h6><ul><%=comment.content %></ul></h6> 
+    <ul><small>By: <%=comment.user.username %> on <%=created_at comment %> </small></ul>
+    <%end%><br></br>
+
+
+
     
-    er.username %>
-    <%end%>
 
 <h5>Add a comment:</h5>
 <%= render partial: "comments/form" %>

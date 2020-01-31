@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController 
-    
+
     def create
       @cocktail_recipe = CocktailRecipe.find(params[:cocktail_recipe_id])
       @comment = current_user.comments.new(comments_params)
@@ -13,6 +13,12 @@ class CommentsController < ApplicationController
      end
    end 
 
+
+   def destroy
+    @comment = Comment.find(params[:id]) 
+    @comment.destroy
+      redirect_to cocktail_recipe_url
+    end
 
 
 private 

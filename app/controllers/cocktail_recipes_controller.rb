@@ -14,7 +14,7 @@ class CocktailRecipesController < ApplicationController
         @cocktail_recipe = current_user.cocktail_recipes.new(cocktail_recipe_params)
         if @cocktail_recipe.save
           @cocktail_recipe.add_ingredients_to_recipe(recipe_ingredient_params) 
-          raise.params
+          
         
           redirect_to @cocktail_recipe, notice: "Your recipe has successfully been added"
         else
@@ -25,7 +25,7 @@ class CocktailRecipesController < ApplicationController
     
       def show  
         @cocktail_recipe = CocktailRecipe.find(params[:id]) 
-        @comment = @cocktail_recipe.comments.new 
+        @comment = current_user.comments.build(cocktail_recipe: @cocktail_recipe)
       end 
 
     def index 

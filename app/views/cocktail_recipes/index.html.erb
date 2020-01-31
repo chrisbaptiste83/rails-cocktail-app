@@ -1,19 +1,16 @@
-<% if !params[:user].blank? %>
-  <% @cocktail_recipes = CocktailRecipe.where(user: params[:user]) %>
-<% end %>
-
 
 <h1> All Cocktail Recipes:</h1> 
 
+
+
 <div>
-  <h3>Filter Recipes:</h3>
-  <%= form_tag("/cocktail_recipes", method: "get") do %>
-    <%= select_tag "user", options_from_collection_for_select(User.all, "id", "username"), include_blank: true, :class => "form-control" %>
-    <%= submit_tag "Filter" %>
-  <% end %>
+<h3>Filter Recipes By User:</h3>
+<%= form_tag("/cocktail_recipes", method: "get") do %>
+  <%= select_tag "user", options_from_collection_for_select(User.all, "id", "username"), include_blank: true, :class => "form-control" %></br>
+  <%= submit_tag "Filter" %>
+<% end %>
 </div>
 
-   
     <% @cocktail_recipes.each do |cocktail_recipe| %> 
 
         
@@ -24,3 +21,4 @@
         
 
     <% end %>
+

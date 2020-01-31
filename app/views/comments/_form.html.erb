@@ -1,0 +1,4 @@
+<%= form_for [@cocktail_recipe, @comment] do |f| %>
+    <%= f.text_area :content, cols: "30", rows: "3" %><br></br>
+    <%= f.submit "Add Comment" %>
+<% end %>
