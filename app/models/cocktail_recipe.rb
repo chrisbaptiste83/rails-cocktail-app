@@ -6,8 +6,13 @@ class CocktailRecipe < ApplicationRecord
     has_many :ingredients, through: :recipe_ingredients
 
     accepts_nested_attributes_for :recipe_ingredients, reject_if: lambda {|attributes| attributes['name'].blank?}
+    accepts_nested_attributes_for :ingredients, reject_if: lambda {|attributes| attributes['name'].blank?}
 
     validates :title, :description, :directions, presence: true  
+
+    has_attached_file :avatar, :styles => { :medium => "200x200#"}
+
+    validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
 
     def category_name=(name)
         self.category = Category.find_or_create_by(name: name)
@@ -17,20 +22,35 @@ class CocktailRecipe < ApplicationRecord
          self.category ? self.category.name : nil
       end 
 
-      def self.latest_cocktail_recipe
-        order('created_at desc').first
+      def self.five_latest_cocktail_recipes
+        order('created_at desc')[0...5]
       end 
+
+      def self.most_comments
+        order("comments_count DESC").first
+      end 
+
+      def previous
+        CocktailRecipe.where("id < ?", id).last
+      end
+      
+
+      def next
+        CocktailRecipe.all.where("id > ?", id).first
+      end
+
 
       def self.by_user(user_id)
         where(user: user_id)
-      end 
+      end
 
+      def self.of_the_day
+        order('RANDOM()').first 
+      end
+
+     
       def self.search(search)
-        if search
-          find(:all, :conditions => ['title LIKE ?', "%#{search}%"])
-        else
-          find(:all)
-        end
+        where("name LIKE ?", "%#{search}%") 
       end
 
 
@@ -41,13 +61,9 @@ class CocktailRecipe < ApplicationRecord
       end
     end 
 
-
-    def add_ingredients_to_recipe(params)
-  
+    def add_ingredients_to_recipe(ingredients_params)
       delete_ingredients_from_recipe
-      
-      params[:recipe_ingredients_attributes].each do |k, recipe_ingredient|
-  
+      ingredients_params[:recipe_ingredients_attributes].each do |k, recipe_ingredient|
         if recipe_ingredient[:ingredient][:name].present?
           ingredient_name = recipe_ingredient[:ingredient][:name]
           ingredient = Ingredient.find_or_create_by(name: ingredient_name)
@@ -63,5 +79,4 @@ class CocktailRecipe < ApplicationRecord
   
     end
   end
-
 
