@@ -6,13 +6,16 @@ class CategoriesController < ApplicationController
     end 
 
     def show 
-
         @category = Category.find(params[:id]) 
-
     end  
 
     def index 
-        @categories = Category.all 
+        if params[:search]
+            @categories = Category.search(params[:search]).order("created_at DESC") 
+        elsif params[:search]
+            @categories = Category.search(params[:search]).order("created_at DESC")
+        else @categories = Category.all.order(:name) 
+        end 
     end 
 
 
