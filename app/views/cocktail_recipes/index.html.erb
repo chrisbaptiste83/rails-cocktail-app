@@ -1,24 +1,34 @@
 
-<h1> All Cocktail Recipes:</h1> 
+<h1>Cocktails:</h1> 
 
+<h3>Search For Cocktails By Title:</h3>
 
+<%= form_tag(cocktail_recipes_path, :method => "get", id: "search-form") do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search Cocktails", :class => "form-control" %></br>
+  <%= submit_tag "Search", :name => nil %>
+<% end %>
 
 <div>
-<h3>Filter Recipes By User:</h3>
+<h3>Filter Cocktails By User:</h3>
 <%= form_tag("/cocktail_recipes", method: "get") do %>
   <%= select_tag "user", options_from_collection_for_select(User.all, "id", "username"), include_blank: true, :class => "form-control" %></br>
   <%= submit_tag "Filter" %>
 <% end %>
-</div>
+</div> 
 
-    <% @cocktail_recipes.each do |cocktail_recipe| %> 
+<center>
+<h3><ul><%=@cocktail_recipes.count%> Total Recipes: </ul></h3> 
 
-        
-        <h3><%= link_to cocktail_recipe.title, cocktail_recipe_path(cocktail_recipe)%></h3> 
-        <h4>Category: <%= link_to cocktail_recipe.category.name, category_path(cocktail_recipe.category) if cocktail_recipe.category %></h4>
-        <h4>Description: <%= cocktail_recipe.description %></h4>  
-        <small><%= last_updated cocktail_recipe %></small>
-        
-
-    <% end %>
+<% @cocktail_recipes.each do |cocktail_recipe| %> 
+  
+    <br><h2><%= link_to cocktail_recipe.title, cocktail_recipe_path(cocktail_recipe)%></h2>
+    <br><%= image_tag cocktail_recipe.avatar.url(:medium), height: '300px'%></br><br>
+      <h4>Category: <%= link_to cocktail_recipe.category.name, category_path(cocktail_recipe.category) if cocktail_recipe.category %></h4> 
+      
+      <h4><%= cocktail_recipe.description %></h4>  
+      
+      <small><%= last_updated cocktail_recipe %></small> 
+      
+<% end %> 
+</center>
 
