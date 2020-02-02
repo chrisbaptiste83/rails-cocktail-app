@@ -30,6 +30,8 @@ gem 'bootstrap',  '~>4.3.1'
 
 gem 'pry' 
 
+gem 'paperclip'
+
 gem 'omniauth-github'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
