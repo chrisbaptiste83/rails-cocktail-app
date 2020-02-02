@@ -1,7 +1,10 @@
 
 <h1><%= @cocktail_recipe.title %></h1> 
 
+
+
 <center><h5><%= @cocktail_recipe.description %></h5></center> 
+</br><br><center><%= image_tag @cocktail_recipe.avatar.url(:medium), height: '400px' %></center> 
 
 <h3>Ingredients:</h3>  
     <h3><% @cocktail_recipe.recipe_ingredients.each do |i| %></h3> 
@@ -25,7 +28,8 @@
 <h3><%= button_to "Delete", @cocktail_recipes_path, method: :delete, class: "btn btn-secondary"%></h3>
 <% end %></br>
 
-<h5><%=@cocktail_recipe.comments.count %> Comments:</h5> 
+
+<h5><%=@cocktail_recipe.comments.count%> Comment(s):</h5> 
 <% @cocktail_recipe.comments.each do |comment| %> 
     <h6><ul><%=comment.content %></ul></h6> 
     <ul><small>By: <%=comment.user.username %> on <%=created_at comment %> </small></ul>
@@ -33,7 +37,11 @@
 
 
 
-    
-
 <h5>Add a comment:</h5>
-<%= render partial: "comments/form" %>
+<%= render partial: "comments/form" %><br></br> 
+
+
+
+
+<%= link_to "Next Cocktail", @cocktail_recipe.previous%></br>
+<%= link_to "Previous Cocktail", @cocktail_recipe.next%>
