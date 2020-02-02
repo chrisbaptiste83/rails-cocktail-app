@@ -1,12 +1,21 @@
-<h1> All Cocktail Recipes by Categories:</h1> 
+<h1>Categories:</h1> 
+
+<h3>Search for Category:</h3>
+
+
+<%= form_tag(categories_path, :method => "get", id: "search-form") do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search Categories", :class => "form-control" %></br>
+  <%= submit_tag "Search", :name => nil %>
+<% end %>
+
 
 <% @categories.each do |category| %>
 
-  <h3><%= link_to category.name, category_path(category)%> </h3> 
-  <h4><%= pluralize(category.cocktail_recipes.count, 'Cocktail Recipe')%> for this Category:</h4>
+  <h2><%= link_to category.name, category_path(category)%></h2> 
+  <h4><%= pluralize(category.cocktail_recipes.count, 'Cocktail Recipe')%>:</h4>
 
   <% category.cocktail_recipes.each do |c|%> 
-    <h5><li><%=link_to c.title, cocktail_recipe_path(c) %></li></h5>
+    <h3><%=link_to c.title, cocktail_recipe_path(c) %></h3> 
     <%  end%>  
   
 
