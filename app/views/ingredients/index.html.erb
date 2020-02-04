@@ -1,22 +1,24 @@
+<div class="jumbotron button-style"> 
+<h1> Ingredients:</h1><br> 
 
-<h1> Ingredients:</h1> 
+
 
 <h3>Search for Ingredients:</h3>
-
 <%= form_tag(ingredients_path, :method => "get", id: "search-form") do %>
     <%= text_field_tag :search, params[:search], placeholder: "Search Ingredients", :class => "form-control" %><br></br>
     <%= submit_tag "Search", :name => nil %>
   <% end %>
 
+  <hr class="my-4">
 <% @ingredients.each do |ingredient| %> 
-
+   
     <h2><%= link_to ingredient.name, ingredient_path(ingredient) %></h2> 
 
-    <h4><%= pluralize(ingredient.cocktail_recipes.count, 'Cocktail Recipe') %> with this Ingredient:</h4>
 
-    <% ingredient.cocktail_recipes.each do |c|%> 
-        <h3><%=link_to c.title, cocktail_recipe_path(c)  %></h3> 
-        
-        <%  end%>  
+    <h4><%= pluralize(ingredient.cocktail_recipes.count, 'Cocktail') %></h4>
+
+ 
+        <hr class="my-4">
     <%end%> 
-    
+   
+    </div>
