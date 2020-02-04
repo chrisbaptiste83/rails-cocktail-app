@@ -8,11 +8,16 @@ class CocktailRecipe < ApplicationRecord
     accepts_nested_attributes_for :recipe_ingredients, reject_if: lambda {|attributes| attributes['name'].blank?}
     accepts_nested_attributes_for :ingredients, reject_if: lambda {|attributes| attributes['name'].blank?}
 
-    validates :title, :description, :directions, :ingredients, presence: true  
+    validates :title, :description, :directions, presence: true  
 
     has_attached_file :avatar, :styles => { :medium => "200x200#"}
 
-    validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
+    validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/ 
+
+    scope :most_comments, -> { order("comments_count DESC").first } 
+    scope :five_latest_cocktail_recipes,  -> { order("created_at desc").limit(5)}
+    scope :of_the_day,  -> { order('RANDOM()').first}
+
 
     def category_name=(name)
         self.category = Category.find_or_create_by(name: name)
@@ -22,13 +27,13 @@ class CocktailRecipe < ApplicationRecord
          self.category ? self.category.name : nil
     end 
 
-    def self.five_latest_cocktail_recipes
-       order('created_at desc')[0...5]
-    end 
-
-    def self.most_comments
-       order("comments_count DESC").first
-    end 
+    def self.by_user(user_id)
+      where(user: user_id)
+    end
+     
+    def self.search(search)
+      where("title LIKE ?", "%#{search}%") 
+    end
 
     def previous
         CocktailRecipe.all.order(:title).where("title < ?", title).last
@@ -40,18 +45,7 @@ class CocktailRecipe < ApplicationRecord
     end
 
 
-    def self.by_user(user_id)
-      where(user: user_id)
-    end
-
-    def self.of_the_day
-      order('RANDOM()').first 
-    end
-
-     
-    def self.search(search)
-      where("title LIKE ?", "%#{search}%") 
-    end
+    
 
     def delete_ingredients_from_recipe
         ingredients.size.times do
