@@ -1,12 +1,18 @@
 <center>
-<h1>Category: <%= @category.name %></h1>
- 
-<h3><%= pluralize(@category.cocktail_recipes.count, 'Cocktail Recipe') %> for this Category:</h3>
-    
-        <% @category.cocktail_recipes.each do |c| %>
-            <h3><li><%= link_to c.title, cocktail_recipe_path(c) %></li></h3>
-            <%= image_tag c.avatar.url(:medium)%><br> 
-            <h4><%= c.description %></h4>
-        <% end %> 
-     </center>
+    <div class="jumbotron button-style"> 
+        <h1><%= @category.name %></h1>
+
+            <h3><%= pluralize(@category.cocktail_recipes.count, 'Cocktail Recipe') %> for this Category:</h3> 
+    </div><br>
+
+
+        <% @category.cocktail_recipes.each do |c| %> 
+            <div class="jumbotron"> 
+                <h3><%= link_to c.title, cocktail_recipe_path(c) %></h3><br>
+                <%= image_tag c.avatar.url(:medium)%></br><br> 
+                <h4><%= c.description %></h4>
+            </div><br>
+        <% end %>
+       
+</center>
     
