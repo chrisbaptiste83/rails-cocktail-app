@@ -1,11 +1,18 @@
+
 <center>
-<h1>Ingredient: <%=@ingredient.name%></h1> 
-
+<div class="jumbotron button-style"> 
+<h1><%=@ingredient.name%></h1> 
 <h3><%= pluralize(@ingredient.cocktail_recipes.count, 'Cocktail Recipe') %> with this Ingredient:</h3>
+</div><br> 
 
+
+
+<div class="jumbotron">
 <% @ingredient.cocktail_recipes.each do |c|%>
-    <li><h3><%=link_to c.title, cocktail_recipe_url(c)%></h3></li> 
-    <%= image_tag c.avatar.url(:medium)%><br>
-    <small><%= c.description %></small>
+    <h3><%=link_to c.title, cocktail_recipe_url(c)%></h3><br>
+    <%= image_tag c.avatar.url(:medium)%><br></br>
+    <h4><%= c.description %></h4><br>
     <%end%> 
-    </center>
+    </div>
+    
+<center>  
