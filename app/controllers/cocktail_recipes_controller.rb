@@ -5,22 +5,21 @@ class CocktailRecipesController < ApplicationController
         @cocktail_recipe = CocktailRecipe.new 
         @ingredients = 6.times.collect { @cocktail_recipe.recipe_ingredients.build } 
         @comment = Comment.new 
-        @comment.cocktail_recipe_id = @cocktail_recipe 
+        @comment.cocktail_recipe_id = @cocktail_recipe_id 
 
     end  
 
 
     def create
-        @cocktail_recipe = current_user.cocktail_recipes.new(cocktail_recipe_params) 
-        if @cocktail_recipe.save
-          @cocktail_recipe.add_ingredients_to_recipe(recipe_ingredient_params)
-          redirect_to @cocktail_recipe, notice: "Your recipe has successfully been added" 
-        else 
-          
-          @cocktail_recipe = CocktailRecipe.new
-          redirect_to new_cocktail_recipe_url
-        end
+      @cocktail_recipe = current_user.cocktail_recipes.new(cocktail_recipe_params) 
+      if @cocktail_recipe.save
+        @cocktail_recipe.add_ingredients_to_recipe(recipe_ingredient_params)
+        redirect_to cocktail_recipe_path(@cocktail_recipe), notice: "Your recipe has successfully been added" 
+      else  
+        @ingredients = 6.times.collect { @cocktail_recipe.recipe_ingredients.build } 
+        render :new
       end
+    end
     
       def show  
         @cocktail_recipe = CocktailRecipe.find(params[:id]) 
@@ -48,7 +47,7 @@ class CocktailRecipesController < ApplicationController
  
     def edit 
         @cocktail_recipe = CocktailRecipe.find(params[:id]) 
-        @i = 2.times.collect { @cocktail_recipe.recipe_ingredients.build } 
+        @i = 2.times.collect { @cocktail_recipe.recipe_ingredients.build }  
     end
      
     def update
@@ -70,6 +69,7 @@ class CocktailRecipesController < ApplicationController
       def recipe_ingredient_params
         params.require(:cocktail_recipe).permit(recipe_ingredients_attributes: [:quantity, :ingredient_id, ingredient: [:name]])
       end
-     
+
+
 
 end
