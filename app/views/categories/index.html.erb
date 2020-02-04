@@ -1,4 +1,5 @@
-<h1>Categories:</h1> 
+<div class="jumbotron button-style"> 
+<h1>Categories:</h1><br> 
 
 <h3>Search for Category:</h3>
 
@@ -8,16 +9,12 @@
   <%= submit_tag "Search", :name => nil %>
 <% end %>
 
-
+<hr class="my-4">
 <% @categories.each do |category| %>
-
   <h2><%= link_to category.name, category_path(category)%></h2> 
-  <h4><%= pluralize(category.cocktail_recipes.count, 'Cocktail Recipe')%>:</h4>
-
-  <% category.cocktail_recipes.each do |c|%> 
-    <h3><%=link_to c.title, cocktail_recipe_path(c) %></h3> 
-    <%  end%>  
-  
+  <h4><%= pluralize(category.cocktail_recipes.count, 'Cocktail')%></h4>
+    <hr class="my-4">
 
   <% end %> 
    
+</div>
