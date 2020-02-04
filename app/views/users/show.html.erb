@@ -27,7 +27,7 @@
             <h2><%=link_to @cocktail_recipes.of_the_day.title, cocktail_recipe_path(@cocktail_recipes.of_the_day)%></h2> 
             <br><%= image_tag @cocktail_recipes.of_the_day.avatar.url(:medium)%> 
             <h4><%=@cocktail_recipes.of_the_day.description%></h4> 
-            <small>By: <%=@cocktail_recipes.of_the_day.user.username%></small><br> 
+            <small>By: <%=@cocktail_recipes.of_the_day.user.username%> on <%=created_at @cocktail_recipes.of_the_day%></small><br> 
             </div> 
 
             <div class="jumbotron"> 
@@ -36,7 +36,7 @@
                 <h2><%=link_to @cocktail_recipes.most_comments.title, cocktail_recipe_path(@cocktail_recipes.most_comments)%></h2> 
                 <br><%= image_tag @cocktail_recipes.most_comments.avatar.url(:medium)%> 
                 <h4><%=@cocktail_recipes.most_comments.description%></h4> 
-                <small>By: <%=@cocktail_recipes.most_comments.user.username%></small> 
+                <small>By: <%=@cocktail_recipes.most_comments.user.username%> on <%=created_at @cocktail_recipes.most_comments%></small> 
             </div>
 
             <div class="jumbotron">
