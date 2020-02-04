@@ -29,9 +29,9 @@
   <h2><%= link_to cocktail_recipe.title, cocktail_recipe_path(cocktail_recipe)%></h2> 
   <hr class="my-4">
   <br><%= image_tag cocktail_recipe.avatar.url(:medium)%></br><br>
-    <h4>Category: <%= link_to cocktail_recipe.category.name, category_path(cocktail_recipe.category) if cocktail_recipe.category %></h4> 
-    <h4><%= cocktail_recipe.description %></h4>  
-    <small><%= last_updated cocktail_recipe %></small> 
+    <h4>Category: <%= link_to cocktail_recipe.category.name, category_path(cocktail_recipe.category)%></h4> 
+    <h4><%= cocktail_recipe.description %></h4> 
+    <small>By: <%=cocktail_recipe.user.username%> on <%= created_at cocktail_recipe %></small><br> 
     </div>
   <% end %> 
 
