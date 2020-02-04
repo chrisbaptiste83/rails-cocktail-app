@@ -1,7 +1,6 @@
-
 <%= form_for(@cocktail_recipe) do |f| %>
-   
-    <h3><%= f.label :title %></h3>
+    <h3><%= f.label :title%></h3> 
+ 
     <p><%= f.text_field :title, :class => "form-control"%></p> 
 
     <h3><%= f.label :category %></h3>
@@ -13,35 +12,40 @@
   </datalist>
     
     <h3><%= f.label :description %></h3>
-    <p><%= f.text_area :description, :class => "form-control" %> </p> 
+    <p><%= f.text_area :description, :class => "form-control" %> </p><br> 
     
-    <%= f.hidden_field :user_id %>
+    <%= f.hidden_field :user_id %> 
 
-    <h3><%= f.label :ingredients %></h3>
+    
+    <h3><%= f.label :ingredients %></h3><br>
    
         <%= f.fields_for :recipe_ingredients, @ingredients do |recipe_ingredient| %>
     
-          <center><h5>Quantity:<%= recipe_ingredient.text_field :quantity %>
+          <center>
+          
+          <h5>Quantity:<%= recipe_ingredient.text_field :quantity %>
   
-    Select Ingredient: <%=recipe_ingredient.collection_select :ingredient_id, Ingredient.all.order(:name), :id, :name, include_blank: 'Select Ingredient' %>
+    Select Ingredient:<%=recipe_ingredient.collection_select :ingredient_id, Ingredient.all.order(:name), :id, :name, include_blank: 'Select Ingredient' %>
 
     <%= recipe_ingredient.fields_for :ingredient, @cocktail_recipe.ingredients.build do |ingredient| %> 
 
-      Or Create New Ingredient: <%= ingredient.text_field :name %>
-    <% end %></br></h5>
+      Or Create New Ingredient: <%= ingredient.text_field :name %> 
+      <hr class="my-4">
+    <% end %></h5></br>
       </center>
     <% end %>  
-      
+
+
 
       <h3><%= f.label :directions %></h3>
       <p><%= f.text_area :directions, :class => "form-control" %></p></br>
        
   
-      <%= f.label :avatar %>
-      <%= f.file_field :avatar %><br>
+      <h4><label>Upload an Image:</label></h4>
+      <%= f.file_field :avatar %><br></br>
 
-    <h3><%= f.submit %></h3> 
+    <big><%= f.submit %></big> 
 
-  <% end %> 
+    <% end %> 
 
   
