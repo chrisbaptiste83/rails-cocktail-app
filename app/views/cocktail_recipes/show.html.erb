@@ -1,19 +1,17 @@
+<div class="jumbotron button-style">
+    <h1><%= @cocktail_recipe.title %></h1> 
+        <hr class="my-4">
 
-<h1><%= @cocktail_recipe.title %></h1> 
 
+<center><h4><%= @cocktail_recipe.description %></h5></center> 
 
-
-<center><h5><%= @cocktail_recipe.description %></h5></center> 
-</br><br><center><%= image_tag @cocktail_recipe.avatar.url(:medium), height: '400px' %></center> 
+</br><br><center><%= image_tag @cocktail_recipe.avatar.url(:medium), height: '300px'%></center> 
+        <hr class="my-4">
 
 <h3>Ingredients:</h3>  
-    <h3><% @cocktail_recipe.recipe_ingredients.each do |i| %></h3> 
-        <li>
-           <h4><%= i.quantity%> 
-           <%= link_to i.ingredient.name, ingredient_path(i.ingredient)%></h4>
-
-        </li>
-    <%end%> 
+    <h3><% @cocktail_recipe.recipe_ingredients.each do |i| %></h3>
+        <li><h4><%= i.quantity%> <%= link_to i.ingredient.name, ingredient_path(i.ingredient)%></h4> </li>  
+        <%end%> 
 
 <h3>Directions: <%= @cocktail_recipe.directions %></h3>
 
@@ -21,20 +19,21 @@
 <h3>Category: <%= link_to @cocktail_recipe.category.name, category_path(@cocktail_recipe.category) if @cocktail_recipe.category %></h3>
 
 <p><%= last_updated @cocktail_recipe%></p> 
+
 <small>Originally By: <%=@cocktail_recipe.user.username%></small><br></br>
 
 <% if @cocktail_recipe.user == current_user %>
-<h3><%= link_to "Edit This Recipe", edit_cocktail_recipe_path, class: "btn btn-primary btn-l" %></h3> 
-<h3><%= button_to "Delete", @cocktail_recipes_path, method: :delete, class: "btn btn-secondary"%></h3>
+<h2><%= link_to "Edit This Recipe", edit_cocktail_recipe_path, class: "btn btn-primary" %></h2> 
+<h2><%= button_to "Delete", @cocktail_recipes_path, method: :delete, class: "btn btn-primary"%></h2>
 <% end %></br>
+<hr class="my-4">
 
+<h4><%=@cocktail_recipe.comments.count%> Comment(s):</h4> 
 
-<h5><%=@cocktail_recipe.comments.count%> Comment(s):</h5> 
 <% @cocktail_recipe.comments.each do |comment| %> 
-    <h6><ul><%=comment.content %></ul></h6> 
-    <ul><small>By: <%=comment.user.username %> on <%=created_at comment %> </small></ul>
-    <%end%><br></br>
-
+        <h5><ul><%=comment.content %></ul></h5> 
+        <ul><small>By: <%=comment.user.username %> on <%=created_at comment %> </small></ul>
+    <%end%>
 
 
 <h5>Add a comment:</h5>
@@ -42,6 +41,7 @@
 
 
 
-
-<%= link_to "Next Cocktail", @cocktail_recipe.previous%></br>
-<%= link_to "Previous Cocktail", @cocktail_recipe.next%>
+<button type="button" class="btn btn-primary"><big><%= link_to "Next Cocktail", @cocktail_recipe.next%></big></button></br><br>
+<button type="button" class="btn btn-primary"><big><%= link_to "Previous Cocktail", @cocktail_recipe.previous%></big></button>
+ 
+</div>
