@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     
-    <title>The Cantina</title>
+    <title>Mike's Cantina</title>
 
     <!-- Bootstrap core CSS -->
     
@@ -18,11 +18,17 @@
     <style> 
 
     body { 
-      background-image: url(/assets/bartender.jpg); 
-      background-attachment:fixed;
-      background-size:cover; 
-      
       padding-top: 90px; 
+      background: linear-gradient(
+        rgba(20,20,20, .5), 
+        rgba(20,20,20, .5)), 
+        url(/assets/Bar3.jpg);
+
+    
+      background-attachment:fixed;
+      background-size:cover;
+      
+        
     } 
 
     .starter-template {
@@ -31,22 +37,65 @@
 
     h1 {
       text-align: center; 
+      color: #D3D3D3;
+
+       } 
+
+    a, a:visited {
+      color: #D3D3D3;
+      } 
 
 
-    } 
-
-    .displayed {
-    display: block;
-    margin-left: auto;
-    margin-right: auto; }
-
-    
-
-    </style> 
-
+    h2,h3,h4,small,h5,h6,p {
+      
+      color: #D3D3D3;
   
- 
-   
+      } 
+    
+      .jumbotron {
+        background: rgba(0,0,0, 0.5); 
+        width: 60%;
+        margin: 30 auto
+      } 
+
+    .jumbotron h1{
+    color: #fff;
+      } 
+
+    .button-style {
+        background: rgba(0,0,0, 0.5);
+        width: 100%; 
+          
+      }
+     
+    input, textarea{
+    background-color:#0000;
+    color: #FFF;
+    }
+
+    select {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+      text-align: center; 
+      
+      text-decoration: none;
+      font-family: Arial, Helvetica, sans-serif;
+      border-radius: 3px;
+      border: none;
+      background: #000000;
+      padding: 4px;
+    }
+    
+    select:hover {
+       background-color: dodgerblue;
+      } 
+
+      img {
+        border-radius: 8%;
+      }
+</style>
+
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -66,11 +115,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <strong><a class="navbar-brand" href="/">The Cantina</a></strong>
+          <strong><a class="navbar-brand" href="/">Mike's Cantina</a></strong>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
-          <li class="active">The Cantina</li>
+          <li class="active">Mike's Cantina</li>
             
             <%unless user_signed_in?%> 
             <li><%= link_to new_user_session_path, :class => "glyphicon glyphicon-log-in" do %>
@@ -81,9 +130,9 @@
             <% end %></li>
             <%end%> 
             <%if user_signed_in?%> 
-            <li><%= link_to('All Recipes', cocktail_recipes_path)%></li> 
+            <li><%= link_to('Cocktails', cocktail_recipes_path)%></li> 
             <li><%= link_to('Categories', categories_path)%></li> 
-            <li><%= link_to('Create a Cocktail Recipe', new_cocktail_recipe_path) %></li> 
+            <li><%= link_to('Create a Cocktail', new_cocktail_recipe_path) %></li> 
             <li><%= link_to('Ingredients', ingredients_path)%></li> 
             <li><%= link_to "Profile Page", current_user %></li> 
             <%end%> 
@@ -103,31 +152,18 @@
 
     <div class="container">
 
-      <div class="starter-template">
       
-      
-    
-      <div class="jumbotron">
-    
-
         <%= yield %> 
         
         <p class="notice"><%= notice %></p>
         <p class="alert"><%= alert %></p> 
 
 
-        
-        <center><h2><%= button_to('Logout', destroy_user_session_path, method: :delete) if user_signed_in? %></h2></center>
-        
-    
 
-        
-        </div>
-      </div> 
 
     </div><!-- /.container -->
 
-
+    <center><big><%= button_to('Logout', destroy_user_session_path, method: :delete) if user_signed_in? %></big</center>
    
 
     <!-- Bootstrap core JavaScript
