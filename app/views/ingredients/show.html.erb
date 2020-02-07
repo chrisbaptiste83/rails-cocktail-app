@@ -1,19 +1,9 @@
-
 <center>
-<div class="jumbotron button-style"> 
-<h1><%=@ingredient.name%></h1> 
-<h3><%= pluralize(@ingredient.cocktail_recipes.count, 'Cocktail Recipe') %> with this Ingredient:</h3>
-</div><br> 
 
-
-
-<div class="jumbotron">
-<% @ingredient.cocktail_recipes.each do |c|%>
-    <h3><%=link_to c.title, cocktail_recipe_url(c)%></h3><br>
-    <%= image_tag c.avatar.url(:medium)%><br></br>
-    <h4><%= c.description %></h4>
-    <small>By: <%=c.user.username%> on <%= created_at c %></small>
-    <%end%> 
-    </div>
+    <div class="jumbotron button-style"> 
+        <h1><%=@ingredient.name%></h1> 
+        <h3><%= pluralize(@ingredient.cocktail_recipes.count, 'Cocktail Recipe') %> with this Ingredient:</h3>
+    </div><br> 
+        <%= render partial: "cocktail_recipes/cocktails", locals: {cocktail_recipes: @ingredient.cocktail_recipes} %>
     
 <center>  
