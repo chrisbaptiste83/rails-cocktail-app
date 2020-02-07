@@ -1,38 +1,30 @@
 
-
  <div class="jumbotron button-style"> 
-<h1>Cocktails:</h1><br> 
+ 
+  <h1>Cocktails:</h1><br> 
 
-<h3>Search For Cocktails By Title:</h3>
+  <h3>Search For Cocktails By Title:</h3>
 
-<%= form_tag(cocktail_recipes_path, :method => "get", id: "search-form") do %>
-  <%= text_field_tag :search, params[:search], placeholder: "Search Cocktails", :class => "form-control" %></br>
-  <%= submit_tag "Search", :name => nil %>
-<% end %>
-<hr class="my-4">
+  <%= form_tag(cocktail_recipes_path, :method => "get", id: "search-form") do %>
+    <%= text_field_tag :search, params[:search], placeholder: "Search Cocktails", :class => "form-control" %></br>
+    <%= submit_tag "Search", :name => nil %>
+  <% end %>
+  <hr class="my-4">
 
-<h3>Filter Cocktails By User:</h3>
-<%= form_tag("/cocktail_recipes", method: "get") do %>
-  <%= select_tag "user", options_from_collection_for_select(User.all, "id", "username"), include_blank: true, :class => "form-control" %></br>
-  <%= submit_tag "Filter" %>
-<% end %>
+  <h3>Filter Cocktails By User:</h3>
+  <%= form_tag("/cocktail_recipes", method: "get") do %>
+    <%= select_tag "user", options_from_collection_for_select(User.all, "id", "username"), include_blank: true, :class => "form-control" %></br>
+    <%= submit_tag "Filter" %>
+  <% end %>
+
 </div>
 
 
 
 <center>
 
-<h3><ul><%=@cocktail_recipes.count%> Total Cocktails: </ul></h3> 
+  <h3><ul><%=@cocktail_recipes.count%> Total Cocktails: </ul></h3> 
 
-<% @cocktail_recipes.each do |cocktail_recipe| %> 
-  <div class="jumbotron">  
-  <h2><%= link_to cocktail_recipe.title, cocktail_recipe_path(cocktail_recipe)%></h2> 
-  <hr class="my-4">
-  <br><%= image_tag cocktail_recipe.avatar.url(:medium)%></br><br>
-    <h4>Category: <%= link_to cocktail_recipe.category.name, category_path(cocktail_recipe.category)%></h4> 
-    <h4><%= cocktail_recipe.description %></h4> 
-    <small>By: <%=cocktail_recipe.user.username%> on <%= created_at cocktail_recipe %></small><br> 
-    </div>
-  <% end %> 
+  <%= render partial: "cocktails", locals: {cocktail_recipes: @cocktail_recipes} %>
 
 </center> 
