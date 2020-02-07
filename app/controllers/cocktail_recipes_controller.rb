@@ -1,12 +1,12 @@
 class CocktailRecipesController < ApplicationController 
-    before_action :authenticate_user! 
+
+    before_action :find_cocktail_recipe, only: [:show, :edit, :update, :destroy] 
+    before_action :authenticate_user!
 
     def new 
         @cocktail_recipe = CocktailRecipe.new 
         @ingredients = 6.times.collect { @cocktail_recipe.recipe_ingredients.build } 
         @comment = Comment.new 
-        @comment.cocktail_recipe_id = @cocktail_recipe_id 
-
     end  
 
 
@@ -21,8 +21,7 @@ class CocktailRecipesController < ApplicationController
       end
     end
     
-      def show  
-        @cocktail_recipe = CocktailRecipe.find(params[:id]) 
+      def show   
         @comment = current_user.comments.build(cocktail_recipe: @cocktail_recipe)
       end 
 
@@ -37,21 +36,21 @@ class CocktailRecipesController < ApplicationController
           else
             @cocktail_recipes = CocktailRecipe.all.order(:title)
           end
-        end
+        end 
 
-    def destroy
-      @cocktail_recipe = CocktailRecipe.find(params[:id]) 
-      @cocktail_recipe.destroy
+
+    def edit  
+        @i = 2.times.collect { @cocktail_recipe.recipe_ingredients.build }  
+    end
+
+    def destroy 
+        @cocktail_recipe.destroy
         redirect_to cocktail_recipes_url
       end
  
-    def edit 
-        @cocktail_recipe = CocktailRecipe.find(params[:id]) 
-        @i = 2.times.collect { @cocktail_recipe.recipe_ingredients.build }  
-    end
+   
      
     def update
-      @cocktail_recipe = CocktailRecipe.find(params[:id])
         if @cocktail_recipe.update(cocktail_recipe_params)
           @cocktail_recipe.add_ingredients_to_recipe(recipe_ingredient_params)
           redirect_to @cocktail_recipe, notice: "Your recipe has successfully been updated"
@@ -70,6 +69,9 @@ class CocktailRecipesController < ApplicationController
         params.require(:cocktail_recipe).permit(recipe_ingredients_attributes: [:quantity, :ingredient_id, ingredient: [:name]])
       end
 
-
+      def find_cocktail_recipe
+        @cocktail_recipe = CocktailRecipe.find(params[:id])
+      end
+    
 
 end
