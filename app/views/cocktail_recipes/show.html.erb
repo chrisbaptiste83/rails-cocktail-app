@@ -1,10 +1,9 @@
 <div class="jumbotron button-style">
+
     <h1><%= @cocktail_recipe.title %></h1> 
         <hr class="my-4">
 
-
 <center><h4><%= @cocktail_recipe.description %></h5></center> 
-
 </br><br><center><%= image_tag @cocktail_recipe.avatar.url(:medium), height: '300px'%></center> 
         <hr class="my-4">
 
@@ -15,16 +14,15 @@
 
 <h3>Directions: <%= @cocktail_recipe.directions %></h3>
 
-    
-<h3>Category: <%= link_to @cocktail_recipe.category.name, category_path(@cocktail_recipe.category) if @cocktail_recipe.category %></h3>
+<h3>Category: <%= link_to @cocktail_recipe.category.name, category_path(@cocktail_recipe.category)%></h3>
 
 <p><%= last_updated @cocktail_recipe%></p> 
 
 <small>Originally By: <%=@cocktail_recipe.user.username%></small><br></br>
 
 <% if @cocktail_recipe.user == current_user %>
-<h2><%= link_to "Edit This Recipe", edit_cocktail_recipe_path, class: "btn btn-primary" %></h2> 
-<h2><%= button_to "Delete", @cocktail_recipes_path, method: :delete, class: "btn btn-primary"%></h2>
+    <h2><%= link_to "Edit This Recipe", edit_cocktail_recipe_path, class: "btn btn-primary" %></h2> 
+    <h2><%= button_to "Delete", @cocktail_recipes_path, method: :delete, class: "btn btn-primary"%></h2>
 <% end %></br>
 <hr class="my-4">
 
@@ -38,8 +36,6 @@
 
 <h5>Add a comment:</h5>
 <%= render partial: "comments/form" %><br></br> 
-
-
 
 <button type="button" class="btn btn-primary"><big><%= link_to "Next Cocktail", @cocktail_recipe.next%></big></button></br><br>
 <button type="button" class="btn btn-primary"><big><%= link_to "Previous Cocktail", @cocktail_recipe.previous%></big></button>

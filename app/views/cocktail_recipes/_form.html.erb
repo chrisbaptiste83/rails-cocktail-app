@@ -1,6 +1,5 @@
 <%= form_for(@cocktail_recipe) do |f| %>
     <h3><%= f.label :title%></h3> 
- 
     <p><%= f.text_field :title, :class => "form-control"%></p> 
 
     <h3><%= f.label :category %></h3>
@@ -16,7 +15,6 @@
     
     <%= f.hidden_field :user_id %> 
 
-    
     <h3><%= f.label :ingredients %></h3><br>
    
         <%= f.fields_for :recipe_ingredients, @ingredients do |recipe_ingredient| %>

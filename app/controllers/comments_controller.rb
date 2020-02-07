@@ -3,11 +3,9 @@ class CommentsController < ApplicationController
     def create
       @cocktail_recipe = CocktailRecipe.find(params[:cocktail_recipe_id])
       @comment = current_user.comments.new(comments_params)
-    @comment.cocktail_recipe = @cocktail_recipe
-  
+      @comment.cocktail_recipe = @cocktail_recipe
      if @comment.save
         redirect_to cocktail_recipe_path(@comment.cocktail_recipe)
-        
      else
         redirect_to cocktail_recipe_path(@comment.cocktail_recipe)
      end
