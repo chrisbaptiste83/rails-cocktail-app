@@ -1,58 +1,33 @@
-<div class="jumbotron button-style">
-<h1>Hello, <%=@user.username%>!</h1> 
-
-
-<h2>You currently have <%=@user.cocktail_recipes.count%> cocktail recipes:</h2><br>
-    
-<%= link_to "View Your Cocktail Recipes", user_cocktail_recipes_url(@user), class: "btn btn-primary btn-l"%><br> 
-<hr class="my-4">
-<h2>What would you like to do?</h3></br>
-
-  
-    
-        <%= link_to "New Cocktail", new_user_cocktail_recipe_path(@user), class: "btn btn-primary btn-l" %> 
-    
+    <div class="jumbotron button-style">     
+        <h1>Hello, <%=@user.username%>!</h1> 
+        <h2>You currently have <%=@user.cocktail_recipes.count%> cocktail recipes:</h2><br>
+        <%= link_to "View Your Cocktail Recipes", user_cocktail_recipes_url(@user), class: "btn btn-primary btn-l"%><br> 
+        <hr class="my-4"> 
+        <h2>What would you like to do?</h3></br>
+        <%= link_to "New Cocktail", new_user_cocktail_recipe_path(@user), class: "btn btn-primary btn-l" %>     
         <%= link_to "Categories", categories_path, class: "btn btn-primary btn-m" %> 
-
         <%= link_to "Ingredients", ingredients_path, class: "btn btn-primary btn-m" %><br></br> 
-
         <%= link_to "All Cocktails", cocktail_recipes_path, class: "btn btn-primary btn-m" %><br></br>
-        </div>
+    </div>
 
         <center> 
         <div class="jumbotron"> 
             <h2>Cocktail of the Day:</h2>
-            <hr class="my-4">
-    
-            <h2><%=link_to @cocktail_recipes.of_the_day.title, cocktail_recipe_path(@cocktail_recipes.of_the_day)%></h2> 
-            <br><%= image_tag @cocktail_recipes.of_the_day.avatar.url(:medium)%> 
-            <h4><%=@cocktail_recipes.of_the_day.description%></h4> 
-            <small>By: <%=@cocktail_recipes.of_the_day.user.username%> on <%=created_at @cocktail_recipes.of_the_day%></small><br> 
+            <%= render partial: "cocktail_recipes/cocktail", locals: {cocktail_recipe: @cocktail_recipes.of_the_day} %>
             </div> 
 
-            <div class="jumbotron"> 
+        <div class="jumbotron"> 
             <h2>Most Talked about Cocktail:</h2>
-            <hr class="my-4">
-                <h2><%=link_to @cocktail_recipes.most_comments.title, cocktail_recipe_path(@cocktail_recipes.most_comments)%></h2> 
-                <br><%= image_tag @cocktail_recipes.most_comments.avatar.url(:medium)%> 
-                <h4><%=@cocktail_recipes.most_comments.description%></h4> 
-                <small>By: <%=@cocktail_recipes.most_comments.user.username%> on <%=created_at @cocktail_recipes.most_comments%></small> 
-            </div>
+            <%= render partial: "cocktail_recipes/cocktail", locals: {cocktail_recipe: @cocktail_recipes.most_comments} %>
+        </div>
 
-            <div class="jumbotron">
+         <div class="jumbotron"> 
             <h2>Five Newest Cocktails:</h2> 
             <hr class="my-4"> 
-            </div>
-                <% @cocktail_recipes.five_latest_cocktail_recipes.each do |c| %> 
-                    <div class="jumbotron">
-                <h2><%=link_to c.title, cocktail_recipe_url(c) %></h2> 
-                <br><%= image_tag c.avatar.url(:medium)%>
-                <h5><%=c.description %> </h5> 
-                <small>By: <%=c.user.username %> on <%=created_at c%></small>
-                </div>
-                <% end  %>  
-                
-         </center>
+        </div>    
+            <%= render partial: "cocktail_recipes/cocktails", locals: {cocktail_recipes: @cocktail_recipes.five_latest_cocktail_recipes} %>
+        </center>
+         
             
        
 
