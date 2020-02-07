@@ -8,7 +8,7 @@ class CocktailRecipe < ApplicationRecord
     accepts_nested_attributes_for :recipe_ingredients, reject_if: lambda {|attributes| attributes['name'].blank?}
     accepts_nested_attributes_for :ingredients, reject_if: lambda {|attributes| attributes['name'].blank?}
 
-    validates :title, :description, :directions, presence: true  
+    validates :title, :description, :directions, :category_name, presence: true  
 
     has_attached_file :avatar, :styles => { :medium => "200x200#"}
 
