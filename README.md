@@ -8,7 +8,7 @@ Fork and clone this repository into your local machine. Cd into the repository's
 
 ## Usage: 
 
-Start up the backend rails server by running rails s -p 3001. Ensure you specify port 3001 otherwise the backend and front end will attempt to run on the same port as both the default port for Rails and React is 3000. Open another terminal, cd into the application's root directory and then cd into the client folder. Run npm start or yarn start to start up the front end server. Navigate to http://localhost:3000/ on your web browser to begin interacting with the application. 
+Cd into the application's root directory and run rails s to start up the server. Navigate to localhost:3000/ in your web browser to begin interacting with the application. 
 
 1. Click on the Sign Up link on the home page to create a new profile. 
 2. At the sign up screen, enter the required fields and submit the information or click on the "Sign In with Github" link to create a profile with your github profile information. 
