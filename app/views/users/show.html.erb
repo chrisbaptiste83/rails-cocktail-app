@@ -1,3 +1,4 @@
+    <%if current_user == @user%>
     <div class="jumbotron button-style">     
         <h1>Hello, <%=@user.username%>!</h1> 
         <h2>You currently have <%=@user.cocktail_recipes.count%> cocktail recipes:</h2><br>
@@ -8,25 +9,38 @@
         <%= link_to "Categories", categories_path, class: "btn btn-primary btn-m" %> 
         <%= link_to "Ingredients", ingredients_path, class: "btn btn-primary btn-m" %><br></br> 
         <%= link_to "All Cocktails", cocktail_recipes_path, class: "btn btn-primary btn-m" %><br></br>
+    </div> 
+    <center> 
+    <div class="jumbotron"> 
+        <h2>Cocktail of the Day:</h2>
+        <%= render partial: "cocktail_recipes/cocktail", locals: {cocktail_recipe: @cocktail_recipes.of_the_day} %>
+        </div> 
+
+    <div class="jumbotron"> 
+        <h2>Most Talked about Cocktail:</h2>
+        <%= render partial: "cocktail_recipes/cocktail", locals: {cocktail_recipe: @cocktail_recipes.most_comments} %>
     </div>
 
-        <center> 
-        <div class="jumbotron"> 
-            <h2>Cocktail of the Day:</h2>
-            <%= render partial: "cocktail_recipes/cocktail", locals: {cocktail_recipe: @cocktail_recipes.of_the_day} %>
-            </div> 
-
-        <div class="jumbotron"> 
-            <h2>Most Talked about Cocktail:</h2>
-            <%= render partial: "cocktail_recipes/cocktail", locals: {cocktail_recipe: @cocktail_recipes.most_comments} %>
-        </div>
-
-         <div class="jumbotron"> 
-            <h2>Five Newest Cocktails:</h2> 
-            <hr class="my-4"> 
-        </div>    
-            <%= render partial: "cocktail_recipes/cocktails", locals: {cocktail_recipes: @cocktail_recipes.five_latest_cocktail_recipes} %>
+     <div class="jumbotron"> 
+        <h2>Five Newest Cocktails:</h2> 
+        <hr class="my-4"> 
+    </div>    
+        <%= render partial: "cocktail_recipes/cocktails", locals: {cocktail_recipes: @cocktail_recipes.five_latest_cocktail_recipes} %>
+    </center>
+    <%end%>
+    
+    <%unless current_user == @user%> 
+    <div class="jumbotron button-style">     
+        <h1><%=@user.username%>'s Recipes:</h1> 
+        <hr class="my-4">  
+        <center>
+        <%= render partial: "cocktail_recipes/cocktails", locals: {cocktail_recipes: @user.cocktail_recipes} %> 
         </center>
+    </div> 
+    <%end%>
+    
+
+  
          
             
        

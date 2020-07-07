@@ -4,11 +4,11 @@
 
     <h3><%= f.label :category %></h3>
     <p><%= f.text_field :category_name, list: "categories_autocomplete", :class => "form-control" %>
-  <datalist id="categories_autocomplete">
-    <% Category.all.each do |category| %>
-      <option value="<%= category.name %>">
-    <% end %></p>
-  </datalist>
+    <datalist id="categories_autocomplete">
+      <% Category.all.each do |category| %>
+        <option value="<%= category.name %>">
+      <% end %></p>
+    </datalist>
     
     <h3><%= f.label :description %></h3>
     <p><%= f.text_area :description, :class => "form-control" %> </p><br> 
@@ -17,33 +17,33 @@
 
     <h3><%= f.label :ingredients %></h3><br>
    
-        <%= f.fields_for :recipe_ingredients, @ingredients do |recipe_ingredient| %>
+    <%= f.fields_for :recipe_ingredients, @ingredients do |recipe_ingredient| %>
     
-          <center>
+      <center>
           
-          <h5>Quantity:<%= recipe_ingredient.text_field :quantity %>
+      <h5>Quantity:<%= recipe_ingredient.text_field :quantity %>
   
-    Select Ingredient:<%=recipe_ingredient.collection_select :ingredient_id, Ingredient.all.order(:name), :id, :name, include_blank: 'Select Ingredient' %>
+      Select Ingredient:<%=recipe_ingredient.collection_select :ingredient_id, Ingredient.all.order(:name), :id, :name, include_blank: 'Select Ingredient' %>
 
-    <%= recipe_ingredient.fields_for :ingredient, @cocktail_recipe.ingredients.build do |ingredient| %> 
+      <%= recipe_ingredient.fields_for :ingredient, @cocktail_recipe.ingredients.build do |ingredient| %> 
 
       Or Create New Ingredient: <%= ingredient.text_field :name %> 
       <hr class="my-4">
     <% end %></h5></br>
       </center>
-    <% end %>  
+  <% end %>  
 
 
 
-      <h3><%= f.label :directions %></h3>
-      <p><%= f.text_area :directions, :class => "form-control" %></p></br>
+  <h3><%= f.label :directions %></h3>
+  <p><%= f.text_area :directions, :class => "form-control" %></p></br>
        
   
-      <h4><label>Upload an Image:</label></h4>
-      <%= f.file_field :avatar %><br></br>
+  <h4><label>Upload an Image:</label></h4>
+  <%= f.file_field :avatar %><br></br>
 
-    <big><%= f.submit %></big> 
+  <big><%= f.submit %></big> 
 
-    <% end %> 
+<% end %> 
 
   

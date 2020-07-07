@@ -1,19 +1,19 @@
 
- <div class="jumbotron button-style">
-<h1>Sign up</h1> 
+<div class="jumbotron button-style">
+  <h1>Sign up</h1> 
 
 
-<center>
-<h4>(Users must be over 21 years old.)</h4></center> 
-</center>
+  <center>
+    <h4>(Users must be over 21 years old.)</h4>
+  </center>
 
 <div>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource)) do |f| %> 
+    <%= render "devise/shared/error_messages", resource: resource %> 
+</div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource)) do |f| %> 
-  <%= render "devise/shared/error_messages", resource: resource %> 
-  </div>
   <div class="field">
-  <h3><%= f.label :username %><br /></h3>
+    <h3><%= f.label :username %><br /></h3>
     <%= f.text_field :username, autofocus: true, autocomplete: "username", :class => "form-control" %>
   </div>
   <div class="field">
@@ -22,9 +22,9 @@
   </div>
 
   <div class="field">
-  <h3><%= f.label :password %></h3>
+    <h3><%= f.label :password %></h3>
     <% if @minimum_password_length %>
-    <small>(<%= @minimum_password_length %> characters minimum)</small>
+      <small>(<%= @minimum_password_length %> characters minimum)</small>
     <% end %><br />
     <%= f.password_field :password, autocomplete: "new-password", :class => "form-control" %>
   </div>
@@ -35,11 +35,12 @@
   </div><br>
 
   <div class="actions">
-  <big><%= f.submit "Sign up" %></big>
+    <big><%= f.submit "Sign up" %></big>
   </div> 
 
 <% end %> 
 </div>
+
 <center>
 <h3><%= render "devise/shared/links" %></h3>
 </center>

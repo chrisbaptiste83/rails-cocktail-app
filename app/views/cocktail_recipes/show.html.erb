@@ -9,7 +9,7 @@
 
 <h3>Ingredients:</h3>  
     <h3><% @cocktail_recipe.recipe_ingredients.each do |i| %></h3>
-        <li><h4><%= i.quantity%> <%= link_to i.ingredient.name, ingredient_path(i.ingredient)%></h4> </li>  
+        <ul><h4><%= i.quantity%> <%= link_to i.ingredient.name, ingredient_path(i.ingredient)%></h4> </ul>  
         <%end%> 
 
 <h3>Directions: <%= @cocktail_recipe.directions %></h3>
@@ -18,7 +18,7 @@
 
 <p><%= last_updated @cocktail_recipe%></p> 
 
-<small>Originally By: <%=@cocktail_recipe.user.username%></small><br></br>
+<small>Originally By: <%=link_to @cocktail_recipe.user.username, user_path(@cocktail_recipe.user) %></small><br></br>
 
 <% if @cocktail_recipe.user == current_user %>
     <h2><%= link_to "Edit This Recipe", edit_cocktail_recipe_path, class: "btn btn-primary" %></h2> 

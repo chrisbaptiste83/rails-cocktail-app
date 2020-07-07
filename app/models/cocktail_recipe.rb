@@ -18,15 +18,14 @@ class CocktailRecipe < ApplicationRecord
     scope :five_latest_cocktail_recipes,  -> { order("created_at desc").limit(5)}
     scope :of_the_day,  -> { order('RANDOM()').first}
 
-
     def category_name=(name)
-        self.category = Category.find_or_create_by(name: name)
-    end
+      self.category = Category.find_or_create_by(name: name)
+   end
+  
+   def category_name
+       self.category ? self.category.name : nil
+   end 
     
-    def category_name
-         self.category ? self.category.name : nil
-    end 
-
     def self.by_user(user_id)
       where(user: user_id)
     end

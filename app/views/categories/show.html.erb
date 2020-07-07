@@ -3,7 +3,8 @@
     <div class="jumbotron button-style"> 
         <h1><%= @category.name %></h1>
         <h3><%= pluralize(@category.cocktail_recipes.count, 'Cocktail Recipe') %> for this Category:</h3> 
-    </div><br>
+    </div><br> 
+    
     <%= render partial: "cocktail_recipes/cocktails", locals: {cocktail_recipes: @category.cocktail_recipes} %> 
       
 </center>

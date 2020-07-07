@@ -1,8 +1,6 @@
-
 <hr class="my-4"> 
-
 <h2><%= link_to cocktail_recipe.title, cocktail_recipe_path(cocktail_recipe)%></h2> 
 <br><%= image_tag cocktail_recipe.avatar.url(:medium)%></br><br>
-  <h4>Category: <%= link_to cocktail_recipe.category.name, category_path(cocktail_recipe.category)%></h4> 
-  <h4><%= cocktail_recipe.description %></h4> 
-  <small>By: <%=cocktail_recipe.user.username%> on <%= created_at cocktail_recipe %></small><br> 
+<h4>Category: <%= link_to cocktail_recipe.category.name, category_path(cocktail_recipe.category)%></h4> 
+<h4><%= cocktail_recipe.description %></h4> 
+<small>By: <%=link_to cocktail_recipe.user.username, user_path(cocktail_recipe.user) %> on <%= created_at cocktail_recipe %></small><br> 
