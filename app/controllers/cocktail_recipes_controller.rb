@@ -21,9 +21,9 @@ class CocktailRecipesController < ApplicationController
       end
     end
     
-      def show   
-        @comment = current_user.comments.build(cocktail_recipe: @cocktail_recipe)
-      end 
+    def show   
+      @comment = current_user.comments.build(cocktail_recipe: @cocktail_recipe)
+    end 
 
     def index 
       @users = User.all 
@@ -32,11 +32,11 @@ class CocktailRecipesController < ApplicationController
         elsif !params[:user].blank?
           @cocktail_recipes = CocktailRecipe.by_user(params[:user]).order(:title)
         elsif params[:user_id]
-            @cocktail_recipes = User.find(params[:user_id]).cocktail_recipes.order('title ASC')
-          else
-            @cocktail_recipes = CocktailRecipe.all.order(:title)
-          end
-        end 
+          @cocktail_recipes = User.find(params[:user_id]).cocktail_recipes.order('title ASC')
+        else
+          @cocktail_recipes = CocktailRecipe.all.order(:title)
+        end
+    end 
 
 
     def edit  
@@ -47,8 +47,6 @@ class CocktailRecipesController < ApplicationController
         @cocktail_recipe.destroy
         redirect_to cocktail_recipes_url
       end
- 
-   
      
     def update
         if @cocktail_recipe.update(cocktail_recipe_params)
@@ -59,19 +57,19 @@ class CocktailRecipesController < ApplicationController
         end
       end
 
-      private
+   private
 
-      def cocktail_recipe_params
-        params.require(:cocktail_recipe).permit(:user_id, :category_name, :title, :directions, :description, :avatar) 
-      end 
+   def cocktail_recipe_params
+     params.require(:cocktail_recipe).permit(:user_id, :category_name, :title, :directions, :description, :avatar) 
+   end 
 
-      def recipe_ingredient_params
-        params.require(:cocktail_recipe).permit(recipe_ingredients_attributes: [:quantity, :ingredient_id, ingredient: [:name]])
-      end
+   def recipe_ingredient_params
+    params.require(:cocktail_recipe).permit(recipe_ingredients_attributes: [:quantity, :ingredient_id, ingredient: [:name]])
+   end
 
-      def find_cocktail_recipe
-        @cocktail_recipe = CocktailRecipe.find(params[:id])
-      end
+   def find_cocktail_recipe
+    @cocktail_recipe = CocktailRecipe.find(params[:id])
+   end
     
 
 end
