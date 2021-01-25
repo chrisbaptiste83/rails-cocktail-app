@@ -10,7 +10,10 @@ class CocktailRecipe < ApplicationRecord
 
     validates :title, :description, :directions, :category_name, presence: true  
 
-    has_attached_file :avatar, :styles => { :medium => "200x200#"}
+    has_attached_file :avatar, 
+    :storage => :cloudinary,
+    :path => ':id/:style/:filename',
+    :styles => { :medium => "200x200#"}
 
     validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/ 
 

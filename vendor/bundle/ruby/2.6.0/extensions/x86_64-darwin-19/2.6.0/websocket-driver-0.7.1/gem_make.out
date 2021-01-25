@@ -1,0 +1,15 @@
+current directory: /Users/Chris/Development/rails-cocktail-app/vendor/bundle/ruby/2.6.0/gems/websocket-driver-0.7.1/ext/websocket-driver
+/Users/Chris/.rvm/rubies/ruby-2.6.1/bin/ruby -I /Users/Chris/.rvm/rubies/ruby-2.6.1/lib/ruby/site_ruby/2.6.0 -r ./siteconf20210125-26455-zvfgcy.rb extconf.rb
+creating Makefile
+
+current directory: /Users/Chris/Development/rails-cocktail-app/vendor/bundle/ruby/2.6.0/gems/websocket-driver-0.7.1/ext/websocket-driver
+make "DESTDIR=" clean
+
+current directory: /Users/Chris/Development/rails-cocktail-app/vendor/bundle/ruby/2.6.0/gems/websocket-driver-0.7.1/ext/websocket-driver
+make "DESTDIR="
+compiling websocket_mask.c
+linking shared-object websocket_mask.bundle
+
+current directory: /Users/Chris/Development/rails-cocktail-app/vendor/bundle/ruby/2.6.0/gems/websocket-driver-0.7.1/ext/websocket-driver
+make "DESTDIR=" install
+/usr/local/opt/coreutils/bin/ginstall -c -m 0755 websocket_mask.bundle ./.gem.20210125-26455-w7xliw
