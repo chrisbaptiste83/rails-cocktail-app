@@ -29,7 +29,7 @@ gem 'font_awesome5_rails'
 gem 'bootstrap',  '~>4.3.1'
 
 gem 'pry' 
-
+gem 'cloudinary'
 gem 'paperclip'
 
 gem 'omniauth-github'
