@@ -30,8 +30,7 @@ gem 'bootstrap',  '~>4.3.1'
 
 gem 'pry' 
 gem 'carrierwave'
-gem 'cloudinary'
-gem 'paperclip'
+gem 'paperclip-cloudinary'
 
 gem 'omniauth-github'
 # Use Redis adapter to run Action Cable in production
