@@ -4,7 +4,7 @@
         <hr class="my-4">
 
 <center><h4><%= @cocktail_recipe.description %></h5></center> 
-</br><br><center><%= image_tag @cocktail_recipe.avatar.url(:medium), height: '300px'%></center> 
+</br><br><center><%= image_tag(@cocktail_recipe.avatar.variant(resize_to_limit: [400, 400]), height: '300px') if @cocktail_recipe.avatar.attached? %></center> 
         <hr class="my-4">
 
 <h3>Ingredients:</h3>  

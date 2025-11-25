@@ -8,14 +8,11 @@ class CocktailRecipe < ApplicationRecord
     accepts_nested_attributes_for :recipe_ingredients, reject_if: lambda {|attributes| attributes['name'].blank?}
     accepts_nested_attributes_for :ingredients, reject_if: lambda {|attributes| attributes['name'].blank?}
 
-    validates :title, :description, :directions, :category_name, presence: true  
+    validates :title, :description, :directions, :category_name, presence: true
 
-    has_attached_file :avatar, 
-    :storage => :cloudinary,
-    :path => ':id/:style/:filename',
-    :styles => { :medium => "200x200#"}
+    has_one_attached :avatar
 
-    validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/ 
+    validates :avatar, content_type: ['image/png', 'image/jpg', 'image/jpeg', 'image/gif'] 
 
     scope :most_comments, -> { order("comments_count DESC").first } 
     scope :five_latest_cocktail_recipes,  -> { order("created_at desc").limit(5)}
