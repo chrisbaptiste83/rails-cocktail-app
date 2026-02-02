@@ -1,0 +1,132 @@
+// Custom Bootstrap variables and overrides will go here
+// Import Bootstrap's functions and variables to use them
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+// 1. Define custom colors
+$primary:       #6f42c1; // A vibrant purple
+$secondary:     #6c757d; // Standard secondary
+$success:       #28a745; // Standard success
+$info:          #17a2b8; // Standard info
+$warning:       #ffc107; // Standard warning
+$danger:        #dc3545; // Standard danger
+$light:         #f8f9fa; // Standard light
+$dark:          #343a40; // Standard dark
+
+$theme-colors: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": $success,
+  "info": $info,
+  "warning": $warning,
+  "danger": $danger,
+  "light": $light,
+  "dark": $dark
+);
+
+// 2. Customize font settings
+$font-family-sans-serif:      "Roboto", sans-serif;
+$font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+$font-family-base:            $font-family-sans-serif;
+
+// 3. Customize link colors
+$link-color:                   $primary;
+$link-hover-color:             darken($link-color, 15%);
+
+// 4. Customize body background and text
+$body-bg:                     #f4f7f6; // Light grey background
+$body-color:                  $dark;   // Dark text
+
+// 5. Customize card styling
+$card-border-radius:          .75rem;
+$card-box-shadow:             0 .5rem 1rem rgba(0,0,0,.08);
+
+// 6. Customize button styling
+$btn-border-radius:           .5rem;
+
+// 7. Customize navbar
+$navbar-dark-color:           rgba(white, .85);
+$navbar-dark-hover-color:     white;
+$navbar-dark-active-color:    white;
+$navbar-dark-brand-color:     white;
+$navbar-dark-brand-hover-color: white;
+
+// Import Bootstrap to apply the changes
+@import "bootstrap/scss/bootstrap";
+
+// Custom styles for specific elements
+body {
+  padding-top: 70px; // Adjust for fixed navbar if present
+  background: linear-gradient(
+    rgba(20,20,20, .5), 
+    rgba(20,20,20, .5)), 
+    asset-url('Bar3.jpg');
+  background-attachment:fixed;
+  background-size:cover;
+}
+
+.starter-template {
+  padding: 100px 15px;
+}
+
+h1 {
+  text-align: center; 
+  color: #D3D3D3; // Keeping specific color for h1 due to dark background
+} 
+
+// Removing specific colors for links and other text elements to let Bootstrap's theming take over
+// a, a:visited {
+//   color: #D3D3D3;
+// } 
+// h2,h3,h4,small,h5,h6,p {
+//   color: #D3D3D3;
+// } 
+
+.jumbotron {
+  background: rgba(0,0,0, 0.5); 
+  width: 60%;
+  margin: 30px auto; 
+} 
+
+.jumbotron h1{
+  color: #fff;
+} 
+
+.button-style {
+  background: rgba(0,0,0, 0.5);
+  width: 100%; 
+}
+ 
+input, textarea{
+  background-color:rgba(0,0,0,0); 
+  color: #FFF;
+}
+
+select {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center; 
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 3px;
+  border: none;
+  background: #000000;
+  padding: 4px;
+}
+
+select:hover {
+   background-color: dodgerblue;
+} 
+
+img {
+  border-radius: 8%;
+}
+
+.navbar {
+  box-shadow: 0 2px 4px rgba(0,0,0,.05);
+}
+@import "font_awesome5";

@@ -10,163 +10,82 @@
     
     <title>Mike's Cantina</title>
 
-    <!-- Bootstrap core CSS -->
-   
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
-    
-    <style> 
-
-    body { 
-      padding-top: 90px; 
-      background: linear-gradient(
-        rgba(20,20,20, .5), 
-        rgba(20,20,20, .5)), 
-        url(/assets/Bar3.jpg);
-
-    
-      background-attachment:fixed;
-      background-size:cover;
-      
-        
-    } 
-
-    .starter-template {
-      padding: 100px 15px;
-    }
-
-    h1 {
-      text-align: center; 
-      color: #D3D3D3;
-
-       } 
-
-    a, a:visited {
-      color: #D3D3D3;
-      } 
-
-
-    h2,h3,h4,small,h5,h6,p {
-      
-      color: #D3D3D3;
-  
-      } 
-    
-      .jumbotron {
-        background: rgba(0,0,0, 0.5); 
-        width: 60%;
-        margin: 30 auto
-      } 
-
-    .jumbotron h1{
-    color: #fff;
-      } 
-
-    .button-style {
-        background: rgba(0,0,0, 0.5);
-        width: 100%; 
-          
-      }
-     
-    input, textarea{
-    background-color:#0000;
-    color: #FFF;
-    }
-
-    select {
-      position: relative;
-      display: inline-block;
-      cursor: pointer;
-      text-align: center; 
-      
-      text-decoration: none;
-      font-family: Arial, Helvetica, sans-serif;
-      border-radius: 3px;
-      border: none;
-      background: #000000;
-      padding: 4px;
-    }
-    
-    select:hover {
-       background-color: dodgerblue;
-      } 
-
-      img {
-        border-radius: 8%;
-      }
-</style>
-
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
   </head>
 
   <body>
 
-    <nav class="navbar navbar-dark bg-dark navbar-expand-lg fixed-top">
+    <nav class="navbar navbar-dark bg-dark navbar-expand-md sticky-top">
       <div class="container">
-        <strong><a class="navbar-brand" href="/">Mike's Cantina</a></strong>
-        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <strong><%= link_to "Mike's Cantina", root_path, class: "navbar-brand" %></strong>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav navbar-right">
-          <li class="active">Mike's Cantina</li>
-            
-            <%unless user_signed_in?%> 
-            <li><%= link_to new_user_session_path, :class => "glyphicon glyphicon-log-in" do %>
-              <strong>Login</strong> 
-            <% end %></li>
-            <li><%= link_to new_user_registration_path, :class => "glyphicon glyphicon-user" do %>
-              <strong>SignUp</strong>
-            <% end %></li>
-            <%end%> 
-            <%if user_signed_in?%> 
-            <li><%= link_to('Cocktails', cocktail_recipes_path)%></li> 
-            <li><%= link_to('Categories', categories_path)%></li> 
-            <li><%= link_to('Create a Cocktail', new_cocktail_recipe_path) %></li> 
-            <li><%= link_to('Ingredients', ingredients_path)%></li> 
-            <li><%= link_to "Profile Page", current_user %></li> 
-            <%end%> 
-            
-           
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+            <% unless user_signed_in? %>
+              <li class="nav-item">
+                <%= link_to new_user_session_path, class: "nav-link" do %>
+                  <i class="fas fa-sign-in-alt"></i> <strong>Login</strong>
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to new_user_registration_path, class: "nav-link" do %>
+                  <i class="fas fa-user-plus"></i> <strong>Sign Up</strong>
+                <% end %>
+              </li>
+            <% end %>
+            <% if user_signed_in? %>
+              <li class="nav-item">
+                <%= link_to cocktail_recipes_path, class: "nav-link" do %>
+                  <i class="fas fa-cocktail"></i> Cocktails
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to categories_path, class: "nav-link" do %>
+                  <i class="fas fa-list"></i> Categories
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to new_cocktail_recipe_path, class: "nav-link" do %>
+                  <i class="fas fa-plus-circle"></i> Create a Cocktail
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to ingredients_path, class: "nav-link" do %>
+                  <i class="fas fa-lemon"></i> Ingredients
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to current_user, class: "nav-link" do %>
+                  <i class="fas fa-user"></i> Profile Page
+                <% end %>
+              </li>
+            <% end %>
           </ul>
-        </div> 
-
-     
-
-          
-        </div><!--/.nav-collapse -->
+          <% if user_signed_in? %>
+            <%= button_to('Logout', destroy_user_session_path, method: :delete, class: "btn btn-outline-light ms-2") %>
+          <% end %>
+        </div>
       </div>
-    </nav> 
+    </nav>
 
-    
+    <div class="container mt-4">
+      <% if notice %>
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+          <%= notice %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <% end %>
+      <% if alert %>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <%= alert %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <% end %>
+      <%= yield %>
+    </div>
 
-    <div class="container">
-
-      
-        <%= yield %> 
-        
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p> 
-
-
-
-
-    </div><!-- /.container -->
-
-    <center><big><%= button_to('Logout', destroy_user_session_path, method: :delete) if user_signed_in? %></big</center>
-   
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
   </body>
 </html>
- 
-  
