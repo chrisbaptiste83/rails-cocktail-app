@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_25_134126) do
+ActiveRecord::Schema[8.0].define(version: 2020_01_31_200911) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -54,10 +54,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_25_134126) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "comments_count"
-    t.string "avatar_file_name"
-    t.string "avatar_content_type"
-    t.bigint "avatar_file_size"
-    t.datetime "avatar_updated_at"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -91,8 +87,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_25_134126) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
     t.string "provider"
     t.string "uid"
     t.index ["email"], name: "index_users_on_email", unique: true

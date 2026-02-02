@@ -12,7 +12,7 @@ class CocktailRecipe < ApplicationRecord
 
     has_one_attached :avatar
 
-    validates :avatar, content_type: ['image/png', 'image/jpg', 'image/jpeg', 'image/gif'] 
+    validates :avatar, content_type: { in: ['image/png', 'image/jpg', 'image/jpeg', 'image/gif'], message: 'must be a valid image format' }
 
     scope :most_comments, -> { order("comments_count DESC").first } 
     scope :five_latest_cocktail_recipes,  -> { order("created_at desc").limit(5)}
