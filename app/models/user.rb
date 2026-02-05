@@ -10,6 +10,7 @@ class User < ApplicationRecord
     validates :email, presence: true
     
     has_many :ingredients, through: :cocktail_recipes
+    has_many :ai_conversations, dependent: :destroy
 
 
 

@@ -1,20 +1,21 @@
-// Custom Bootstrap variables and overrides will go here
-// Import Bootstrap's functions and variables to use them
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@300;500;700&family=Manrope:wght@300;400;600;700&display=swap');
+
+// Custom Bootstrap variables and overrides
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
 @import "bootstrap/scss/maps";
 @import "bootstrap/scss/mixins";
 @import "bootstrap/scss/utilities";
 
-// 1. Define custom colors
-$primary:       #6f42c1; // A vibrant purple
-$secondary:     #6c757d; // Standard secondary
-$success:       #28a745; // Standard success
-$info:          #17a2b8; // Standard info
-$warning:       #ffc107; // Standard warning
-$danger:        #dc3545; // Standard danger
-$light:         #f8f9fa; // Standard light
-$dark:          #343a40; // Standard dark
+// Color system
+$primary:       #c9822b; // copper
+$secondary:     #1b2d2f; // deep teal charcoal
+$success:       #3e8e7e;
+$info:          #4f9aa3;
+$warning:       #f2c14e;
+$danger:        #c44536;
+$light:         #f7f1e8;
+$dark:          #0f1416;
 
 $theme-colors: (
   "primary": $primary,
@@ -27,106 +28,230 @@ $theme-colors: (
   "dark": $dark
 );
 
-// 2. Customize font settings
-$font-family-sans-serif:      "Roboto", sans-serif;
-$font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-$font-family-base:            $font-family-sans-serif;
+// Typography
+$font-family-sans-serif: "Manrope", sans-serif;
+$font-family-base: $font-family-sans-serif;
+$headings-font-family: "Fraunces", serif;
+$headings-font-weight: 600;
 
-// 3. Customize link colors
-$link-color:                   $primary;
-$link-hover-color:             darken($link-color, 15%);
+// Base styling
+$body-bg: #0f1416;
+$body-color: #f7f1e8;
+$link-color: $warning;
+$link-hover-color: lighten($warning, 8%);
+$card-border-radius: 1rem;
+$card-box-shadow: 0 22px 45px rgba(5, 10, 12, 0.45);
+$btn-border-radius: 999px;
+$btn-padding-y: 0.65rem;
+$btn-padding-x: 1.4rem;
 
-// 4. Customize body background and text
-$body-bg:                     #f4f7f6; // Light grey background
-$body-color:                  $dark;   // Dark text
+$navbar-dark-color: rgba(247, 241, 232, 0.85);
+$navbar-dark-hover-color: #ffffff;
+$navbar-dark-active-color: #ffffff;
+$navbar-dark-brand-color: #ffffff;
+$navbar-dark-brand-hover-color: #ffffff;
 
-// 5. Customize card styling
-$card-border-radius:          .75rem;
-$card-box-shadow:             0 .5rem 1rem rgba(0,0,0,.08);
-
-// 6. Customize button styling
-$btn-border-radius:           .5rem;
-
-// 7. Customize navbar
-$navbar-dark-color:           rgba(white, .85);
-$navbar-dark-hover-color:     white;
-$navbar-dark-active-color:    white;
-$navbar-dark-brand-color:     white;
-$navbar-dark-brand-hover-color: white;
-
-// Import Bootstrap to apply the changes
 @import "bootstrap/scss/bootstrap";
 
-// Custom styles for specific elements
+:root {
+  --lounge-ink: #0f1416;
+  --lounge-mist: #d6c2a3;
+  --lounge-copper: #c9822b;
+  --lounge-glow: rgba(201, 130, 43, 0.35);
+  --lounge-teal: #1b2d2f;
+  --lounge-sand: #f7f1e8;
+}
+
 body {
-  padding-top: 70px; // Adjust for fixed navbar if present
-  background: linear-gradient(
-    rgba(20,20,20, .5), 
-    rgba(20,20,20, .5)), 
+  background: radial-gradient(circle at top, rgba(27, 45, 47, 0.65), rgba(15, 20, 22, 0.95)),
+    linear-gradient(135deg, rgba(18, 25, 29, 0.9), rgba(12, 15, 17, 0.95)),
     asset-url('Bar3.jpg');
-  background-attachment:fixed;
-  background-size:cover;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
-.starter-template {
-  padding: 100px 15px;
-}
-
-h1 {
-  text-align: center; 
-  color: #D3D3D3; // Keeping specific color for h1 due to dark background
-} 
-
-// Removing specific colors for links and other text elements to let Bootstrap's theming take over
-// a, a:visited {
-//   color: #D3D3D3;
-// } 
-// h2,h3,h4,small,h5,h6,p {
-//   color: #D3D3D3;
-// } 
-
-.jumbotron {
-  background: rgba(0,0,0, 0.5); 
-  width: 60%;
-  margin: 30px auto; 
-} 
-
-.jumbotron h1{
-  color: #fff;
-} 
-
-.button-style {
-  background: rgba(0,0,0, 0.5);
-  width: 100%; 
-}
- 
-input, textarea{
-  background-color:rgba(0,0,0,0); 
-  color: #FFF;
-}
-
-select {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-  text-align: center; 
-  text-decoration: none;
-  font-family: Arial, Helvetica, sans-serif;
-  border-radius: 3px;
-  border: none;
-  background: #000000;
-  padding: 4px;
-}
-
-select:hover {
-   background-color: dodgerblue;
-} 
-
-img {
-  border-radius: 8%;
+h1, h2, h3, h4, h5 {
+  letter-spacing: 0.02em;
 }
 
 .navbar {
-  box-shadow: 0 2px 4px rgba(0,0,0,.05);
+  backdrop-filter: blur(6px);
+  background: rgba(8, 12, 13, 0.9);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
 }
+
+.site-shell {
+  padding: 0;
+}
+
+.section-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 20px;
+}
+
+.hero {
+  padding: 120px 0 80px;
+  background: radial-gradient(circle at top left, rgba(201, 130, 43, 0.2), transparent 55%);
+}
+
+.hero-grid {
+  display: grid;
+  gap: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  align-items: center;
+}
+
+.hero-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 0.75rem;
+  color: rgba(247, 241, 232, 0.7);
+  margin-bottom: 12px;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  margin-bottom: 18px;
+}
+
+.hero-lead {
+  font-size: 1.1rem;
+  max-width: 520px;
+  color: rgba(247, 241, 232, 0.8);
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+.hero-card {
+  background: rgba(12, 16, 18, 0.75);
+  border: 1px solid rgba(247, 241, 232, 0.15);
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 30px 60px rgba(5, 10, 12, 0.55);
+}
+
+.hero-card img {
+  width: 100%;
+  border-radius: 18px;
+  margin-top: 16px;
+}
+
+.lounge-section {
+  background: linear-gradient(180deg, rgba(15, 20, 22, 0.35), rgba(27, 45, 47, 0.9));
+}
+
+.lounge-grid {
+  display: grid;
+  gap: 28px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.lounge-panel {
+  background: rgba(11, 15, 17, 0.7);
+  border: 1px solid rgba(247, 241, 232, 0.12);
+  border-radius: 20px;
+  padding: 26px;
+  box-shadow: 0 22px 40px rgba(5, 10, 12, 0.45);
+}
+
+.lounge-panel h3 {
+  margin-bottom: 14px;
+}
+
+.lounge-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.lounge-list li {
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(247, 241, 232, 0.1);
+}
+
+.lounge-list li:last-child {
+  border-bottom: none;
+}
+
+.bartender-section {
+  background: radial-gradient(circle at 10% 10%, rgba(79, 154, 163, 0.25), transparent 55%);
+}
+
+.bartender-form {
+  margin-top: 20px;
+  margin-bottom: 32px;
+}
+
+.bartender-picks {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.lounge-card {
+  background: rgba(8, 12, 13, 0.82);
+  border-radius: 18px;
+  border: 1px solid rgba(247, 241, 232, 0.12);
+  padding: 18px;
+  height: 100%;
+}
+
+.lounge-card img {
+  width: 100%;
+  border-radius: 14px;
+  margin-bottom: 12px;
+}
+
+.badge-glow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(201, 130, 43, 0.18);
+  color: var(--lounge-sand);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+.jumbotron {
+  background: rgba(9, 12, 14, 0.75);
+  border-radius: 22px;
+  border: 1px solid rgba(247, 241, 232, 0.12);
+  padding: 40px;
+  box-shadow: 0 24px 40px rgba(5, 10, 12, 0.5);
+}
+
+input, textarea, select {
+  background-color: rgba(11, 15, 17, 0.85);
+  border: 1px solid rgba(247, 241, 232, 0.15);
+  color: #f7f1e8;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: $warning;
+  box-shadow: 0 0 0 0.2rem rgba(242, 193, 78, 0.3);
+}
+
+.btn-lounge {
+  background: linear-gradient(135deg, #c9822b, #f2c14e);
+  color: #0f1416;
+  border: none;
+  box-shadow: 0 12px 25px rgba(201, 130, 43, 0.35);
+}
+
+.btn-lounge:hover {
+  color: #0f1416;
+  transform: translateY(-1px);
+}
+
+img {
+  border-radius: 12px;
+}
+
 @import "font_awesome5";

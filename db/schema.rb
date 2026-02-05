@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2020_01_31_200911) do
+ActiveRecord::Schema[8.0].define(version: 2026_02_08_000110) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -37,6 +37,23 @@ ActiveRecord::Schema[8.0].define(version: 2020_01_31_200911) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "ai_conversations", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_ai_conversations_on_user_id"
+  end
+
+  create_table "ai_messages", force: :cascade do |t|
+    t.integer "ai_conversation_id", null: false
+    t.string "role", null: false
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ai_conversation_id"], name: "index_ai_messages_on_ai_conversation_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -97,4 +114,6 @@ ActiveRecord::Schema[8.0].define(version: 2020_01_31_200911) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "ai_conversations", "users"
+  add_foreign_key "ai_messages", "ai_conversations"
 end

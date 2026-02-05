@@ -10,78 +10,64 @@
     
     <title>Mike's Cantina</title>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", "tailwind", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="<%= 'home-page' if controller_name == 'home' && action_name == 'index' %>">
 
-    <nav class="navbar navbar-dark bg-dark navbar-expand-md sticky-top">
-      <div class="container">
-        <strong><%= link_to "Mike's Cantina", root_path, class: "navbar-brand" %></strong>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-          <ul class="navbar-nav ms-auto mb-2 mb-md-0">
-            <% unless user_signed_in? %>
-              <li class="nav-item">
-                <%= link_to new_user_session_path, class: "nav-link" do %>
-                  <i class="fas fa-sign-in-alt"></i> <strong>Login</strong>
-                <% end %>
-              </li>
-              <li class="nav-item">
-                <%= link_to new_user_registration_path, class: "nav-link" do %>
-                  <i class="fas fa-user-plus"></i> <strong>Sign Up</strong>
-                <% end %>
-              </li>
-            <% end %>
-            <% if user_signed_in? %>
-              <li class="nav-item">
-                <%= link_to cocktail_recipes_path, class: "nav-link" do %>
-                  <i class="fas fa-cocktail"></i> Cocktails
-                <% end %>
-              </li>
-              <li class="nav-item">
-                <%= link_to categories_path, class: "nav-link" do %>
-                  <i class="fas fa-list"></i> Categories
-                <% end %>
-              </li>
-              <li class="nav-item">
-                <%= link_to new_cocktail_recipe_path, class: "nav-link" do %>
-                  <i class="fas fa-plus-circle"></i> Create a Cocktail
-                <% end %>
-              </li>
-              <li class="nav-item">
-                <%= link_to ingredients_path, class: "nav-link" do %>
-                  <i class="fas fa-lemon"></i> Ingredients
-                <% end %>
-              </li>
-              <li class="nav-item">
-                <%= link_to current_user, class: "nav-link" do %>
-                  <i class="fas fa-user"></i> Profile Page
-                <% end %>
-              </li>
-            <% end %>
-          </ul>
-          <% if user_signed_in? %>
-            <%= button_to('Logout', destroy_user_session_path, method: :delete, class: "btn btn-outline-light ms-2") %>
-          <% end %>
+    <header class="sticky top-0 z-50 border-b border-white/10 bg-ink/90 backdrop-blur">
+      <div class="mx-auto flex max-w-6xl flex-col gap-3 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
+        <div class="flex items-center gap-3">
+          <span class="badge-glow"><i class="fas fa-cocktail"></i> Lounge</span>
+          <%= link_to "Mike's Cantina", root_path, class: "text-xl font-display text-sand" %>
         </div>
+        <nav class="flex flex-wrap items-center gap-2">
+          <%= link_to root_path(anchor: "lounge"), class: "nav-link" do %>
+            <i class="fas fa-door-open"></i> Lounge
+          <% end %>
+          <% unless user_signed_in? %>
+            <%= link_to new_user_session_path, class: "nav-link" do %>
+              <i class="fas fa-sign-in-alt"></i> Login
+            <% end %>
+            <%= link_to new_user_registration_path, class: "btn btn-outline-light" do %>
+              <i class="fas fa-user-plus"></i> Sign Up
+            <% end %>
+          <% end %>
+          <% if user_signed_in? %>
+            <%= link_to cocktail_recipes_path, class: "nav-link" do %>
+              <i class="fas fa-cocktail"></i> Cocktails
+            <% end %>
+            <%= link_to categories_path, class: "nav-link" do %>
+              <i class="fas fa-list"></i> Categories
+            <% end %>
+            <%= link_to new_cocktail_recipe_path, class: "nav-link" do %>
+              <i class="fas fa-plus-circle"></i> Create
+            <% end %>
+            <%= link_to ingredients_path, class: "nav-link" do %>
+              <i class="fas fa-lemon"></i> Ingredients
+            <% end %>
+            <%= link_to current_user, class: "nav-link" do %>
+              <i class="fas fa-user"></i> Profile
+            <% end %>
+            <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-outline-light" %>
+          <% end %>
+        </nav>
       </div>
-    </nav>
+    </header>
 
-    <div class="container mt-4">
+    <% home_page = controller_name == 'home' && action_name == 'index' %>
+    <div class="<%= home_page ? 'site-shell' : 'mx-auto max-w-6xl px-6 py-8' %>">
       <% if notice %>
-        <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <div class="alert alert-info" role="alert">
           <%= notice %>
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
       <% end %>
       <% if alert %>
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <div class="alert alert-warning" role="alert">
           <%= alert %>
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
       <% end %>
       <%= yield %>

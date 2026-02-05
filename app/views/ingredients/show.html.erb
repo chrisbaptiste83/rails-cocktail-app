@@ -1,8 +1,7 @@
-<center>
-    <div class="jumbotron button-style"> 
-        <h1><%=@ingredient.name%></h1> 
-        <h3><%= pluralize(@ingredient.cocktail_recipes.count, 'Cocktail Recipe') %> with this Ingredient:</h3>
-    </div><br> 
-        <%= render partial: "cocktail_recipes/cocktails", locals: {cocktail_recipes: @ingredient.cocktail_recipes} %>
-    
-<center>  
+<div class="space-y-6">
+  <div class="glass-card">
+    <h1 class="text-3xl"><%= @ingredient.name %></h1>
+    <p class="text-sm text-sand/70"><%= pluralize(@ingredient.cocktail_recipes.count, "Cocktail Recipe") %> with this ingredient</p>
+  </div>
+  <%= render partial: "cocktail_recipes/cocktails", locals: { cocktail_recipes: @ingredient.cocktail_recipes } %>
+</div>

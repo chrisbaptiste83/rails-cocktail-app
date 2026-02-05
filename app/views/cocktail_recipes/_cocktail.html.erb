@@ -1,6 +1,7 @@
-<hr class="my-4">
-<h2><%= link_to cocktail_recipe.title, cocktail_recipe_path(cocktail_recipe)%></h2>
-<br><%= image_tag cocktail_recipe.avatar.variant(resize_to_limit: [200, 200]) if cocktail_recipe.avatar.attached? %></br><br>
-<h4>Category: <%= link_to cocktail_recipe.category.name, category_path(cocktail_recipe.category)%></h4> 
-<h4><%= cocktail_recipe.description %></h4> 
-<small>By: <%=link_to cocktail_recipe.user.username, user_path(cocktail_recipe.user) %> on <%= created_at cocktail_recipe %></small><br> 
+<div class="glass-card space-y-3">
+  <h2 class="text-2xl font-display"><%= link_to cocktail_recipe.title, cocktail_recipe_path(cocktail_recipe) %></h2>
+  <%= image_tag cocktail_recipe.avatar.variant(resize_to_limit: [320, 320]), class: "w-full rounded-2xl" if cocktail_recipe.avatar.attached? %>
+  <div class="text-sm text-sand/70">Category: <%= link_to cocktail_recipe.category.name, category_path(cocktail_recipe.category) %></div>
+  <p class="text-sm text-sand/80"><%= cocktail_recipe.description %></p>
+  <small class="text-sand/60">By: <%= link_to cocktail_recipe.user.username, user_path(cocktail_recipe.user) %> · <%= created_at cocktail_recipe %></small>
+</div>

@@ -1,49 +1,39 @@
-
-<div class="jumbotron button-style">
-  <h1>Sign up</h1> 
-
-
-  <center>
-    <h4>(Users must be over 21 years old.)</h4>
-  </center>
-
-<div>
-  <%= form_for(resource, as: resource_name, url: registration_path(resource)) do |f| %> 
-    <%= render "devise/shared/error_messages", resource: resource %> 
-</div>
-
-  <div class="field">
-    <h3><%= f.label :username %><br /></h3>
-    <%= f.text_field :username, autofocus: true, autocomplete: "username", :class => "form-control" %>
-  </div>
-  <div class="field">
-    <h3><%= f.label :email %><br /></h3>
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => "form-control" %>
+<div class="glass-card space-y-6">
+  <div>
+    <h1 class="text-3xl">Sign up</h1>
+    <p class="text-sm text-sand/70">(Users must be over 21 years old.)</p>
   </div>
 
-  <div class="field">
-    <h3><%= f.label :password %></h3>
-    <% if @minimum_password_length %>
-      <small>(<%= @minimum_password_length %> characters minimum)</small>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password", :class => "form-control" %>
-  </div>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource), html: { class: "space-y-4" }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <h3><%= f.label :password_confirmation %><br /></h3>
-    <%= f.password_field :password_confirmation, autocomplete: "new-password", :class => "form-control" %>
-  </div><br>
+    <div class="space-y-2">
+      <h3 class="text-lg"><%= f.label :username %></h3>
+      <%= f.text_field :username, autofocus: true, autocomplete: "username", class: "form-control" %>
+    </div>
+    <div class="space-y-2">
+      <h3 class="text-lg"><%= f.label :email %></h3>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+    </div>
 
-  <div class="actions">
-    <big><%= f.submit "Sign up" %></big>
-  </div> 
+    <div class="space-y-2">
+      <h3 class="text-lg"><%= f.label :password %></h3>
+      <% if @minimum_password_length %>
+        <small class="text-sand/60">(<%= @minimum_password_length %> characters minimum)</small>
+      <% end %>
+      <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+    </div>
 
-<% end %> 
+    <div class="space-y-2">
+      <h3 class="text-lg"><%= f.label :password_confirmation %></h3>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Sign up", class: "btn btn-primary w-full" %>
+    </div>
+  <% end %>
+
+  <div class="text-sm text-sand/70"><%= render "devise/shared/links" %></div>
 </div>
-
-<center>
-<h3><%= render "devise/shared/links" %></h3>
-</center>
-</div>
-
 

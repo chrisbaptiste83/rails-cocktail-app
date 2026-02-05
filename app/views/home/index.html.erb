@@ -1,6 +1,168 @@
-<div class="jumbotron text-center my-5 p-5"> 
-    <h1 class="display-4">Welcome to Mike's Cantina</h1>
-    <h2 class="lead">Log in or Sign Up to Begin Uploading and Viewing Cocktail Recipes</h2> 
-    <hr class="my-4">
-    <p class="mb-0">(Users must be over 21)</p>
-</div>
+<section class="section-wrap">
+  <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
+    <div>
+      <div class="badge-glow mb-4">Mike's Cantina Lounge</div>
+      <h1 class="hero-title mb-4">Pull up a stool in the virtual lounge.</h1>
+      <p class="hero-lead">Trade tasting notes, discover new recipes, and ask the AI bartender for a custom pour tailored to your mood.</p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <% if user_signed_in? %>
+          <%= link_to "Explore Cocktails", cocktail_recipes_path, class: "btn btn-primary" %>
+          <%= link_to "Create a Recipe", new_cocktail_recipe_path, class: "btn btn-outline-light" %>
+        <% else %>
+          <%= link_to "Log In", new_user_session_path, class: "btn btn-primary" %>
+          <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-outline-light" %>
+        <% end %>
+      </div>
+    </div>
+    <div class="glass-card space-y-3">
+      <span class="badge-glow"><i class="fas fa-microchip"></i> AI Bartender Live</span>
+      <h3 class="text-2xl font-display">Tonight's House Spotlight</h3>
+      <% if @spotlight %>
+        <p class="text-sm text-sand/80"><strong><%= @spotlight.title %></strong> · <%= @spotlight.category&.name %></p>
+        <p class="text-sand/70"><%= @spotlight.description %></p>
+        <%= image_tag(@spotlight.avatar.variant(resize_to_limit: [480, 360]), class: "mt-4 w-full rounded-2xl") if @spotlight.avatar.attached? %>
+      <% else %>
+        <p class="text-sand/70">Loading the lounge spotlight...</p>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<section class="section-wrap" id="lounge">
+  <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+    <div>
+      <h2 class="text-3xl">Virtual Lounge</h2>
+      <p class="hero-lead">A chill corner where people trade drink ideas and quick notes from the bar.</p>
+    </div>
+    <div class="badge-glow">Open seating · Live chatter</div>
+  </div>
+
+  <div class="mt-6 grid gap-6 lg:grid-cols-2">
+    <div class="glass-card">
+      <h3 class="text-2xl font-display">Recent Lounge Notes</h3>
+      <ul class="mt-4 space-y-4 text-sm text-sand/80">
+        <% @recent_comments.each do |comment| %>
+          <li class="border-b border-white/10 pb-4 last:border-none last:pb-0">
+            <strong class="text-sand"><%= comment.user.username %></strong>
+            on <%= link_to comment.cocktail_recipe.title, cocktail_recipe_path(comment.cocktail_recipe) %>
+            <div class="text-sand/60"><%= comment.content %></div>
+          </li>
+        <% end %>
+        <% if @recent_comments.blank? %>
+          <li>Be the first to start the lounge conversation.</li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="glass-card">
+      <h3 class="text-2xl font-display">What's Happening</h3>
+      <p class="hero-lead">Live drops, fresh recipes, and bartender picks land here. Grab a seat and stay awhile.</p>
+      <div class="mt-4">
+        <div class="badge-glow"><i class="fas fa-wine-glass"></i> Featured flights nightly</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-wrap" id="ai-bartender">
+  <div class="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+    <div>
+      <h2 class="text-3xl">AI Bartender</h2>
+      <p class="hero-lead">One console for lounge picks and bespoke pours. Tell us your vibe and let the bartender take it from there.</p>
+    </div>
+    <div class="badge-glow">Live picks + custom pours</div>
+  </div>
+
+  <div class="bartender-hub mt-8" data-bartender-hub data-bartender-default="<%= @ai_bartender_history.present? ? 'chat' : 'picks' %>">
+    <div class="bartender-tabs" role="tablist" aria-label="Bartender panels">
+      <button class="bartender-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="bartender-picks" data-bartender-tab="picks">
+        Picks
+      </button>
+      <button class="bartender-tab" type="button" role="tab" aria-selected="false" aria-controls="bartender-chat" data-bartender-tab="chat">
+        Chat
+      </button>
+    </div>
+
+    <div class="bartender-grid">
+      <div class="bartender-panel" id="bartender-picks" role="tabpanel" data-bartender-panel="picks">
+        <div class="bartender-heading">
+          <div>
+            <h3 class="text-2xl font-display">Lounge Picks</h3>
+            <p class="text-sm text-sand/70">Choose a mood and spirit to surface recipes from the lounge archive.</p>
+          </div>
+          <span class="badge-glow"><i class="fas fa-wine-glass-alt"></i> Curated archive</span>
+        </div>
+
+        <%= form_with url: root_path, method: :get, local: true, class: "bartender-filter-form" do |f| %>
+          <%= f.select :vibe, options_for_select([
+            ["Bright & Citrus", "bright"],
+            ["Smoky Night", "smoky"],
+            ["Spirit-Forward", "spirit-forward"],
+            ["Tropical Escape", "tropical"],
+            ["Bubbly Toast", "bubbly"]
+          ], @bartender_vibe), { include_blank: "Choose a vibe" }, class: "form-select" %>
+          <%= f.text_field :spirit, value: @bartender_spirit, placeholder: "Preferred spirit (e.g., gin, rum)", class: "form-control" %>
+          <%= f.submit "Shake It Up", class: "btn btn-primary w-full" %>
+        <% end %>
+
+        <div class="bartender-picks">
+          <% @bartender_picks.each do |pick| %>
+            <div class="lounge-card space-y-3">
+              <%= image_tag(pick.avatar.variant(resize_to_limit: [360, 260]), class: "w-full rounded-2xl") if pick.avatar.attached? %>
+              <h4 class="text-xl font-display"><%= link_to pick.title, cocktail_recipe_path(pick) %></h4>
+              <p class="text-sm text-sand/70"><%= pick.description %></p>
+              <div class="badge-glow"><%= pick.category&.name %></div>
+            </div>
+          <% end %>
+          <% if @bartender_picks.blank? %>
+            <div class="lounge-card space-y-2">
+              <h4 class="text-xl font-display">No picks yet</h4>
+              <p class="text-sm text-sand/70">Try a different vibe or spirit and we will find a pour.</p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <% chat_hidden_class = @ai_bartender_history.present? ? "" : "is-hidden" %>
+      <div class="bartender-panel <%= chat_hidden_class %>" id="bartender-chat" role="tabpanel" data-bartender-panel="chat">
+        <div>
+          <h3 class="text-2xl font-display">AI Mixologist</h3>
+          <p class="text-sm text-sand/70">ChatGPT will craft a custom drink and serving ritual.</p>
+        </div>
+
+        <div class="bartender-chat-stack">
+          <% if @ai_bartender_history.present? %>
+            <div class="bartender-chat-log" data-ai-bartender-log>
+              <% @ai_bartender_history.each do |message| %>
+                <div class="bartender-message <%= message[:role] == 'user' ? 'is-user' : '' %>">
+                  <span class="bartender-message-label"><%= message[:role] == 'user' ? 'You' : 'Bartender' %></span>
+                  <div class="bartender-bubble <%= message[:role] == 'user' ? '' : 'is-bartender' %>">
+                    <p class="whitespace-pre-line"><%= message[:content] %></p>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="bartender-chat-empty" data-ai-bartender-log>
+              No chat yet. Ask for a custom drink and the bartender will reply here.
+            </div>
+          <% end %>
+
+          <% if @ai_bartender_history.present? %>
+            <div class="flex justify-end">
+              <%= button_to "Clear Chat", reset_ai_bartender_path, method: :post, class: "btn btn-ghost" %>
+            </div>
+          <% end %>
+
+          <%= form_with url: ai_bartender_path, method: :post, local: true, class: "bartender-chat-form", data: { ai_bartender_form: true, stream_url: ai_bartender_stream_path } do |f| %>
+            <%= f.text_field :prompt, value: @ai_bartender_prompt, placeholder: "Mood, spirit, occasion, flavor notes...", class: "form-control", data: { ai_bartender_prompt: true } %>
+            <div class="grid gap-3 sm:grid-cols-2">
+              <%= f.select :strength, options_for_select([["Sessionable", "low"], ["Balanced", "medium"], ["Boozy", "high"]], @ai_bartender_strength), { include_blank: "Strength" }, class: "form-select" %>
+              <%= f.select :glass, options_for_select([["Coupe", "coupe"], ["Rocks", "rocks"], ["Highball", "highball"], ["Nick & Nora", "nora"]], @ai_bartender_glass), { include_blank: "Glass" }, class: "form-select" %>
+            </div>
+            <%= f.submit "Mix My Drink", class: "btn btn-primary w-full", data: { ai_bartender_submit: true } %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

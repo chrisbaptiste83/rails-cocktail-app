@@ -1,11 +1,9 @@
-<center>
+<div class="space-y-6">
+  <div class="glass-card">
+    <h1 class="text-3xl"><%= @category.name %></h1>
+    <p class="text-sm text-sand/70"><%= pluralize(@category.cocktail_recipes.count, "Cocktail Recipe") %> in this category</p>
+  </div>
 
-    <div class="jumbotron button-style"> 
-        <h1><%= @category.name %></h1>
-        <h3><%= pluralize(@category.cocktail_recipes.count, 'Cocktail Recipe') %> for this Category:</h3> 
-    </div><br> 
-    
-    <%= render partial: "cocktail_recipes/cocktails", locals: {cocktail_recipes: @category.cocktail_recipes} %> 
-      
-</center>
+  <%= render partial: "cocktail_recipes/cocktails", locals: { cocktail_recipes: @category.cocktail_recipes } %>
+</div>
     

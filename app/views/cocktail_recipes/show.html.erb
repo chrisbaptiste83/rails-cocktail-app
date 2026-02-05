@@ -1,43 +1,60 @@
-<div class="jumbotron button-style">
+<div class="glass-card space-y-6">
+  <div class="space-y-3">
+    <h1 class="text-3xl"><%= @cocktail_recipe.title %></h1>
+    <p class="text-sand/70"><%= @cocktail_recipe.description %></p>
+    <%= image_tag(@cocktail_recipe.avatar.variant(resize_to_limit: [480, 480]), class: "w-full rounded-2xl") if @cocktail_recipe.avatar.attached? %>
+  </div>
 
-    <h1><%= @cocktail_recipe.title %></h1> 
-        <hr class="my-4">
+  <div class="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+    <div>
+      <h3 class="text-2xl">Ingredients</h3>
+      <ul class="mt-3 space-y-2 text-sm text-sand/80">
+        <% @cocktail_recipe.recipe_ingredients.each do |i| %>
+          <li class="flex items-center justify-between border-b border-white/10 pb-2">
+            <span><%= i.quantity %></span>
+            <span><%= link_to i.ingredient.name, ingredient_path(i.ingredient) %></span>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="space-y-3 text-sm text-sand/75">
+      <div>
+        <h4 class="text-lg text-sand">Directions</h4>
+        <p><%= @cocktail_recipe.directions %></p>
+      </div>
+      <div>
+        <h4 class="text-lg text-sand">Category</h4>
+        <p><%= link_to @cocktail_recipe.category.name, category_path(@cocktail_recipe.category) %></p>
+      </div>
+      <p><%= last_updated @cocktail_recipe %></p>
+      <small>Originally by <%= link_to @cocktail_recipe.user.username, user_path(@cocktail_recipe.user) %></small>
+    </div>
+  </div>
 
-<center><h4><%= @cocktail_recipe.description %></h5></center> 
-</br><br><center><%= image_tag(@cocktail_recipe.avatar.variant(resize_to_limit: [400, 400]), height: '300px') if @cocktail_recipe.avatar.attached? %></center> 
-        <hr class="my-4">
+  <% if @cocktail_recipe.user == current_user %>
+    <div class="flex flex-wrap gap-3">
+      <%= link_to "Edit This Recipe", edit_cocktail_recipe_path, class: "btn btn-primary" %>
+      <%= button_to "Delete", @cocktail_recipes_path, method: :delete, class: "btn btn-ghost" %>
+    </div>
+  <% end %>
 
-<h3>Ingredients:</h3>  
-    <h3><% @cocktail_recipe.recipe_ingredients.each do |i| %></h3>
-        <ul><h4><%= i.quantity%> <%= link_to i.ingredient.name, ingredient_path(i.ingredient)%></h4> </ul>  
-        <%end%> 
+  <div class="space-y-4">
+    <h4 class="text-xl"><%= @cocktail_recipe.comments.count %> Comment(s)</h4>
+    <% @cocktail_recipe.comments.each do |comment| %>
+      <div class="rounded-2xl border border-white/10 bg-ink/70 p-3 text-sm text-sand/80">
+        <p><%= comment.content %></p>
+        <small class="text-sand/60">By: <%= comment.user.username %> · <%= created_at comment %></small>
+      </div>
+    <% end %>
 
-<h3>Directions: <%= @cocktail_recipe.directions %></h3>
+    <div class="space-y-2">
+      <h5 class="text-lg">Add a comment</h5>
+      <%= render partial: "comments/form" %>
+    </div>
+  </div>
 
-<h3>Category: <%= link_to @cocktail_recipe.category.name, category_path(@cocktail_recipe.category)%></h3>
-
-<p><%= last_updated @cocktail_recipe%></p> 
-
-<small>Originally By: <%=link_to @cocktail_recipe.user.username, user_path(@cocktail_recipe.user) %></small><br></br>
-
-<% if @cocktail_recipe.user == current_user %>
-    <h2><%= link_to "Edit This Recipe", edit_cocktail_recipe_path, class: "btn btn-primary" %></h2> 
-    <h2><%= button_to "Delete", @cocktail_recipes_path, method: :delete, class: "btn btn-primary"%></h2>
-<% end %></br>
-<hr class="my-4">
-
-<h4><%=@cocktail_recipe.comments.count%> Comment(s):</h4> 
-
-<% @cocktail_recipe.comments.each do |comment| %> 
-        <h5><ul><%=comment.content %></ul></h5> 
-        <ul><small>By: <%=comment.user.username %> on <%=created_at comment %> </small></ul>
-    <%end%>
-
-
-<h5>Add a comment:</h5>
-<%= render partial: "comments/form" %><br></br> 
-
-<button type="button" class="btn btn-primary"><big><%= link_to "Next Cocktail", @cocktail_recipe.next%></big></button></br><br>
-<button type="button" class="btn btn-primary"><big><%= link_to "Previous Cocktail", @cocktail_recipe.previous%></big></button>
- 
+  <div class="flex flex-wrap gap-3">
+    <%= link_to "Next Cocktail", @cocktail_recipe.next, class: "btn btn-primary" %>
+    <%= link_to "Previous Cocktail", @cocktail_recipe.previous, class: "btn btn-ghost" %>
+  </div>
 </div>

@@ -16,11 +16,52 @@ Cd into the application's root directory and run rails s to start up the server.
 Click on any of the links to navigate the application. A user can create a cocktail recipe or browse all existing recipes by applying several filters (user, category, ingredient). 
 4. After users are finished browsing through cocktail recipes or creating their own, they can click on the log out link to log out of the application.
 
+## AI Bartender (OpenAI API)
+
+Set an API key before running the app:
+
+```
+OPENAI_API_KEY=your_key_here
+```
+
+Optional:
+
+```
+OPENAI_BARTENDER_MODEL=gpt-4.1
+```
+
+The AI bartender form lives on the home page and now keeps a short chat history. Signed-in users get persistent chat history stored in the database. Use "Clear Chat" to reset.
+Streaming replies are enabled via a server-sent events endpoint, so responses appear as they are generated.
+
+## Cocktail API Seeding
+
+The seed script pulls from TheCocktailDB. You can override the default test key:
+
+```
+COCKTAILDB_API_KEY=your_key_here
+```
+
+Run:
+
+```
+bin/rails db:migrate
+bin/rails db:seed
+```
+
+## Tailwind CSS
+
+Tailwind is installed via `tailwindcss-rails`. In development, run:
+
+```
+bin/rails tailwindcss:watch
+```
+
+For a production build:
+
+```
+bin/rails tailwindcss:build
+```
+
 ## Contributing:
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/chrisbaptiste83/rails-cocktail-app.
-
-
-
-
-

@@ -1,30 +1,28 @@
+<div class="glass-card space-y-6">
+  <div class="flex flex-col gap-2">
+    <h1 class="text-3xl">Cocktails</h1>
+    <p class="text-sm text-sand/70">Search the lounge archive by title or filter by bartender.</p>
+  </div>
 
- <div class="jumbotron button-style"> 
- 
-  <h1>Cocktails:</h1><br> 
-
-  <h3>Search For Cocktails By Title:</h3>
-
-  <%= form_tag(cocktail_recipes_path, :method => "get", id: "search-form") do %>
-    <%= text_field_tag :search, params[:search], placeholder: "Search Cocktails", :class => "form-control" %></br>
-    <%= submit_tag "Search", :name => nil %>
-  <% end %>
-  <hr class="my-4">
-
-  <h3>Filter Cocktails By User:</h3>
-  <%= form_tag("/cocktail_recipes", method: "get") do %>
-    <%= select_tag "user", options_from_collection_for_select(User.all, "id", "username"), include_blank: true, :class => "form-control" %></br>
-    <%= submit_tag "Filter" %>
-  <% end %>
-
+  <div class="grid gap-6 md:grid-cols-2">
+    <div class="space-y-3">
+      <h3 class="text-xl font-display">Search by Title</h3>
+      <%= form_tag(cocktail_recipes_path, method: "get", id: "search-form", class: "space-y-3") do %>
+        <%= text_field_tag :search, params[:search], placeholder: "Search Cocktails", class: "form-control" %>
+        <%= submit_tag "Search", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+    <div class="space-y-3">
+      <h3 class="text-xl font-display">Filter by User</h3>
+      <%= form_tag("/cocktail_recipes", method: "get", class: "space-y-3") do %>
+        <%= select_tag "user", options_from_collection_for_select(User.all, "id", "username"), include_blank: true, class: "form-control" %>
+        <%= submit_tag "Filter", class: "btn btn-ghost" %>
+      <% end %>
+    </div>
+  </div>
 </div>
 
-
-
-<center>
-
-  <h3><ul><%=@cocktail_recipes.count%> Total Cocktails: </ul></h3> 
-
+<div class="mt-8">
+  <h3 class="mb-4 text-lg text-sand/80"><%= @cocktail_recipes.count %> total cocktails</h3>
   <%= render partial: "cocktails", locals: {cocktail_recipes: @cocktail_recipes} %>
-
-</center> 
+</div>
