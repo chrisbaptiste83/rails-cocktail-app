@@ -1,28 +1,39 @@
-<div class="glass-card space-y-6">
-  <div class="flex flex-col gap-2">
-    <h1 class="text-3xl">Cocktails</h1>
-    <p class="text-sm text-sand/70">Search the lounge archive by title or filter by bartender.</p>
-  </div>
+<div class="page-shell">
+  <section class="page-hero">
+    <div class="page-hero-content">
+      <div>
+        <div class="page-hero-kicker">Lounge Archive</div>
+        <h1 class="page-hero-title mt-3">Cocktails</h1>
+        <p class="page-hero-lead mt-3">Search the lounge archive by title or filter by bartender to find the perfect pour.</p>
+        <div class="recipe-meta mt-4">
+          <span class="recipe-badge"><i class="fas fa-wine-glass-alt"></i> <%= @cocktail_recipes.count %> pours</span>
+        </div>
+      </div>
+      <div class="page-actions">
+        <%= link_to "Create a Recipe", new_cocktail_recipe_path, class: "btn btn-primary" %>
+        <%= link_to "Browse Categories", categories_path, class: "btn btn-ghost" %>
+      </div>
+    </div>
+  </section>
 
-  <div class="grid gap-6 md:grid-cols-2">
-    <div class="space-y-3">
+  <section class="detail-grid">
+    <div class="panel-card">
       <h3 class="text-xl font-display">Search by Title</h3>
-      <%= form_tag(cocktail_recipes_path, method: "get", id: "search-form", class: "space-y-3") do %>
-        <%= text_field_tag :search, params[:search], placeholder: "Search Cocktails", class: "form-control" %>
-        <%= submit_tag "Search", class: "btn btn-primary" %>
+      <%= form_tag(cocktail_recipes_path, method: "get", id: "search-form", class: "mt-4 space-y-3") do %>
+        <%= text_field_tag :search, params[:search], placeholder: "Search Cocktails", class: "input input-bordered w-full" %>
+        <%= submit_tag "Search", class: "btn btn-primary w-full" %>
       <% end %>
     </div>
-    <div class="space-y-3">
-      <h3 class="text-xl font-display">Filter by User</h3>
-      <%= form_tag("/cocktail_recipes", method: "get", class: "space-y-3") do %>
-        <%= select_tag "user", options_from_collection_for_select(User.all, "id", "username"), include_blank: true, class: "form-control" %>
-        <%= submit_tag "Filter", class: "btn btn-ghost" %>
+    <div class="panel-card smoke">
+      <h3 class="text-xl font-display">Filter by Bartender</h3>
+      <%= form_tag("/cocktail_recipes", method: "get", class: "mt-4 space-y-3") do %>
+        <%= select_tag "user", options_from_collection_for_select(User.all, "id", "username"), include_blank: "Choose a bartender", class: "select select-bordered w-full" %>
+        <%= submit_tag "Filter", class: "btn btn-ghost w-full" %>
       <% end %>
     </div>
-  </div>
-</div>
+  </section>
 
-<div class="mt-8">
-  <h3 class="mb-4 text-lg text-sand/80"><%= @cocktail_recipes.count %> total cocktails</h3>
-  <%= render partial: "cocktails", locals: {cocktail_recipes: @cocktail_recipes} %>
+  <section>
+    <%= render partial: "cocktails", locals: {cocktail_recipes: @cocktail_recipes} %>
+  </section>
 </div>

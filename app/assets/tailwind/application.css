@@ -1,3 +1,512 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
+
+@import "tailwindcss";
+@plugin "daisyui";
+
+@source "../../views/**/*.{html,erb,haml,slim}";
+@source "../../helpers/**/*.rb";
+@source "../../javascript/**/*.{js,ts}";
+
+@theme {
+  --color-ink: #0f1416;
+  --color-sand: #f7f1e8;
+  --color-smoke: #c9b9a2;
+  --color-teal: #1b2d2f;
+  --color-ember: #c9822b;
+  --color-emberGlow: #f2c14e;
+  --color-glass: rgba(12, 16, 18, 0.78);
+
+  --font-display: "Cormorant Garamond", serif;
+  --font-body: "Space Grotesk", sans-serif;
+
+  --shadow-lounge: 0 24px 50px rgba(5, 10, 12, 0.5);
+  --shadow-glow: 0 12px 25px rgba(201, 130, 43, 0.35);
+}
+
+@utility cantina-divider {
+  @apply my-6 h-px w-full bg-gradient-to-r from-transparent via-white/15 to-transparent;
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  [data-theme="cantina"] {
+    --p: 36 73% 43%;
+    --pf: 36 73% 35%;
+    --pc: 36 56% 95%;
+    --s: 175 21% 17%;
+    --sf: 175 21% 13%;
+    --sc: 175 21% 85%;
+    --a: 43 87% 62%;
+    --af: 43 87% 50%;
+    --ac: 43 87% 10%;
+    --n: 198 18% 6%;
+    --nf: 198 18% 4%;
+    --nc: 198 18% 80%;
+    --b1: 198 18% 6%;
+    --b2: 195 16% 10%;
+    --b3: 195 18% 14%;
+    --in: 188 36% 47%;
+    --su: 163 41% 40%;
+    --wa: 43 87% 62%;
+    --er: 7 55% 49%;
+    --rounded-btn: 1.5rem;
+    --rounded-box: 1.5rem;
+    --rounded-badge: 1rem;
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-sand);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-image:
+      radial-gradient(circle at 12% 12%, rgba(201, 130, 43, 0.18), transparent 45%),
+      radial-gradient(circle at 85% 15%, rgba(79, 154, 163, 0.18), transparent 40%),
+      linear-gradient(160deg, rgba(12, 16, 19, 0.98), rgba(15, 23, 26, 0.94));
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    letter-spacing: 0.05em;
+    color: var(--color-sand);
+  }
+
+  a {
+    color: var(--color-emberGlow);
+    transition: color 0.2s ease;
+  }
+
+  a:hover {
+    color: var(--color-ember);
+  }
+
+  ::selection {
+    background: rgba(201, 130, 43, 0.35);
+    color: #f7f1e8;
+  }
+}
+
+@layer components {
+  .site-shell {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .section-wrap {
+    @apply mx-auto max-w-6xl px-6 py-16;
+  }
+
+  .page-shell {
+    @apply space-y-8;
+  }
+
+  .page-hero {
+    @apply relative overflow-hidden rounded-3xl border border-white/10 p-6 shadow-lounge backdrop-blur sm:p-10;
+    background-color: hsl(var(--b2) / 0.7);
+  }
+
+  .page-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 15% 15%, rgba(201, 130, 43, 0.18), transparent 55%);
+    pointer-events: none;
+  }
+
+  .page-hero-content {
+    @apply relative z-10 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between;
+  }
+
+  .page-hero-kicker {
+    @apply text-xs uppercase;
+    letter-spacing: 0.35em;
+    color: color-mix(in srgb, var(--color-sand) 85%, transparent);
+  }
+
+  .page-hero-title {
+    @apply text-3xl sm:text-4xl;
+  }
+
+  .page-hero-lead {
+    @apply text-base sm:text-lg;
+    color: color-mix(in srgb, var(--color-sand) 85%, transparent);
+  }
+
+  .page-actions {
+    @apply mt-4 flex flex-wrap gap-3 lg:mt-0;
+  }
+
+  .panel-card {
+    @apply rounded-3xl border border-white/10 p-6 shadow-lounge;
+    background-color: hsl(var(--b2) / 0.7);
+    transition: all 0.3s ease;
+  }
+
+  .panel-card:hover {
+    @apply border-white/20 shadow-glow;
+  }
+
+  .panel-card.smoke {
+    background-color: hsl(var(--b2) / 0.6);
+  }
+
+  .recipe-grid {
+    @apply grid gap-6 md:grid-cols-2;
+  }
+
+  .recipe-card {
+    @apply overflow-hidden rounded-3xl border shadow-lg;
+    border-color: hsl(var(--b3) / 0.4);
+    background-color: hsl(var(--b2) / 0.7);
+    transition: all 0.3s ease;
+  }
+
+  .recipe-card:hover {
+    border-color: color-mix(in srgb, var(--color-emberGlow) 30%, transparent);
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-4px);
+  }
+
+  .recipe-card-img {
+    @apply relative overflow-hidden;
+  }
+
+  .recipe-card-img::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(12, 16, 19, 0.85) 100%);
+    pointer-events: none;
+  }
+
+  .recipe-card-img img {
+    @apply w-full object-cover;
+    transition: transform 0.5s ease;
+  }
+
+  .recipe-card:hover .recipe-card-img img {
+    transform: scale(1.05);
+  }
+
+  .recipe-card-body {
+    @apply space-y-4 p-6;
+  }
+
+  .recipe-meta {
+    @apply flex flex-wrap items-center gap-2 text-xs uppercase;
+    letter-spacing: 0.25em;
+    color: color-mix(in srgb, var(--color-sand) 90%, transparent);
+  }
+
+  .recipe-badge {
+    @apply inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1 text-xs uppercase;
+    letter-spacing: 0.2em;
+    background-color: hsl(var(--b2) / 0.7);
+    color: color-mix(in srgb, var(--color-sand) 85%, transparent);
+  }
+
+  .detail-grid {
+    @apply grid gap-6 lg:grid-cols-[1.1fr_0.9fr];
+  }
+
+  .detail-panel {
+    @apply rounded-3xl border border-white/10 p-6 shadow-lounge;
+    background-color: hsl(var(--b2) / 0.7);
+  }
+
+  .detail-panel.smoke {
+    background-color: hsl(var(--b2) / 0.6);
+  }
+
+  .comment-card {
+    @apply rounded-2xl border border-white/10 p-4 text-sm;
+    background-color: hsl(var(--b2) / 0.7);
+    color: color-mix(in srgb, var(--color-sand) 90%, transparent);
+  }
+
+  .section-heading {
+    @apply flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between;
+  }
+
+  .section-kicker {
+    @apply text-xs uppercase;
+    letter-spacing: 0.35em;
+    color: color-mix(in srgb, var(--color-sand) 85%, transparent);
+  }
+
+  .section-title {
+    @apply text-3xl sm:text-4xl;
+  }
+
+  .section-lead {
+    @apply text-lg;
+    color: color-mix(in srgb, var(--color-sand) 85%, transparent);
+  }
+
+  .hero-shell {
+    @apply relative overflow-hidden;
+  }
+
+  .hero-shell::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 20%, rgba(201, 130, 43, 0.2), transparent 55%);
+    opacity: 0.9;
+    pointer-events: none;
+  }
+
+  .hero-grid {
+    @apply relative grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center;
+  }
+
+  .hero-kicker {
+    @apply inline-flex items-center gap-3 rounded-full border border-white/10 px-4 py-2 text-xs uppercase shadow-glow;
+    letter-spacing: 0.3em;
+    background-color: hsl(var(--b2) / 0.6);
+    color: color-mix(in srgb, var(--color-sand) 85%, transparent);
+  }
+
+  .hero-title {
+    @apply text-4xl sm:text-5xl lg:text-6xl;
+  }
+
+  .hero-lead {
+    @apply text-lg;
+    color: color-mix(in srgb, var(--color-sand) 90%, transparent);
+  }
+
+  .hero-actions {
+    @apply mt-6 flex flex-wrap gap-3;
+  }
+
+  .hero-stats {
+    @apply mt-8 grid gap-4 sm:grid-cols-3;
+  }
+
+  .stat-card {
+    @apply rounded-2xl border border-white/10 p-4 text-sm shadow-lounge;
+    background-color: hsl(var(--b2) / 0.7);
+    color: color-mix(in srgb, var(--color-sand) 85%, transparent);
+  }
+
+  .stat-value {
+    @apply text-2xl;
+    font-family: var(--font-display);
+    color: var(--color-sand);
+  }
+
+  .glass-panel {
+    @apply rounded-3xl border border-white/10 p-6 shadow-lounge backdrop-blur;
+    background-color: hsl(var(--b2) / 0.7);
+    transition: all 0.3s ease;
+  }
+
+  .glass-panel:hover {
+    @apply border-white/20 shadow-glow;
+  }
+
+  .glass-panel.smoke {
+    background-color: hsl(var(--b2) / 0.6);
+  }
+
+  .hero-stack {
+    @apply grid gap-5;
+  }
+
+  .hero-spotlight {
+    @apply relative overflow-hidden;
+  }
+
+  .hero-spotlight::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(15, 20, 22, 0.75) 80%);
+    pointer-events: none;
+  }
+
+  .hero-spotlight img {
+    @apply h-56 w-full object-cover;
+  }
+
+  .hero-spotlight-body {
+    @apply relative z-10 mt-4 space-y-2;
+  }
+
+  .cantina-chip {
+    @apply inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1 text-xs uppercase;
+    letter-spacing: 0.25em;
+    background-color: hsl(var(--b2) / 0.7);
+    color: color-mix(in srgb, var(--color-sand) 90%, transparent);
+  }
+
+  /* Auth shell — centers and constrains auth forms */
+  .auth-shell {
+    @apply flex items-center justify-center px-4 py-12;
+    min-height: 60vh;
+  }
+
+  .auth-shell > * {
+    @apply w-full max-w-md;
+  }
+
+  /* Category / Ingredient list item hover */
+  .list-item-hover {
+    @apply flex items-center justify-between py-4 rounded-xl px-3;
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+    transition: all 0.2s ease;
+  }
+
+  .list-item-hover:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .bartender-hub {
+    @apply border border-white/10 p-6 shadow-lounge backdrop-blur;
+    border-radius: 2rem;
+    background-color: hsl(var(--b2) / 0.7);
+  }
+
+  .bartender-tabs {
+    @apply mt-4 lg:hidden;
+  }
+
+  .bartender-tab {
+    @apply flex-1 px-4 py-2 text-sm font-semibold;
+    color: color-mix(in srgb, var(--color-sand) 85%, transparent);
+    transition: all 0.2s ease;
+  }
+
+  .bartender-tab.is-active {
+    background-color: var(--color-ember);
+    color: var(--color-ink);
+    box-shadow: var(--shadow-glow);
+  }
+
+  .bartender-grid {
+    @apply grid gap-6 lg:grid-cols-[1.2fr_0.8fr];
+  }
+
+  .bartender-panel {
+    @apply rounded-3xl border border-white/10 p-6 shadow-lounge backdrop-blur;
+    background-color: hsl(var(--b2) / 0.7);
+  }
+
+  .bartender-panel.is-hidden {
+    @apply hidden lg:block;
+  }
+
+  .bartender-heading {
+    @apply flex flex-wrap items-center justify-between gap-3;
+  }
+
+  .bartender-filter-form {
+    @apply mt-5 grid gap-3 sm:grid-cols-[1fr_1fr_auto];
+  }
+
+  .bartender-picks {
+    @apply mt-6 grid gap-5 sm:grid-cols-2;
+  }
+
+  .bartender-chat-stack {
+    @apply mt-4 flex flex-col gap-4;
+  }
+
+  .bartender-chat-log {
+    @apply max-h-80 space-y-4 overflow-y-auto rounded-2xl border border-white/10 p-4 text-sm;
+    background-color: hsl(var(--b2) / 0.8);
+    color: color-mix(in srgb, var(--color-sand) 90%, transparent);
+  }
+
+  .bartender-chat-empty {
+    @apply rounded-2xl border border-white/10 p-4 text-sm;
+    background-color: hsl(var(--b2) / 0.6);
+    color: color-mix(in srgb, var(--color-sand) 85%, transparent);
+  }
+
+  .bartender-chat-form {
+    @apply space-y-4;
+  }
+
+  .bartender-message {
+    @apply flex flex-col gap-2;
+  }
+
+  .bartender-message.is-user {
+    @apply items-end;
+  }
+
+  .bartender-message-label {
+    @apply text-xs uppercase;
+    letter-spacing: 0.2em;
+    color: color-mix(in srgb, var(--color-sand) 85%, transparent);
+  }
+
+  .bartender-bubble {
+    @apply max-w-[90%] rounded-2xl border border-white/10 px-4 py-3 text-sm;
+    background-color: hsl(var(--b2) / 0.6);
+    color: color-mix(in srgb, var(--color-sand) 90%, transparent);
+  }
+
+  .bartender-bubble.is-bartender {
+    border-color: color-mix(in srgb, var(--color-emberGlow) 40%, transparent);
+    background-color: hsl(var(--b2) / 0.8);
+    color: var(--color-emberGlow);
+  }
+
+  .bartender-typing {
+    @apply flex items-center gap-2 text-xs uppercase;
+    letter-spacing: 0.2em;
+    color: color-mix(in srgb, var(--color-sand) 85%, transparent);
+  }
+
+  .bartender-dots {
+    @apply flex gap-1;
+  }
+
+  .bartender-dot {
+    @apply h-1.5 w-1.5 rounded-full;
+    background-color: color-mix(in srgb, var(--color-emberGlow) 80%, transparent);
+    animation: bartenderPulse 1.2s ease-in-out infinite;
+  }
+
+  .bartender-dot:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .bartender-dot:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  .lounge-columns {
+    @apply mt-8 grid gap-6 lg:grid-cols-2;
+  }
+
+  .lounge-list li {
+    @apply border-b border-white/10 pb-4 text-sm last:border-none last:pb-0;
+    color: color-mix(in srgb, var(--color-sand) 90%, transparent);
+  }
+
+  .lounge-list strong {
+    color: var(--color-sand);
+  }
+}
+
+@keyframes bartenderPulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}

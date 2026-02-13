@@ -1,9 +1,19 @@
-<div class="glass-card space-y-6">
-  <div>
-    <h1 class="text-3xl">Create a Cocktail</h1>
-    <p class="text-sm text-sand/70">Give the lounge a new signature pour.</p>
-  </div>
+<div class="page-shell">
+  <section class="page-hero">
+    <div class="page-hero-content">
+      <div>
+        <div class="page-hero-kicker">New Recipe</div>
+        <h1 class="page-hero-title mt-3">Create a Cocktail</h1>
+        <p class="page-hero-lead mt-3">Give the lounge a new signature pour.</p>
+      </div>
+      <div class="page-actions">
+        <%= link_to "Back to Cocktails", cocktail_recipes_path, class: "btn btn-ghost" %>
+      </div>
+    </div>
+  </section>
 
-  <%= render "errors" %>
-  <%= render "form" %>
+  <section class="detail-panel">
+    <%= render "errors" %>
+    <%= render "form" %>
+  </section>
 </div>

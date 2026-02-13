@@ -1,23 +1,43 @@
-<div class="glass-card space-y-6">
-  <div>
-    <h1 class="text-3xl">Categories</h1>
-    <p class="text-sm text-sand/70">Browse the archive by category.</p>
-  </div>
-
-  <div class="space-y-3">
-    <h3 class="text-xl font-display">Search for Category</h3>
-    <%= form_tag(categories_path, method: "get", id: "search-form", class: "space-y-3") do %>
-      <%= text_field_tag :search, params[:search], placeholder: "Search Categories", class: "form-control" %>
-      <%= submit_tag "Search", class: "btn btn-primary" %>
-    <% end %>
-  </div>
-
-  <div class="divide-y divide-white/10">
-    <% @categories.each do |category| %>
-      <div class="py-4">
-        <h2 class="text-2xl font-display"><%= link_to category.name, category_path(category) %></h2>
-        <p class="text-sm text-sand/70"><%= pluralize(category.cocktail_recipes.count, "Cocktail") %></p>
+<div class="page-shell">
+  <section class="page-hero">
+    <div class="page-hero-content">
+      <div>
+        <div class="page-hero-kicker">Lounge Library</div>
+        <h1 class="page-hero-title mt-3">Categories</h1>
+        <p class="page-hero-lead mt-3">Browse the archive by mood, spirit, or serving style.</p>
+        <div class="recipe-meta mt-4">
+          <span class="recipe-badge"><i class="fas fa-layer-group"></i> <%= @categories.count %> shelves</span>
+        </div>
       </div>
-    <% end %>
-  </div>
+      <div class="page-actions">
+        <%= link_to "Explore Cocktails", cocktail_recipes_path, class: "btn btn-primary" %>
+        <%= link_to "Browse Ingredients", ingredients_path, class: "btn btn-ghost" %>
+      </div>
+    </div>
+  </section>
+
+  <section class="detail-grid">
+    <div class="panel-card">
+      <h3 class="text-xl font-display"><i class="fas fa-search text-emberGlow/70"></i> Search for Category</h3>
+      <%= form_tag(categories_path, method: "get", id: "search-form", class: "mt-4 space-y-3") do %>
+        <%= text_field_tag :search, params[:search], placeholder: "Search Categories", class: "input input-bordered w-full" %>
+        <%= submit_tag "Search", class: "btn btn-primary w-full" %>
+      <% end %>
+    </div>
+    <div class="panel-card smoke">
+      <h3 class="text-xl font-display"><i class="fas fa-layer-group text-emberGlow/70"></i> Category Shelf</h3>
+      <div class="mt-4 divide-y divide-white/10">
+        <% @categories.each do |category| %>
+          <div class="list-item-hover">
+            <div>
+              <h2 class="text-2xl font-display"><i class="fas fa-glass-martini-alt text-emberGlow/50 mr-2 text-base"></i><%= link_to category.name, category_path(category) %></h2>
+            </div>
+            <span class="badge badge-outline text-sand/80 gap-1">
+              <i class="fas fa-cocktail text-xs"></i> <%= category.cocktail_recipes.count %>
+            </span>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </section>
 </div>

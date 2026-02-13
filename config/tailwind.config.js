@@ -29,5 +29,26 @@ module.exports = {
           "radial-gradient(circle at top, rgba(27, 45, 47, 0.65), rgba(15, 20, 22, 0.95)), linear-gradient(135deg, rgba(18, 25, 29, 0.9), rgba(12, 15, 17, 0.95))"
       }
     }
+  },
+  plugins: [require("daisyui")],
+  daisyui: {
+    themes: [
+      {
+        cantina: {
+          primary: "#c9822b",
+          secondary: "#1b2d2f",
+          accent: "#f2c14e",
+          neutral: "#0f1416",
+          "base-100": "#0f1416",
+          "base-200": "#151d20",
+          "base-300": "#1b262b",
+          info: "#4f9aa3",
+          success: "#3e8e7e",
+          warning: "#f2c14e",
+          error: "#c44536"
+        }
+      }
+    ],
+    darkTheme: "cantina"
   }
 };

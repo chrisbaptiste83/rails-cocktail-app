@@ -1,11 +1,13 @@
 
 <% if @cocktail_recipe.errors.any? %>
-  <div id="error_explanation" class="rounded-2xl border border-amber-400/40 bg-ink/70 p-4 text-sm text-amber-200">
-    <h2><%= pluralize(@cocktail_recipe.errors.count, "error") %> prohibited this cocktail from being saved:</h2>
-    <ul class="mt-2 list-disc space-y-1 pl-5">
+  <div id="error_explanation" class="alert alert-warning text-sm">
+    <div>
+      <h2><%= pluralize(@cocktail_recipe.errors.count, "error") %> prohibited this cocktail from being saved:</h2>
+      <ul class="mt-2 list-disc space-y-1 pl-5">
       <% @cocktail_recipe.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
-    </ul>
+      </ul>
+    </div>
   </div>
 <% end %>

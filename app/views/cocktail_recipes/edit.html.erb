@@ -1,4 +1,18 @@
-<div class="glass-card space-y-6">
-  <h1 class="text-3xl">Edit Cocktail Recipe</h1>
-  <%= render "form" %>
+<div class="page-shell">
+  <section class="page-hero">
+    <div class="page-hero-content">
+      <div>
+        <div class="page-hero-kicker">Edit Recipe</div>
+        <h1 class="page-hero-title mt-3">Edit Cocktail Recipe</h1>
+        <p class="page-hero-lead mt-3">Refine the story, ingredients, and ritual.</p>
+      </div>
+      <div class="page-actions">
+        <%= link_to "Back to Recipe", cocktail_recipe_path(@cocktail_recipe), class: "btn btn-ghost" %>
+      </div>
+    </div>
+  </section>
+
+  <section class="detail-panel">
+    <%= render "form" %>
+  </section>
 </div>

@@ -227,13 +227,16 @@ h1, h2, h3, h4, h5 {
   box-shadow: 0 24px 40px rgba(5, 10, 12, 0.5);
 }
 
-input, textarea, select {
+.legacy-form input,
+.legacy-form textarea,
+.legacy-form select {
   background-color: rgba(11, 15, 17, 0.85);
   border: 1px solid rgba(247, 241, 232, 0.15);
   color: #f7f1e8;
 }
 
-.form-control:focus, .form-select:focus {
+.legacy-form .form-control:focus,
+.legacy-form .form-select:focus {
   border-color: $warning;
   box-shadow: 0 0 0 0.2rem rgba(242, 193, 78, 0.3);
 }

@@ -1,12 +1,12 @@
 <%= form_for(@cocktail_recipe, html: { class: "space-y-6" }) do |f| %>
   <div class="space-y-2">
     <h3 class="text-xl"><%= f.label :title %></h3>
-    <%= f.text_field :title, class: "form-control" %>
+    <%= f.text_field :title, class: "input input-bordered w-full" %>
   </div>
 
   <div class="space-y-2">
     <h3 class="text-xl"><%= f.label :category %></h3>
-    <%= f.text_field :category_name, list: "categories_autocomplete", class: "form-control" %>
+    <%= f.text_field :category_name, list: "categories_autocomplete", class: "input input-bordered w-full" %>
     <datalist id="categories_autocomplete">
       <% Category.all.each do |category| %>
         <option value="<%= category.name %>">
@@ -16,7 +16,7 @@
 
   <div class="space-y-2">
     <h3 class="text-xl"><%= f.label :description %></h3>
-    <%= f.text_area :description, class: "form-control" %>
+    <%= f.text_area :description, class: "textarea textarea-bordered w-full" %>
   </div>
 
   <%= f.hidden_field :user_id %>
@@ -26,20 +26,20 @@
 
     <div class="space-y-4">
       <%= f.fields_for :recipe_ingredients, @ingredients do |recipe_ingredient| %>
-        <div class="rounded-2xl border border-white/10 bg-ink/60 p-4">
+        <div class="rounded-2xl border border-white/10 bg-base-200/70 p-4">
           <div class="grid gap-3 md:grid-cols-3">
             <div class="space-y-2">
-              <label class="text-sm text-sand/70">Quantity</label>
-              <%= recipe_ingredient.text_field :quantity, class: "form-control" %>
+              <label class="text-sm text-sand/85">Quantity</label>
+              <%= recipe_ingredient.text_field :quantity, class: "input input-bordered w-full" %>
             </div>
             <div class="space-y-2">
-              <label class="text-sm text-sand/70">Select Ingredient</label>
-              <%= recipe_ingredient.collection_select :ingredient_id, Ingredient.all.order(:name), :id, :name, { include_blank: "Select Ingredient" }, class: "form-control" %>
+              <label class="text-sm text-sand/85">Select Ingredient</label>
+              <%= recipe_ingredient.collection_select :ingredient_id, Ingredient.all.order(:name), :id, :name, { include_blank: "Select Ingredient" }, class: "select select-bordered w-full" %>
             </div>
             <div class="space-y-2">
-              <label class="text-sm text-sand/70">Or Create New</label>
+              <label class="text-sm text-sand/85">Or Create New</label>
               <%= recipe_ingredient.fields_for :ingredient, @cocktail_recipe.ingredients.build do |ingredient| %>
-                <%= ingredient.text_field :name, class: "form-control" %>
+                <%= ingredient.text_field :name, class: "input input-bordered w-full" %>
               <% end %>
             </div>
           </div>
@@ -50,12 +50,12 @@
 
   <div class="space-y-2">
     <h3 class="text-xl"><%= f.label :directions %></h3>
-    <%= f.text_area :directions, class: "form-control" %>
+    <%= f.text_area :directions, class: "textarea textarea-bordered w-full" %>
   </div>
 
   <div class="space-y-2">
     <h4 class="text-lg">Upload an Image</h4>
-    <%= f.file_field :avatar, class: "form-control" %>
+    <%= f.file_field :avatar, class: "file-input file-input-bordered w-full" %>
   </div>
 
   <%= f.submit class: "btn btn-primary" %>

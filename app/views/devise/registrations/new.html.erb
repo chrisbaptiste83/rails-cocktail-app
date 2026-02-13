@@ -1,39 +1,45 @@
-<div class="glass-card space-y-6">
+<div class="auth-shell">
   <div>
-    <h1 class="text-3xl">Sign up</h1>
-    <p class="text-sm text-sand/70">(Users must be over 21 years old.)</p>
+    <div class="mb-6 text-center">
+      <p class="text-xs uppercase tracking-[0.35em] text-sand/85">New Here?</p>
+      <h1 class="mt-2 text-3xl font-display"><i class="fas fa-user-plus text-emberGlow"></i> Join the Cantina</h1>
+    </div>
+    <div class="card border border-base-300/40 bg-base-200/70 shadow-xl">
+      <div class="card-body space-y-6">
+        <p class="text-sm text-sand/85">(Users must be over 21 years old.)</p>
+
+        <%= form_for(resource, as: resource_name, url: registration_path(resource), html: { class: "space-y-4" }) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+
+          <div class="space-y-2">
+            <h3 class="text-lg"><%= f.label :username %></h3>
+            <%= f.text_field :username, autofocus: true, autocomplete: "username", class: "input input-bordered w-full" %>
+          </div>
+          <div class="space-y-2">
+            <h3 class="text-lg"><%= f.label :email %></h3>
+            <%= f.email_field :email, autocomplete: "email", class: "input input-bordered w-full" %>
+          </div>
+
+          <div class="space-y-2">
+            <h3 class="text-lg"><%= f.label :password %></h3>
+            <% if @minimum_password_length %>
+              <small class="text-sand/80">(<%= @minimum_password_length %> characters minimum)</small>
+            <% end %>
+            <%= f.password_field :password, autocomplete: "new-password", class: "input input-bordered w-full" %>
+          </div>
+
+          <div class="space-y-2">
+            <h3 class="text-lg"><%= f.label :password_confirmation %></h3>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input input-bordered w-full" %>
+          </div>
+
+          <div class="actions">
+            <%= f.submit "Sign up", class: "btn btn-primary w-full" %>
+          </div>
+        <% end %>
+
+        <div class="text-sm text-sand/85"><%= render "devise/shared/links" %></div>
+      </div>
+    </div>
   </div>
-
-  <%= form_for(resource, as: resource_name, url: registration_path(resource), html: { class: "space-y-4" }) do |f| %>
-    <%= render "devise/shared/error_messages", resource: resource %>
-
-    <div class="space-y-2">
-      <h3 class="text-lg"><%= f.label :username %></h3>
-      <%= f.text_field :username, autofocus: true, autocomplete: "username", class: "form-control" %>
-    </div>
-    <div class="space-y-2">
-      <h3 class="text-lg"><%= f.label :email %></h3>
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
-    </div>
-
-    <div class="space-y-2">
-      <h3 class="text-lg"><%= f.label :password %></h3>
-      <% if @minimum_password_length %>
-        <small class="text-sand/60">(<%= @minimum_password_length %> characters minimum)</small>
-      <% end %>
-      <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
-    </div>
-
-    <div class="space-y-2">
-      <h3 class="text-lg"><%= f.label :password_confirmation %></h3>
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
-    </div>
-
-    <div class="actions">
-      <%= f.submit "Sign up", class: "btn btn-primary w-full" %>
-    </div>
-  <% end %>
-
-  <div class="text-sm text-sand/70"><%= render "devise/shared/links" %></div>
 </div>
-

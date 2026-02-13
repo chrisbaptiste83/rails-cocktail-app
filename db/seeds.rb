@@ -13,13 +13,68 @@ Category.destroy_all
 User.destroy_all
 puts "Existing data cleared."
 
+# Curated cocktail-themed usernames
+CANTINA_USERNAMES = %w[
+  BarkeepMike
+  MixologyMaven
+  ShakerSteve
+  CitrusSally
+  BittersBoss
+  RyeGuy
+  GinAndJulia
+  TheNeatPour
+].freeze
+
+# Curated realistic cocktail-themed comments
+COCKTAIL_COMMENTS = [
+  "Perfectly balanced — the citrus cuts right through the sweetness.",
+  "This is my go-to Friday night pour. Never gets old.",
+  "Made this for a dinner party and everyone asked for the recipe!",
+  "The garnish really makes this one. Don't skip it.",
+  "I subbed in mezcal and it added a beautiful smoky layer.",
+  "Dangerously smooth. You forget there's booze in it.",
+  "A classic done right. No need to reinvent the wheel here.",
+  "Tried it with a splash of grapefruit juice — incredible twist.",
+  "This one hits different on a warm evening with good company.",
+  "I've been bartending for ten years and this is still one of my favorites.",
+  "A little too sweet for my taste, but dialing back the syrup fixed it.",
+  "The bitters really tie everything together. Chef's kiss.",
+  "Shaken, not stirred — and it makes all the difference.",
+  "Served this at brunch and it was the star of the table.",
+  "I love how the herbal notes come through at the finish.",
+  "Refreshing and crisp. Perfect poolside drink.",
+  "The egg white gives it such a silky mouthfeel. Worth the extra step.",
+  "Not my usual style, but I'm completely converted now.",
+  "Pro tip: use a large ice cube. It changes the whole experience.",
+  "This recipe introduced me to my new favorite spirit.",
+  "Elegant and understated. Let the ingredients speak for themselves.",
+  "The aroma alone is worth making this cocktail.",
+  "Finally, a recipe that actually tastes like it does in the bar.",
+  "I doubled the batch for a party. Zero regrets.",
+  "Simple ingredients, complex flavors. That's the mark of a great cocktail.",
+  "Added a sprig of rosemary and it elevated everything.",
+  "This is liquid velvet. Absolutely stunning.",
+  "A bold choice that pays off beautifully.",
+  "The balance between bitter and sweet here is perfection.",
+  "I keep coming back to this one. It's become a house favorite.",
+  "Great gateway cocktail for friends who think they don't like spirits.",
+  "The color on this one is gorgeous. Looks as good as it tastes.",
+  "Took me three tries to get the proportions right, but so worth it.",
+  "This pairs incredibly well with charcuterie.",
+  "I appreciate how the recipe respects the classics while adding a twist.",
+  "Smoother than expected. The dilution ratio is spot on.",
+  "My partner says this is the best cocktail I've ever made.",
+  "The layering technique really shows — each sip is slightly different.",
+  "If you have good ice, this cocktail will reward you for it.",
+  "Bookmarked. This is going into my permanent rotation."
+].freeze
+
 # Create Users
 puts "Creating users..."
-users = []
-5.times do
-  users << User.create!(
-    username: Faker::Internet.unique.username(separators: %w(. _ -)),
-    email: Faker::Internet.unique.email,
+users = CANTINA_USERNAMES.map do |username|
+  User.create!(
+    username: username,
+    email: "#{username.downcase.gsub(/[^a-z0-9]/, '')}@mikescantina.com",
     password: "password",
     password_confirmation: "password"
   )
@@ -38,7 +93,7 @@ rescue StandardError => e
   {}
 end
 
-def build_recipe_from_cocktaildb!(drink, users)
+def build_recipe_from_cocktaildb!(drink, users, comments_pool)
   category = Category.find_or_create_by!(name: drink["strCategory"].presence || "House Specials")
   user = users.sample
 
@@ -82,28 +137,29 @@ def build_recipe_from_cocktaildb!(drink, users)
     end
   end
 
-  rand(2..4).times do
+  rand(2..5).times do
     commenter = users.sample
     Comment.create!(
       cocktail_recipe: cocktail_recipe,
       user: commenter,
-      content: Faker::Lorem.sentence(word_count: rand(6..14))
+      content: comments_pool.sample
     )
   end
 end
 
 puts "Fetching cocktails from TheCocktailDB..."
 drinks = []
-%w[a b c m s].each do |letter|
+("a".."z").each do |letter|
   response = fetch_cocktaildb("search.php?f=#{letter}")
-  drinks.concat(response.fetch("drinks", []))
+  fetched = response.fetch("drinks", nil)
+  drinks.concat(fetched) if fetched.is_a?(Array)
 end
-drinks = drinks.uniq { |drink| drink["idDrink"] }.sample(20)
+drinks = drinks.uniq { |drink| drink["idDrink"] }.sample(50)
 puts "Pulled #{drinks.count} cocktails from TheCocktailDB."
 
 puts "Creating cocktail recipes, recipe ingredients, and comments..."
 if drinks.any?
-  drinks.each { |drink| build_recipe_from_cocktaildb!(drink, users) }
+  drinks.each { |drink| build_recipe_from_cocktaildb!(drink, users, COCKTAIL_COMMENTS) }
 else
   puts "No CocktailDB drinks found, falling back to Faker data."
 
@@ -144,7 +200,7 @@ else
         Comment.create!(
           cocktail_recipe: cocktail_recipe,
           user: commenter,
-          content: Faker::Lorem.sentence(word_count: rand(5..15))
+          content: COCKTAIL_COMMENTS.sample
         )
       end
     end

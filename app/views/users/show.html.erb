@@ -1,40 +1,61 @@
-<% if current_user == @user %>
-  <div class="space-y-6">
-    <div class="glass-card space-y-3">
-      <h1 class="text-3xl">Hello, <%= @user.username %>!</h1>
-      <p class="text-sm text-sand/70">You currently have <%= @user.cocktail_recipes.count %> cocktail recipes.</p>
-      <div class="flex flex-wrap gap-3">
-        <%= link_to "View Your Cocktail Recipes", user_cocktail_recipes_url(@user), class: "btn btn-primary" %>
-        <%= link_to "New Cocktail", new_user_cocktail_recipe_path(@user), class: "btn btn-ghost" %>
-        <%= link_to "Categories", categories_path, class: "btn btn-ghost" %>
-        <%= link_to "Ingredients", ingredients_path, class: "btn btn-ghost" %>
-        <%= link_to "All Cocktails", cocktail_recipes_path, class: "btn btn-outline-light" %>
+<div class="page-shell">
+  <% if current_user == @user %>
+    <section class="page-hero">
+      <div class="page-hero-content">
+        <div>
+          <div class="page-hero-kicker">Profile</div>
+          <h1 class="page-hero-title mt-3">Hello, <%= @user.username %>!</h1>
+          <p class="page-hero-lead mt-3">You currently have <%= @user.cocktail_recipes.count %> cocktail recipes.</p>
+        </div>
+        <div class="page-actions">
+          <%= link_to "View Your Cocktail Recipes", user_cocktail_recipes_url(@user), class: "btn btn-primary" %>
+          <%= link_to "New Cocktail", new_user_cocktail_recipe_path(@user), class: "btn btn-ghost" %>
+          <%= link_to "Categories", categories_path, class: "btn btn-ghost" %>
+          <%= link_to "Ingredients", ingredients_path, class: "btn btn-ghost" %>
+          <%= link_to "All Cocktails", cocktail_recipes_path, class: "btn btn-outline" %>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="glass-card space-y-4">
+    <section class="panel-card">
       <h2 class="text-2xl">Cocktail of the Day</h2>
-      <%= render partial: "cocktail_recipes/cocktail", locals: { cocktail_recipe: @cocktail_recipes.of_the_day } %>
-    </div>
+      <div class="mt-4">
+        <%= render partial: "cocktail_recipes/cocktail", locals: { cocktail_recipe: @cocktail_recipes.of_the_day } %>
+      </div>
+    </section>
 
-    <div class="glass-card space-y-4">
+    <section class="panel-card">
       <h2 class="text-2xl">Most Talked About</h2>
-      <%= render partial: "cocktail_recipes/cocktail", locals: { cocktail_recipe: @cocktail_recipes.most_comments } %>
-    </div>
+      <div class="mt-4">
+        <%= render partial: "cocktail_recipes/cocktail", locals: { cocktail_recipe: @cocktail_recipes.most_comments } %>
+      </div>
+    </section>
 
-    <div class="space-y-4">
-      <div class="glass-card">
+    <section class="space-y-4">
+      <div class="panel-card">
         <h2 class="text-2xl">Five Newest Cocktails</h2>
       </div>
       <%= render partial: "cocktail_recipes/cocktails", locals: { cocktail_recipes: @cocktail_recipes.five_latest_cocktail_recipes } %>
-    </div>
-  </div>
-<% else %>
-  <div class="glass-card space-y-4">
-    <h1 class="text-3xl"><%= @user.username %>'s Recipes</h1>
-    <%= render partial: "cocktail_recipes/cocktails", locals: { cocktail_recipes: @user.cocktail_recipes } %>
-  </div>
-<% end %>
+    </section>
+  <% else %>
+    <section class="page-hero">
+      <div class="page-hero-content">
+        <div>
+          <div class="page-hero-kicker">Bartender Shelf</div>
+          <h1 class="page-hero-title mt-3"><%= @user.username %>'s Recipes</h1>
+          <p class="page-hero-lead mt-3">Explore cocktails crafted by this bartender.</p>
+        </div>
+        <div class="page-actions">
+          <%= link_to "All Cocktails", cocktail_recipes_path, class: "btn btn-primary" %>
+          <%= link_to "Browse Categories", categories_path, class: "btn btn-ghost" %>
+        </div>
+      </div>
+    </section>
+    <section>
+      <%= render partial: "cocktail_recipes/cocktails", locals: { cocktail_recipes: @user.cocktail_recipes } %>
+    </section>
+  <% end %>
+</div>
     
 
   

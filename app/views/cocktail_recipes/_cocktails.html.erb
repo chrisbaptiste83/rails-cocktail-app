@@ -1,11 +1,5 @@
-<div class="grid gap-6 md:grid-cols-2">
+<div class="recipe-grid">
   <% cocktail_recipes.each do |cocktail_recipe| %>
-    <div class="glass-card space-y-3">
-      <h2 class="text-2xl font-display"><%= link_to cocktail_recipe.title, cocktail_recipe_path(cocktail_recipe) %></h2>
-      <%= image_tag cocktail_recipe.avatar.variant(resize_to_limit: [320, 320]), class: "w-full rounded-2xl" if cocktail_recipe.avatar.attached? %>
-      <div class="text-sm text-sand/70">Category: <%= link_to cocktail_recipe.category.name, category_path(cocktail_recipe.category) %></div>
-      <p class="text-sm text-sand/80"><%= cocktail_recipe.description %></p>
-      <small class="text-sand/60">By: <%= link_to cocktail_recipe.user.username, user_path(cocktail_recipe.user) %> · <%= created_at cocktail_recipe %></small>
-    </div>
+    <%= render partial: "cocktail_recipes/cocktail", locals: { cocktail_recipe: cocktail_recipe } %>
   <% end %>
 </div>

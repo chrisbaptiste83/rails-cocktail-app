@@ -1,9 +1,20 @@
-<div class="space-y-6">
-  <div class="glass-card">
-    <h1 class="text-3xl"><%= @category.name %></h1>
-    <p class="text-sm text-sand/70"><%= pluralize(@category.cocktail_recipes.count, "Cocktail Recipe") %> in this category</p>
-  </div>
+<div class="page-shell">
+  <section class="page-hero">
+    <div class="page-hero-content">
+      <div>
+        <div class="page-hero-kicker">Category Shelf</div>
+        <h1 class="page-hero-title mt-3"><%= @category.name %></h1>
+        <p class="page-hero-lead mt-3"><%= pluralize(@category.cocktail_recipes.count, "Cocktail Recipe") %> in this category.</p>
+      </div>
+      <div class="page-actions">
+        <%= link_to "Browse Categories", categories_path, class: "btn btn-ghost" %>
+        <%= link_to "Explore Cocktails", cocktail_recipes_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+  </section>
 
-  <%= render partial: "cocktail_recipes/cocktails", locals: { cocktail_recipes: @category.cocktail_recipes } %>
+  <section>
+    <%= render partial: "cocktail_recipes/cocktails", locals: { cocktail_recipes: @category.cocktail_recipes } %>
+  </section>
 </div>
     
