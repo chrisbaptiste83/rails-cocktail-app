@@ -39,10 +39,9 @@ gem 'pry'
 gem 'cloudinary'
 gem 'image_processing', '~> 1.2'
 
-gem 'omniauth-github'
-gem 'omniauth-rails_csrf_protection'
-
 gem 'active_storage_validations'
+gem 'kamal', require: false
+gem 'thruster', require: false
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password

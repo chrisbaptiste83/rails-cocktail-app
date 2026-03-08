@@ -1,0 +1,14 @@
+# Ignore node_modules — installed inside the Docker build via npm ci
+node_modules
+
+# Ignore local development/test artifacts
+.git
+log/*
+tmp/*
+storage/*
+db/*.sqlite3
+
+# Ignore local config overrides
+.env*
+config/master.key
+config/credentials/*.key
