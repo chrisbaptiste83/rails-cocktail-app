@@ -16,32 +16,19 @@ ENV RAILS_ENV="production" \
 FROM base AS build
 
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libyaml-dev node-gyp pkg-config python-is-python3 && \
+    apt-get install --no-install-recommends -y build-essential git libyaml-dev pkg-config && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
-
-ARG NODE_VERSION=22.14.0
-ENV PATH=/usr/local/node/bin:$PATH
-RUN curl -sL https://github.com/nodenv/node-build/archive/master.tar.gz | tar xz -C /tmp/ && \
-    /tmp/node-build-master/bin/node-build "${NODE_VERSION}" /usr/local/node && \
-    rm -rf /tmp/node-build-master
 
 COPY Gemfile Gemfile.lock ./
 RUN bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
     bundle exec bootsnap precompile --gemfile
 
-COPY package.json package-lock.json ./
-RUN npm ci
-
 COPY . .
 
 RUN bundle exec bootsnap precompile app/ lib/
 
-RUN npm run build && npm run build:css
-
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
-
-RUN rm -rf node_modules
 
 FROM base
 
