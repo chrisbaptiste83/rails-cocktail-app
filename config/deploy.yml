@@ -28,6 +28,9 @@ registry:
 env:
   secret:
     - RAILS_MASTER_KEY
+    - CLOUDINARY_CLOUD_NAME
+    - CLOUDINARY_API_KEY
+    - CLOUDINARY_API_SECRET
   clear:
     RAILS_LOG_LEVEL: info
 
