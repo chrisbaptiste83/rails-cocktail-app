@@ -13,6 +13,10 @@ servers:
 proxy:
   ssl: true
   host: mikescantina.live
+  healthcheck:
+    interval: 3
+    path: /up
+    timeout: 120
 
 # Credentials for your image host.
 registry:
@@ -24,9 +28,6 @@ registry:
 env:
   secret:
     - RAILS_MASTER_KEY
-    - CLOUDINARY_CLOUD_NAME
-    - CLOUDINARY_API_KEY
-    - CLOUDINARY_API_SECRET
   clear:
     RAILS_LOG_LEVEL: info
 
