@@ -1,0 +1,6 @@
+alice_chat:
+  user: alice
+  title: "What should I drink tonight?"
+
+guest_chat:
+  title: "Recommend something tropical"

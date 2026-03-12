@@ -1,9 +1,17 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+white_rum:
+  name: White Rum
 
-one:
-  name: MyString
-  cocktail_recipe_id: 1
+fresh_mint:
+  name: Fresh Mint
 
-two:
-  name: MyString
-  cocktail_recipe_id: 1
+lime_juice:
+  name: Lime Juice
+
+tequila:
+  name: Tequila
+
+triple_sec:
+  name: Triple Sec
+
+simple_syrup:
+  name: Simple Syrup

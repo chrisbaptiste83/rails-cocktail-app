@@ -1,11 +1,29 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+mojito_rum:
+  cocktail_recipe: mojito
+  ingredient: white_rum
+  quantity: "2 oz"
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+mojito_mint:
+  cocktail_recipe: mojito
+  ingredient: fresh_mint
+  quantity: "8 leaves"
+
+mojito_lime:
+  cocktail_recipe: mojito
+  ingredient: lime_juice
+  quantity: "1 oz"
+
+margarita_tequila:
+  cocktail_recipe: margarita
+  ingredient: tequila
+  quantity: "2 oz"
+
+margarita_triple_sec:
+  cocktail_recipe: margarita
+  ingredient: triple_sec
+  quantity: "1 oz"
+
+margarita_lime:
+  cocktail_recipe: margarita
+  ingredient: lime_juice
+  quantity: "0.75 oz"

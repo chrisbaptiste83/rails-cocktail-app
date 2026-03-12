@@ -1,0 +1,14 @@
+user_prompt:
+  ai_conversation: alice_chat
+  role: user
+  content: "What is a good rum cocktail?"
+
+assistant_reply:
+  ai_conversation: alice_chat
+  role: assistant
+  content: "Try a Classic Mojito! White rum, fresh mint, lime juice, sugar, and soda water."
+
+system_msg:
+  ai_conversation: alice_chat
+  role: system
+  content: "You are a knowledgeable bartender."

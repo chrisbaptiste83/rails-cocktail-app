@@ -1,11 +1,23 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+mojito:
+  user: alice
+  category: cocktails
+  title: Classic Mojito
+  description: A refreshing Cuban highball with rum, mint, and lime.
+  directions: Muddle mint leaves with sugar. Add rum and lime juice. Fill with ice and top with soda water.
+  comments_count: 2
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+margarita:
+  user: bob
+  category: cocktails
+  title: Margarita
+  description: A classic tequila cocktail with lime and orange liqueur.
+  directions: Shake tequila, lime juice, and triple sec with ice. Strain into a salt-rimmed glass.
+  comments_count: 0
+
+virgin_mojito:
+  user: alice
+  category: mocktails
+  title: Virgin Mojito
+  description: All the refreshment of a mojito without the alcohol.
+  directions: Muddle mint with sugar, add lime juice and soda water over ice.
+  comments_count: 0

@@ -1,7 +1,8 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+cocktails:
+  name: Cocktails
 
-one:
-  name: MyString
+mocktails:
+  name: Mocktails
 
-two:
-  name: MyString
+shots:
+  name: Shots
