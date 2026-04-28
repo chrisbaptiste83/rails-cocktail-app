@@ -5,8 +5,8 @@ ruby '3.4.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 8.0.0'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3', '>= 2.1'
+# Use PostgreSQL as the database for Active Record
+gem 'pg', '~> 1.5'
 # Use Puma as the app server
 gem 'puma', '>= 6.0'
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]

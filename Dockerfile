@@ -5,7 +5,7 @@ FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 WORKDIR /rails
 
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libjemalloc2 libvips sqlite3 && \
+    apt-get install --no-install-recommends -y curl libjemalloc2 libpq5 libvips && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 ENV RAILS_ENV="production" \
@@ -16,7 +16,7 @@ ENV RAILS_ENV="production" \
 FROM base AS build
 
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libyaml-dev pkg-config && \
+    apt-get install --no-install-recommends -y build-essential git libpq-dev libyaml-dev pkg-config && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install Node.js for daisyui (Tailwind v4 plugin — no node-sass involved)

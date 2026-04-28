@@ -1,6 +1,10 @@
 # Mike's Cantina
 
-A full-stack Rails 8 cocktail recipe platform where users share, discover, and discuss craft cocktail recipes — now with an AI-powered bartender powered by the OpenAI API.
+A full-stack Rails 8 cocktail recipe platform where users share, discover, and discuss craft cocktail recipes — with an AI-powered bartender backed by the OpenAI API.
+
+[![Ruby](https://img.shields.io/badge/Ruby-3.4.2-CC342D?logo=ruby&logoColor=white)](https://ruby-lang.org)
+[![Rails](https://img.shields.io/badge/Rails-8.0-CC0000?logo=rubyonrails&logoColor=white)](https://rubyonrails.org)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791?logo=postgresql&logoColor=white)](https://postgresql.org)
 
 ## Features
 
@@ -8,28 +12,30 @@ A full-stack Rails 8 cocktail recipe platform where users share, discover, and d
 - **Category & ingredient browsing** — Filter recipes by category, ingredient, or username
 - **Comments** — Leave feedback on any recipe; popular recipes are surfaced via a comment counter cache
 - **User profiles** — Each profile shows the recipe of the day, the most-commented recipe, and the five newest submissions
-- **AI Bartender** — A streaming chat interface backed by OpenAI GPT-4.1; signed-in users get persistent conversation history, guests get session-scoped history
+- **AI Bartender** — Streaming chat interface backed by OpenAI GPT-4.1; signed-in users get persistent conversation history, guests get session-scoped history
 - **OAuth** — Sign in with GitHub via Devise OmniAuth
-- **Image uploads** — Active Storage backed by Cloudinary
-- **Tailwind CSS + daisyUI** — Utility-first styling with Turbo/Stimulus for seamless page transitions
+- **Image uploads** — Active Storage backed by Cloudinary CDN
+- **Tailwind CSS + daisyUI** — Utility-first styling with Turbo/Stimulus for seamless, SPA-like page transitions
 
 ## Tech Stack
 
 | Layer | Technology |
 |---|---|
 | Framework | Rails 8.0 |
-| Database | SQLite 3 |
+| Language | Ruby 3.4.2 |
+| Database | PostgreSQL 16 |
 | Auth | Devise + OmniAuth (GitHub) |
 | Frontend | Turbo, Stimulus, Tailwind CSS v4, daisyUI |
 | Storage | Active Storage + Cloudinary |
 | AI | OpenAI API (streaming via SSE) |
-| Deployment | Kamal + Docker + Thruster |
+| Deployment | Kamal 2 + Docker + Thruster |
 
 ## Prerequisites
 
-- Ruby (see `.ruby-version`)
-- Bundler
-- Node.js (required for Tailwind CSS plugin resolution)
+- Ruby 3.4.2 (managed via `rbenv` — see `.ruby-version`)
+- Bundler 2.x
+- Node.js 20+ (required for Tailwind CSS v4 plugin resolution)
+- PostgreSQL 14+
 - A Cloudinary account
 - An OpenAI API key (for AI bartender functionality)
 
@@ -44,14 +50,13 @@ bundle install
 Copy the environment template and fill in your credentials:
 
 ```bash
-cp .env.example .env   # or set vars in your shell
+cp .env.example .env
 ```
 
-Set up the database and seed it with cocktail data from TheCocktailDB:
+Create and seed the database:
 
 ```bash
-bin/rails db:migrate
-bin/rails db:seed
+bin/rails db:create db:migrate db:seed
 ```
 
 Start the development server:
@@ -76,6 +81,10 @@ Navigate to `http://localhost:3000`.
 | `OPENAI_BARTENDER_MODEL` | No | Model override (default: `gpt-4.1`) |
 | `COCKTAILDB_API_KEY` | No | TheCocktailDB key (default: test key) |
 | `CLOUDINARY_URL` | Yes | Cloudinary connection string |
+| `PGUSER` | No | PostgreSQL user (default: `chris`) |
+| `PGPASSWORD` | No | PostgreSQL password |
+| `PGHOST` | No | PostgreSQL host (default: `localhost`) |
+| `DATABASE_URL` | Production | Full PostgreSQL connection URL |
 
 ## Usage
 
