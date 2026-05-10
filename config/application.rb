@@ -1,6 +1,7 @@
 require_relative "boot"
 
 require "rails/all"
+require_relative "../lib/google_secrets"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -8,6 +9,11 @@ Bundler.require(*Rails.groups)
 
 module RailsCocktailApp
   class Application < Rails::Application
+    # Ensure RAILS_MASTER_KEY is set from GCP if running in production
+    if Rails.env.production? && ENV["RAILS_MASTER_KEY"].blank?
+      ENV["RAILS_MASTER_KEY"] = GoogleSecrets.fetch("RAILS_MASTER_KEY")
+    end
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.0
 
