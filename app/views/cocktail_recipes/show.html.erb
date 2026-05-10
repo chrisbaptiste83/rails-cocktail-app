@@ -29,7 +29,7 @@
       <% end %>
       <div class="mt-6">
         <h3 class="text-2xl"><i class="fas fa-mortar-pestle text-emberGlow/70 mr-2"></i>Ingredients</h3>
-        <ul class="mt-4 space-y-0 text-sm text-sand/80">
+        <ul class="mt-4 space-y-0 text-sm text-sand/95">
           <% @cocktail_recipe.recipe_ingredients.each_with_index do |i, idx| %>
             <li class="flex items-center justify-between border-b border-white/10 px-3 py-3 <%= idx.even? ? 'bg-white/[0.03]' : '' %> rounded">
               <span><%= i.quantity %></span>
@@ -39,7 +39,7 @@
         </ul>
       </div>
     </div>
-    <div class="detail-panel smoke space-y-6 text-sm text-sand/90">
+    <div class="detail-panel smoke space-y-6 text-sm text-sand">
       <div>
         <h4 class="text-lg text-sand"><i class="fas fa-list-ol text-emberGlow/70 mr-2"></i>Directions</h4>
         <p class="mt-2"><%= @cocktail_recipe.directions %></p>

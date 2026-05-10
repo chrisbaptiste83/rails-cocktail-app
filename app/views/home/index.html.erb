@@ -45,20 +45,20 @@
             <span class="cantina-chip"><i class="fas fa-microchip"></i> AI Bartender Live</span>
             <h3 class="text-2xl font-display">Tonight's House Spotlight</h3>
             <% if @spotlight %>
-              <p class="text-sm text-sand/80"><strong><%= @spotlight.title %></strong> · <%= @spotlight.category&.name %></p>
-              <p class="text-sand/85"><%= @spotlight.description %></p>
+              <p class="text-sm text-sand/95"><strong><%= @spotlight.title %></strong> · <%= @spotlight.category&.name %></p>
+              <p class="text-sand/95"><%= @spotlight.description %></p>
             <% else %>
-              <p class="text-sand/85">Loading the lounge spotlight...</p>
+              <p class="text-sand/95">Loading the lounge spotlight...</p>
             <% end %>
           </div>
         </div>
         <div class="glass-panel smoke">
           <div class="flex items-center justify-between">
             <span class="cantina-chip"><i class="fas fa-door-open"></i> Lounge Pulse</span>
-            <span class="text-xs uppercase tracking-[0.2em] text-sand/85">Now Pouring</span>
+            <span class="text-xs uppercase tracking-[0.2em] text-sand/95">Now Pouring</span>
           </div>
           <h3 class="mt-4 text-xl font-display">Settle in for the evening</h3>
-          <p class="mt-2 text-sm text-sand/85">
+          <p class="mt-2 text-sm text-sand/95">
             Explore new recipes, keep tabs on the latest notes, and let the bartender guide the next round.
           </p>
           <div class="cantina-divider"></div>
@@ -94,7 +94,7 @@
           <li>
             <strong><%= comment.user.username %></strong>
             on <%= link_to comment.cocktail_recipe.title, cocktail_recipe_path(comment.cocktail_recipe) %>
-            <div class="text-sand/80"><%= comment.content %></div>
+            <div class="text-sand/95"><%= comment.content %></div>
           </li>
         <% end %>
         <% if @recent_comments.blank? %>
@@ -109,7 +109,7 @@
       </div>
       <p class="section-lead mt-3">Live drops, fresh recipes, and bartender picks land here. Grab a seat and stay awhile.</p>
       <div class="cantina-divider"></div>
-      <div class="space-y-3 text-sm text-sand/85">
+      <div class="space-y-3 text-sm text-sand/95">
         <div class="flex items-center gap-3">
           <span class="badge badge-outline text-sand"><i class="fas fa-wine-glass"></i> Featured flights nightly</span>
         </div>
@@ -149,7 +149,7 @@
         <div class="bartender-heading">
           <div>
             <h3 class="text-2xl font-display">Lounge Picks</h3>
-            <p class="text-sm text-sand/85">Choose a mood and spirit to surface recipes from the lounge archive.</p>
+            <p class="text-sm text-sand/95">Choose a mood and spirit to surface recipes from the lounge archive.</p>
           </div>
           <span class="badge badge-outline text-sand"><i class="fas fa-wine-glass-alt"></i> Curated archive</span>
         </div>
@@ -172,7 +172,7 @@
               <div class="card-body space-y-3">
               <%= ik_image_tag(pick.avatar, transformation: [{ width: 360, height: 260, crop: "at_max" }], class: "w-full rounded-2xl") if pick.avatar.attached? %>
               <h4 class="text-xl font-display"><%= link_to pick.title, cocktail_recipe_path(pick) %></h4>
-              <p class="text-sm text-sand/85"><%= pick.description %></p>
+              <p class="text-sm text-sand/95"><%= pick.description %></p>
               <div class="badge badge-outline text-sand"><%= pick.category&.name %></div>
               </div>
             </div>
@@ -181,7 +181,7 @@
             <div class="card border border-base-300/40 bg-base-200/70 shadow-lg">
               <div class="card-body space-y-2">
                 <h4 class="text-xl font-display">No picks yet</h4>
-                <p class="text-sm text-sand/85">Try a different vibe or spirit and we will find a pour.</p>
+                <p class="text-sm text-sand/95">Try a different vibe or spirit and we will find a pour.</p>
               </div>
             </div>
           <% end %>
@@ -192,7 +192,7 @@
       <div class="bartender-panel <%= chat_hidden_class %>" id="bartender-chat" role="tabpanel" data-bartender-panel="chat">
         <div>
           <h3 class="text-2xl font-display">AI Mixologist</h3>
-          <p class="text-sm text-sand/85">ChatGPT will craft a custom drink and serving ritual.</p>
+          <p class="text-sm text-sand/95">ChatGPT will craft a custom drink and serving ritual.</p>
         </div>
 
         <div class="bartender-chat-stack">

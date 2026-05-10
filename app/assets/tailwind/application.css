@@ -125,7 +125,7 @@
   .page-hero-kicker {
     @apply text-xs uppercase;
     letter-spacing: 0.35em;
-    color: color-mix(in srgb, var(--color-sand) 85%, transparent);
+    color: color-mix(in srgb, var(--color-emberGlow) 80%, var(--color-sand));
   }
 
   .page-hero-title {
@@ -134,7 +134,7 @@
 
   .page-hero-lead {
     @apply text-base sm:text-lg;
-    color: color-mix(in srgb, var(--color-sand) 85%, transparent);
+    color: color-mix(in srgb, var(--color-sand) 93%, transparent);
   }
 
   .page-actions {
@@ -200,14 +200,14 @@
   .recipe-meta {
     @apply flex flex-wrap items-center gap-2 text-xs uppercase;
     letter-spacing: 0.25em;
-    color: color-mix(in srgb, var(--color-sand) 90%, transparent);
+    color: color-mix(in srgb, var(--color-sand) 96%, transparent);
   }
 
   .recipe-badge {
     @apply inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1 text-xs uppercase;
     letter-spacing: 0.2em;
     background-color: hsl(var(--b2) / 0.7);
-    color: color-mix(in srgb, var(--color-sand) 85%, transparent);
+    color: color-mix(in srgb, var(--color-sand) 93%, transparent);
   }
 
   .detail-grid {
@@ -226,7 +226,7 @@
   .comment-card {
     @apply rounded-2xl border border-white/10 p-4 text-sm;
     background-color: hsl(var(--b2) / 0.7);
-    color: color-mix(in srgb, var(--color-sand) 90%, transparent);
+    color: color-mix(in srgb, var(--color-sand) 96%, transparent);
   }
 
   .section-heading {
@@ -236,7 +236,7 @@
   .section-kicker {
     @apply text-xs uppercase;
     letter-spacing: 0.35em;
-    color: color-mix(in srgb, var(--color-sand) 85%, transparent);
+    color: color-mix(in srgb, var(--color-emberGlow) 80%, var(--color-sand));
   }
 
   .section-title {
@@ -245,7 +245,7 @@
 
   .section-lead {
     @apply text-lg;
-    color: color-mix(in srgb, var(--color-sand) 85%, transparent);
+    color: color-mix(in srgb, var(--color-sand) 93%, transparent);
   }
 
   .hero-shell {
@@ -269,7 +269,7 @@
     @apply inline-flex items-center gap-3 rounded-full border border-white/10 px-4 py-2 text-xs uppercase shadow-glow;
     letter-spacing: 0.3em;
     background-color: hsl(var(--b2) / 0.6);
-    color: color-mix(in srgb, var(--color-sand) 85%, transparent);
+    color: color-mix(in srgb, var(--color-emberGlow) 80%, var(--color-sand));
   }
 
   .hero-title {
@@ -278,7 +278,7 @@
 
   .hero-lead {
     @apply text-lg;
-    color: color-mix(in srgb, var(--color-sand) 90%, transparent);
+    color: color-mix(in srgb, var(--color-sand) 96%, transparent);
   }
 
   .hero-actions {
@@ -292,7 +292,7 @@
   .stat-card {
     @apply rounded-2xl border border-white/10 p-4 text-sm shadow-lounge;
     background-color: hsl(var(--b2) / 0.7);
-    color: color-mix(in srgb, var(--color-sand) 85%, transparent);
+    color: color-mix(in srgb, var(--color-sand) 93%, transparent);
   }
 
   .stat-value {
@@ -343,7 +343,7 @@
     @apply inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1 text-xs uppercase;
     letter-spacing: 0.25em;
     background-color: hsl(var(--b2) / 0.7);
-    color: color-mix(in srgb, var(--color-sand) 90%, transparent);
+    color: color-mix(in srgb, var(--color-sand) 96%, transparent);
   }
 
   /* Auth shell — centers and constrains auth forms */
@@ -380,7 +380,7 @@
 
   .bartender-tab {
     @apply flex-1 px-4 py-2 text-sm font-semibold;
-    color: color-mix(in srgb, var(--color-sand) 85%, transparent);
+    color: color-mix(in srgb, var(--color-sand) 93%, transparent);
     transition: all 0.2s ease;
   }
 
@@ -422,13 +422,13 @@
   .bartender-chat-log {
     @apply max-h-80 space-y-4 overflow-y-auto rounded-2xl border border-white/10 p-4 text-sm;
     background-color: hsl(var(--b2) / 0.8);
-    color: color-mix(in srgb, var(--color-sand) 90%, transparent);
+    color: color-mix(in srgb, var(--color-sand) 96%, transparent);
   }
 
   .bartender-chat-empty {
     @apply rounded-2xl border border-white/10 p-4 text-sm;
     background-color: hsl(var(--b2) / 0.6);
-    color: color-mix(in srgb, var(--color-sand) 85%, transparent);
+    color: color-mix(in srgb, var(--color-sand) 93%, transparent);
   }
 
   .bartender-chat-form {
@@ -446,13 +446,13 @@
   .bartender-message-label {
     @apply text-xs uppercase;
     letter-spacing: 0.2em;
-    color: color-mix(in srgb, var(--color-sand) 85%, transparent);
+    color: color-mix(in srgb, var(--color-sand) 93%, transparent);
   }
 
   .bartender-bubble {
     @apply max-w-[90%] rounded-2xl border border-white/10 px-4 py-3 text-sm;
     background-color: hsl(var(--b2) / 0.6);
-    color: color-mix(in srgb, var(--color-sand) 90%, transparent);
+    color: color-mix(in srgb, var(--color-sand) 96%, transparent);
   }
 
   .bartender-bubble.is-bartender {
@@ -464,7 +464,7 @@
   .bartender-typing {
     @apply flex items-center gap-2 text-xs uppercase;
     letter-spacing: 0.2em;
-    color: color-mix(in srgb, var(--color-sand) 85%, transparent);
+    color: color-mix(in srgb, var(--color-sand) 93%, transparent);
   }
 
   .bartender-dots {
@@ -491,7 +491,7 @@
 
   .lounge-list li {
     @apply border-b border-white/10 pb-4 text-sm last:border-none last:pb-0;
-    color: color-mix(in srgb, var(--color-sand) 90%, transparent);
+    color: color-mix(in srgb, var(--color-sand) 96%, transparent);
   }
 
   .lounge-list strong {
