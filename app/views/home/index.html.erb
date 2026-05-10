@@ -37,7 +37,7 @@
       <div class="hero-stack">
         <div class="glass-panel hero-spotlight">
           <% if @spotlight&.avatar&.attached? %>
-            <%= image_tag(@spotlight.avatar.variant(resize_to_limit: [560, 360]), class: "w-full rounded-2xl") %>
+            <%= ik_image_tag(@spotlight.avatar, transformation: [{ width: 560, height: 360, crop: "at_max" }, { effect_sharpen: 2 }], class: "w-full rounded-2xl") %>
           <% else %>
             <div class="h-56 w-full rounded-2xl bg-base-300/60"></div>
           <% end %>
@@ -170,7 +170,7 @@
           <% @bartender_picks.each do |pick| %>
             <div class="card border border-base-300/40 bg-base-200/70 shadow-lg">
               <div class="card-body space-y-3">
-              <%= image_tag(pick.avatar.variant(resize_to_limit: [360, 260]), class: "w-full rounded-2xl") if pick.avatar.attached? %>
+              <%= ik_image_tag(pick.avatar, transformation: [{ width: 360, height: 260, crop: "at_max" }], class: "w-full rounded-2xl") if pick.avatar.attached? %>
               <h4 class="text-xl font-display"><%= link_to pick.title, cocktail_recipe_path(pick) %></h4>
               <p class="text-sm text-sand/85"><%= pick.description %></p>
               <div class="badge badge-outline text-sand"><%= pick.category&.name %></div>

@@ -1,7 +1,7 @@
 <article class="recipe-card">
   <% if cocktail_recipe.avatar.attached? %>
     <div class="recipe-card-img">
-      <%= image_tag cocktail_recipe.avatar.variant(resize_to_limit: [420, 320]), class: "w-full rounded-t-3xl" %>
+      <%= ik_image_tag cocktail_recipe.avatar, transformation: [{ width: 420, height: 320, crop: "at_max" }], class: "w-full rounded-t-3xl" %>
     </div>
   <% end %>
   <div class="recipe-card-body">

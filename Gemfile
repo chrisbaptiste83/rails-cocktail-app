@@ -35,9 +35,13 @@ gem 'tailwindcss-rails'
 
 gem 'pry'
 
-# Image uploads with Cloudinary
-gem 'cloudinary'
+# Image uploads with ImageKit
+gem 'imagekitio-rails'
 gem 'image_processing', '~> 1.2'
+
+# GCP Secret Manager
+gem 'google-cloud-secret_manager'
+gem 'google-cloud-env'
 
 gem 'active_storage_validations'
 gem 'kamal', require: false

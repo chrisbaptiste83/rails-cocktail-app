@@ -12,6 +12,12 @@ cloudinary:
   api_key: <%= ENV['CLOUDINARY_API_KEY'] %>
   api_secret: <%= ENV['CLOUDINARY_API_SECRET'] %>
 
+imagekit:
+  service: ImageKit
+  public_key: <%= ENV['IMAGEKIT_PUBLIC_KEY'] %>
+  private_key: <%= ENV['IMAGEKIT_PRIVATE_KEY'] %>
+  url_endpoint: <%= ENV['IMAGEKIT_URL_ENDPOINT'] %>
+
 # Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:
 #   service: S3

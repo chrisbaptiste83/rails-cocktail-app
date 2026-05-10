@@ -24,7 +24,7 @@
     <div class="detail-panel">
       <% if @cocktail_recipe.avatar.attached? %>
         <div class="relative overflow-hidden rounded-2xl border border-white/10 mx-auto" style="width: 280px; height: 280px; background-color: hsl(var(--b1)); box-shadow: var(--shadow-lounge);">
-          <%= image_tag(@cocktail_recipe.avatar.variant(resize_to_limit: [640, 480]), class: "block w-full h-full object-contain") %>
+          <%= ik_image_tag(@cocktail_recipe.avatar, transformation: [{ width: 640, height: 480, crop: "at_max" }, { effect_sharpen: 2 }], class: "block w-full h-full object-contain") %>
         </div>
       <% end %>
       <div class="mt-6">
