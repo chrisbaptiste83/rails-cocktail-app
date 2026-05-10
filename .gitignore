@@ -37,3 +37,8 @@ yarn-debug.log*
 
 .kamal/secrets
 .DS_Store
+
+# Local environment secrets — never commit
+.env
+.env.*
+!.env.example
