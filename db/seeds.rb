@@ -1,3 +1,5 @@
+require 'open-uri'
+
 puts "Clearing existing data..."
 Comment.destroy_all
 RecipeIngredient.destroy_all
@@ -792,6 +794,67 @@ puts "Created #{Comment.count} comments."
 # ============================================================
 puts "Updating comment counters..."
 CocktailRecipe.find_each { |r| CocktailRecipe.reset_counters(r.id, :comments) }
+
+# ============================================================
+# COCKTAIL IMAGES
+# ============================================================
+puts "\nAttaching cocktail images from Wikimedia Commons..."
+
+COCKTAIL_IMAGE_URLS = {
+  "Old Fashioned"                      => "https://en.wikipedia.org/wiki/Special:FilePath/Old_Fashioned_Cocktail.jpg?width=800",
+  "Negroni"                            => "https://en.wikipedia.org/wiki/Special:FilePath/NegroniCocktail.jpg?width=800",
+  "Classic Daiquiri"                   => "https://en.wikipedia.org/wiki/Special:FilePath/Daiquiri_Cocktail.jpg?width=800",
+  "Classic Margarita"                  => "https://en.wikipedia.org/wiki/Special:FilePath/MargaritaReal.jpg?width=800",
+  "Moscow Mule"                        => "https://en.wikipedia.org/wiki/Special:FilePath/Moscow_mule_cocktail.jpg?width=800",
+  "Dark & Stormy"                      => "https://en.wikipedia.org/wiki/Special:FilePath/Dark_n_Stormy.jpg?width=800",
+  "Whiskey Sour"                       => "https://en.wikipedia.org/wiki/Special:FilePath/Whiskey_sour_with_egg_white.jpg?width=800",
+  "Aperol Spritz"                      => "https://en.wikipedia.org/wiki/Special:FilePath/AperolSpritz.jpg?width=800",
+  "Paloma"                             => "https://en.wikipedia.org/wiki/Special:FilePath/Paloma_cocktail.jpg?width=800",
+  "Bee's Knees"                        => "https://en.wikipedia.org/wiki/Special:FilePath/Bees_knees_cocktail.jpg?width=800",
+  "Paper Plane"                        => "https://en.wikipedia.org/wiki/Special:FilePath/Paper_plane_cocktail.jpg?width=800",
+  "The Last Word"                      => "https://en.wikipedia.org/wiki/Special:FilePath/Last_Word_cocktail.jpg?width=800",
+  "Penicillin"                         => "https://en.wikipedia.org/wiki/Special:FilePath/Penicillin_cocktail.jpg?width=800",
+  "French 75"                          => "https://en.wikipedia.org/wiki/Special:FilePath/French_75_Champagne_Cocktail.jpg?width=800",
+  "Espresso Martini"                   => "https://en.wikipedia.org/wiki/Special:FilePath/Espresso_martini.jpg?width=800",
+  "Jungle Bird"                        => "https://en.wikipedia.org/wiki/Special:FilePath/Jungle_Bird_cocktail.jpg?width=800",
+  "Porn Star Martini"                  => "https://en.wikipedia.org/wiki/Special:FilePath/Pornstar_martini_cocktail.jpg?width=800",
+  "Clover Club"                        => "https://en.wikipedia.org/wiki/Special:FilePath/Clover_Club_cocktail.jpg?width=800",
+  "Toronto"                            => "https://en.wikipedia.org/wiki/Special:FilePath/Toronto_Cocktail.jpg?width=800",
+  "Aviation"                           => "https://en.wikipedia.org/wiki/Special:FilePath/Aviation_Cocktail.jpg?width=800",
+  "Oaxacan Negroni"                    => "https://en.wikipedia.org/wiki/Special:FilePath/NegroniCocktail.jpg?width=800",
+  "Amaretto Sour (Morgenthaler Style)" => "https://en.wikipedia.org/wiki/Special:FilePath/Amaretto_Sour_cocktail.jpg?width=800",
+  "Sazerac"                            => "https://en.wikipedia.org/wiki/Special:FilePath/Sazerac.jpg?width=800",
+  "Mai Tai (Trader Vic's Original)"    => "https://en.wikipedia.org/wiki/Special:FilePath/MaiTai.jpg?width=800",
+  "Vieux Carré"                        => "https://en.wikipedia.org/wiki/Special:FilePath/Vieux_Carré_cocktail.jpg?width=800",
+  "Gimlet"                             => "https://en.wikipedia.org/wiki/Special:FilePath/Gimlet_(cocktail).jpg?width=800",
+  "Naked & Famous"                     => "https://en.wikipedia.org/wiki/Special:FilePath/Naked_and_Famous_cocktail.jpg?width=800",
+  "Spritz Veneziano"                   => "https://en.wikipedia.org/wiki/Special:FilePath/Spritz_veneziano.jpg?width=800",
+  "Hugo Spritz"                        => "https://en.wikipedia.org/wiki/Special:FilePath/Hugo_spritz.jpg?width=800",
+  "Spicy Mezcal Margarita"             => "https://en.wikipedia.org/wiki/Special:FilePath/MargaritaReal.jpg?width=800",
+}.freeze
+
+image_count = 0
+CocktailRecipe.find_each do |recipe|
+  next if recipe.avatar.attached?
+
+  url = COCKTAIL_IMAGE_URLS[recipe.title]
+  unless url
+    puts "  – #{recipe.title}: no image mapped"
+    next
+  end
+
+  begin
+    io = URI.open(url, "User-Agent" => "Rails-Cocktail-Seed/1.0 (github.com/rails)")
+    filename = "#{recipe.title.downcase.gsub(/[^a-z0-9]+/, '_').delete_suffix('_')}.jpg"
+    recipe.avatar.attach(io: io, filename: filename, content_type: "image/jpeg")
+    image_count += 1
+    puts "  ✓ #{recipe.title}"
+  rescue => e
+    puts "  ✗ #{recipe.title}: #{e.message}"
+  end
+end
+
+puts "Attached #{image_count}/#{CocktailRecipe.count} images."
 
 puts "\n=== Seed Complete ==="
 puts "Users:              #{User.count}"
