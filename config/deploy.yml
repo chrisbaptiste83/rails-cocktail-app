@@ -29,6 +29,9 @@ env:
   secret:
     - RAILS_MASTER_KEY
     - DATABASE_URL
+    - IMAGEKIT_PUBLIC_KEY
+    - IMAGEKIT_PRIVATE_KEY
+    - IMAGEKIT_URL_ENDPOINT
   clear:
     RAILS_LOG_LEVEL: info
 
@@ -38,10 +41,6 @@ aliases:
   shell: app exec --interactive --reuse "bash"
   logs: app logs -f
   dbc: app exec --interactive --reuse "bin/rails dbconsole"
-
-# Persist Active Storage files across deployments.
-volumes:
-  - "cocktail_storage:/rails/storage"
 
 # Bridge fingerprinted assets between versions.
 asset_path: /rails/public/assets
