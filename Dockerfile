@@ -1,4 +1,3 @@
-# This Dockerfile is designed for production use with Kamal.
 ARG RUBY_VERSION=3.4.2
 FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 
@@ -52,5 +51,6 @@ USER 1000:1000
 
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
-EXPOSE 80
-CMD ["./bin/thrust", "./bin/rails", "server"]
+# Cloud Run sets PORT (default 8080); -b ensures 0.0.0.0 binding
+EXPOSE 8080
+CMD ["sh", "-c", "./bin/rails server -b 0.0.0.0 -p ${PORT:-8080}"]

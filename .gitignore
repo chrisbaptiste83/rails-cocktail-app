@@ -35,7 +35,7 @@
 yarn-debug.log*
 .yarn-integrity
 
-.kamal/secrets
+.kamal/
 .DS_Store
 
 # Local environment secrets — never commit
