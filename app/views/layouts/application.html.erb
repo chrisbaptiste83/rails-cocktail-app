@@ -27,50 +27,50 @@
             </label>
             <ul tabindex="0" class="dropdown-content menu menu-sm z-[1] mt-3 w-56 rounded-2xl border border-white/10 bg-base-200 p-2 shadow-lounge">
               <li>
-                <%= link_to root_path(anchor: "lounge"), class: "text-sand/80" do %>
+                <%= link_to root_path(anchor: "lounge"), class: "text-sand/95" do %>
                   <i class="fas fa-door-open"></i> Lounge
                 <% end %>
               </li>
               <% unless user_signed_in? %>
                 <li>
-                  <%= link_to new_user_session_path, class: "text-sand/80" do %>
+                  <%= link_to new_user_session_path, class: "text-sand/95" do %>
                     <i class="fas fa-sign-in-alt"></i> Login
                   <% end %>
                 </li>
                 <li>
-                  <%= link_to new_user_registration_path, class: "text-sand/80" do %>
+                  <%= link_to new_user_registration_path, class: "text-sand/95" do %>
                     <i class="fas fa-user-plus"></i> Sign Up
                   <% end %>
                 </li>
               <% end %>
               <% if user_signed_in? %>
                 <li>
-                  <%= link_to cocktail_recipes_path, class: "text-sand/80" do %>
+                  <%= link_to cocktail_recipes_path, class: "text-sand/95" do %>
                     <i class="fas fa-cocktail"></i> Cocktails
                   <% end %>
                 </li>
                 <li>
-                  <%= link_to categories_path, class: "text-sand/80" do %>
+                  <%= link_to categories_path, class: "text-sand/95" do %>
                     <i class="fas fa-list"></i> Categories
                   <% end %>
                 </li>
                 <li>
-                  <%= link_to new_cocktail_recipe_path, class: "text-sand/80" do %>
+                  <%= link_to new_cocktail_recipe_path, class: "text-sand/95" do %>
                     <i class="fas fa-plus-circle"></i> Create
                   <% end %>
                 </li>
                 <li>
-                  <%= link_to ingredients_path, class: "text-sand/80" do %>
+                  <%= link_to ingredients_path, class: "text-sand/95" do %>
                     <i class="fas fa-lemon"></i> Ingredients
                   <% end %>
                 </li>
                 <li>
-                  <%= link_to current_user, class: "text-sand/80" do %>
+                  <%= link_to current_user, class: "text-sand/95" do %>
                     <i class="fas fa-user"></i> Profile
                   <% end %>
                 </li>
                 <li>
-                  <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "text-sand/80" %>
+                  <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "text-sand/95" %>
                 </li>
               <% end %>
             </ul>
@@ -80,11 +80,11 @@
         </div>
         <div class="navbar-end hidden lg:flex">
           <nav class="flex items-center gap-2">
-            <%= link_to root_path(anchor: "lounge"), class: "btn btn-ghost btn-sm text-sand/80" do %>
+            <%= link_to root_path(anchor: "lounge"), class: "btn btn-ghost btn-sm text-sand/95" do %>
               <i class="fas fa-door-open"></i> Lounge
             <% end %>
             <% unless user_signed_in? %>
-              <%= link_to new_user_session_path, class: "btn btn-ghost btn-sm text-sand/80" do %>
+              <%= link_to new_user_session_path, class: "btn btn-ghost btn-sm text-sand/95" do %>
                 <i class="fas fa-sign-in-alt"></i> Login
               <% end %>
               <%= link_to new_user_registration_path, class: "btn btn-outline btn-sm" do %>
@@ -92,19 +92,19 @@
               <% end %>
             <% end %>
             <% if user_signed_in? %>
-              <%= link_to cocktail_recipes_path, class: "btn btn-ghost btn-sm text-sand/80" do %>
+              <%= link_to cocktail_recipes_path, class: "btn btn-ghost btn-sm text-sand/95" do %>
                 <i class="fas fa-cocktail"></i> Cocktails
               <% end %>
-              <%= link_to categories_path, class: "btn btn-ghost btn-sm text-sand/80" do %>
+              <%= link_to categories_path, class: "btn btn-ghost btn-sm text-sand/95" do %>
                 <i class="fas fa-list"></i> Categories
               <% end %>
-              <%= link_to new_cocktail_recipe_path, class: "btn btn-ghost btn-sm text-sand/80" do %>
+              <%= link_to new_cocktail_recipe_path, class: "btn btn-ghost btn-sm text-sand/95" do %>
                 <i class="fas fa-plus-circle"></i> Create
               <% end %>
-              <%= link_to ingredients_path, class: "btn btn-ghost btn-sm text-sand/80" do %>
+              <%= link_to ingredients_path, class: "btn btn-ghost btn-sm text-sand/95" do %>
                 <i class="fas fa-lemon"></i> Ingredients
               <% end %>
-              <%= link_to current_user, class: "btn btn-ghost btn-sm text-sand/80" do %>
+              <%= link_to current_user, class: "btn btn-ghost btn-sm text-sand/95" do %>
                 <i class="fas fa-user"></i> Profile
               <% end %>
               <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-outline btn-sm" %>
@@ -133,14 +133,14 @@
       <div class="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 py-8 sm:flex-row sm:justify-between">
         <div class="flex items-center gap-3">
           <span class="badge badge-outline text-sand"><i class="fas fa-cocktail"></i></span>
-          <span class="font-display text-sand/80">Mike's Cantina</span>
+          <span class="font-display text-sand/95">Mike's Cantina</span>
         </div>
-        <nav class="flex flex-wrap items-center gap-4 text-sm text-sand/80">
+        <nav class="flex flex-wrap items-center gap-4 text-sm text-sand/95">
           <%= link_to "Cocktails", cocktail_recipes_path, class: "hover:text-sand transition-colors" %>
           <%= link_to "Categories", categories_path, class: "hover:text-sand transition-colors" %>
           <%= link_to "Ingredients", ingredients_path, class: "hover:text-sand transition-colors" %>
         </nav>
-        <p class="text-xs text-sand/80">&copy; <%= Date.current.year %> Mike's Cantina. All rights reserved.</p>
+        <p class="text-xs text-sand/95">&copy; <%= Date.current.year %> Mike's Cantina. All rights reserved.</p>
       </div>
     </footer>
 

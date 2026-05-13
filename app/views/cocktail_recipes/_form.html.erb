@@ -29,15 +29,15 @@
         <div class="rounded-2xl border border-white/10 bg-base-200/70 p-4">
           <div class="grid gap-3 md:grid-cols-3">
             <div class="space-y-2">
-              <label class="text-sm text-sand/85">Quantity</label>
+              <label class="text-sm text-sand/95">Quantity</label>
               <%= recipe_ingredient.text_field :quantity, class: "input input-bordered w-full" %>
             </div>
             <div class="space-y-2">
-              <label class="text-sm text-sand/85">Select Ingredient</label>
+              <label class="text-sm text-sand/95">Select Ingredient</label>
               <%= recipe_ingredient.collection_select :ingredient_id, Ingredient.all.order(:name), :id, :name, { include_blank: "Select Ingredient" }, class: "select select-bordered w-full" %>
             </div>
             <div class="space-y-2">
-              <label class="text-sm text-sand/85">Or Create New</label>
+              <label class="text-sm text-sand/95">Or Create New</label>
               <%= recipe_ingredient.fields_for :ingredient, @cocktail_recipe.ingredients.build do |ingredient| %>
                 <%= ingredient.text_field :name, class: "input input-bordered w-full" %>
               <% end %>
