@@ -25,6 +25,12 @@ RUN curl -sL https://github.com/nodenv/node-build/archive/master.tar.gz | tar xz
     /tmp/node-build-master/bin/node-build "${NODE_VERSION}" /usr/local/node && \
     rm -rf /tmp/node-build-master
 
+# Install Thruster
+ARG THRUSTER_VERSION=0.1.12
+RUN curl -sL https://github.com/basecamp/thruster/releases/download/v${THRUSTER_VERSION}/thruster-$(uname -m)-unknown-linux-gnu.tar.gz | tar xz -C /tmp/ && \
+    mv /tmp/thrust /usr/local/bin/thrust && \
+    chmod +x /usr/local/bin/thrust
+
 COPY package.json ./
 RUN npm install
 
@@ -43,6 +49,7 @@ FROM base
 
 COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
 COPY --from=build /rails /rails
+COPY --from=build /usr/local/bin/thrust /usr/local/bin/thrust
 
 RUN groupadd --system --gid 1000 rails && \
     useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
@@ -51,6 +58,6 @@ USER 1000:1000
 
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
-# Cloud Run sets PORT (default 8080); -b ensures 0.0.0.0 binding
+# Cloud Run sets PORT; Thruster binds to it and proxies to Puma
 EXPOSE 8080
-CMD ["sh", "-c", "./bin/rails server -b 0.0.0.0 -p ${PORT:-8080}"]
+CMD ["thrust", "./bin/rails", "server"]
