@@ -11,9 +11,10 @@ class CocktailRecipesController < ApplicationController
 
 
     def create
-      @cocktail_recipe = current_user.cocktail_recipes.new(cocktail_recipe_params) 
-      if @cocktail_recipe.save
-        @cocktail_recipe.add_ingredients_to_recipe(recipe_ingredient_params)
+      @cocktail_recipe = CocktailRecipeService.create_with_ingredients(
+        current_user, cocktail_recipe_params, recipe_ingredient_params
+      )
+      if @cocktail_recipe.persisted?
         redirect_to cocktail_recipe_path(@cocktail_recipe), notice: "Your recipe has successfully been added" 
       else  
         @ingredients = 6.times.collect { @cocktail_recipe.recipe_ingredients.build } 
@@ -27,15 +28,7 @@ class CocktailRecipesController < ApplicationController
 
     def index 
       @users = User.all 
-        if params[:search]
-          @cocktail_recipes = CocktailRecipe.search(params[:search]).order("created_at DESC")
-        elsif !params[:user].blank?
-          @cocktail_recipes = CocktailRecipe.by_user(params[:user]).order(:title)
-        elsif params[:user_id]
-          @cocktail_recipes = User.find(params[:user_id]).cocktail_recipes.order('title ASC')
-        else
-          @cocktail_recipes = CocktailRecipe.all.order(:title)
-        end
+      @cocktail_recipes = CocktailRecipeIndexQuery.new(params).call
     end 
 
 
@@ -49,8 +42,9 @@ class CocktailRecipesController < ApplicationController
       end
      
     def update
-        if @cocktail_recipe.update(cocktail_recipe_params)
-          @cocktail_recipe.add_ingredients_to_recipe(recipe_ingredient_params)
+        if CocktailRecipeService.update_with_ingredients(
+             @cocktail_recipe, cocktail_recipe_params, recipe_ingredient_params
+           )
           redirect_to @cocktail_recipe, notice: "Your recipe has successfully been updated"
         else 
           redirect_to new_cocktail_recipe_path
