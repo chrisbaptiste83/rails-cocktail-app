@@ -2,6 +2,7 @@ class CocktailRecipesController < ApplicationController
 
     before_action :find_cocktail_recipe, only: [:show, :edit, :update, :destroy] 
     before_action :authenticate_user!
+    before_action :authorize_cocktail_recipe!, only: [:edit, :update, :destroy]
 
     def new 
         @cocktail_recipe = CocktailRecipe.new 
@@ -65,5 +66,10 @@ class CocktailRecipesController < ApplicationController
     @cocktail_recipe = CocktailRecipe.find(params[:id])
    end
     
+   def authorize_cocktail_recipe!
+     unless @cocktail_recipe.user_id == current_user.id
+       redirect_to cocktail_recipes_url, alert: "You are not authorized to modify this recipe."
+     end
+   end
 
 end
