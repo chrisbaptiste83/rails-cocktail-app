@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap");
 
 @import "tailwindcss";
 @plugin "daisyui";
@@ -16,8 +16,8 @@
   --color-emberGlow: #f2c14e;
   --color-glass: rgba(12, 16, 18, 0.78);
 
-  --font-display: "Cormorant Garamond", serif;
-  --font-body: "Space Grotesk", sans-serif;
+  --font-display: "Abril Fatface", serif;
+  --font-body: "Lora", serif;
 
   --shadow-lounge: 0 24px 50px rgba(5, 10, 12, 0.5);
   --shadow-glow: 0 12px 25px rgba(201, 130, 43, 0.35);
@@ -33,28 +33,26 @@
   }
 
   [data-theme="cantina"] {
-    --p: 36 73% 43%;
-    --pf: 36 73% 35%;
-    --pc: 36 56% 95%;
-    --s: 175 21% 17%;
-    --sf: 175 21% 13%;
-    --sc: 175 21% 85%;
-    --a: 43 87% 62%;
-    --af: 43 87% 50%;
-    --ac: 43 87% 10%;
-    --n: 198 18% 6%;
-    --nf: 198 18% 4%;
-    --nc: 198 18% 80%;
-    --b1: 198 18% 6%;
-    --b2: 195 16% 10%;
-    --b3: 195 18% 14%;
-    --in: 188 36% 47%;
-    --su: 163 41% 40%;
-    --wa: 43 87% 62%;
-    --er: 7 55% 49%;
-    --rounded-btn: 1.5rem;
-    --rounded-box: 1.5rem;
-    --rounded-badge: 1rem;
+    color-scheme: dark;
+    --color-primary:         oklch(56% 0.13 53);
+    --color-primary-content: oklch(96% 0.02 53);
+    --color-secondary:       oklch(26% 0.04 175);
+    --color-secondary-content: oklch(87% 0.02 175);
+    --color-accent:          oklch(80% 0.15 72);
+    --color-accent-content:  oklch(14% 0.03 72);
+    --color-neutral:         oklch(9% 0.01 220);
+    --color-neutral-content: oklch(82% 0.01 220);
+    --color-base-100:        oklch(9% 0.01 220);
+    --color-base-200:        oklch(13% 0.01 220);
+    --color-base-300:        oklch(18% 0.01 220);
+    --color-base-content:    oklch(87% 0.01 220);
+    --color-info:            oklch(59% 0.07 195);
+    --color-success:         oklch(55% 0.10 150);
+    --color-warning:         oklch(80% 0.15 72);
+    --color-error:           oklch(51% 0.13 25);
+    --radius-btn:   1.5rem;
+    --radius-box:   1.5rem;
+    --radius-badge: 1rem;
   }
 
   body {
