@@ -2,11 +2,15 @@ require "net/http"
 require "json"
 
 class AiBartender
+  class Error < StandardError; end
+
   OPENAI_URL = URI("https://api.openai.com/v1/responses").freeze
+  HTTP_OPEN_TIMEOUT = 15
+  HTTP_READ_TIMEOUT = 60
 
   def self.call(prompt:, strength:, glass:, history: [])
     api_key = ENV["OPENAI_API_KEY"].to_s.strip
-    raise "Missing OPENAI_API_KEY" if api_key.blank?
+    raise Error, "Missing OPENAI_API_KEY" if api_key.blank?
 
     model = ENV.fetch("OPENAI_BARTENDER_MODEL", "gpt-4.1")
     menu = build_house_menu
@@ -43,7 +47,7 @@ class AiBartender
       max_output_tokens: 300
     }
 
-    response = Net::HTTP.start(OPENAI_URL.host, OPENAI_URL.port, use_ssl: true) do |http|
+    response = Net::HTTP.start(OPENAI_URL.host, OPENAI_URL.port, use_ssl: true, open_timeout: HTTP_OPEN_TIMEOUT, read_timeout: HTTP_READ_TIMEOUT) do |http|
       request = Net::HTTP::Post.new(OPENAI_URL)
       request["Authorization"] = "Bearer #{api_key}"
       request["Content-Type"] = "application/json"
@@ -51,15 +55,18 @@ class AiBartender
       http.request(request)
     end
 
-    body = JSON.parse(response.body)
-    raise body.dig("error", "message") if response.code.to_i >= 400
+    body = parse_json(response.body)
+    if response.code.to_i >= 400
+      message = body.dig("error", "message").presence || "OpenAI API error (HTTP #{response.code})"
+      raise Error, message
+    end
 
     extract_text(body).presence || "I couldn't craft a pour right now. Try a new vibe or spirit."
   end
 
   def self.stream(prompt:, strength:, glass:, history: [])
     api_key = ENV["OPENAI_API_KEY"].to_s.strip
-    raise "Missing OPENAI_API_KEY" if api_key.blank?
+    raise Error, "Missing OPENAI_API_KEY" if api_key.blank?
 
     model = ENV.fetch("OPENAI_BARTENDER_MODEL", "gpt-4.1")
     menu = build_house_menu
@@ -99,7 +106,7 @@ class AiBartender
 
     full_text = +""
 
-    Net::HTTP.start(OPENAI_URL.host, OPENAI_URL.port, use_ssl: true) do |http|
+    Net::HTTP.start(OPENAI_URL.host, OPENAI_URL.port, use_ssl: true, open_timeout: HTTP_OPEN_TIMEOUT, read_timeout: HTTP_READ_TIMEOUT) do |http|
       request = Net::HTTP::Post.new(OPENAI_URL)
       request["Authorization"] = "Bearer #{api_key}"
       request["Content-Type"] = "application/json"
@@ -108,8 +115,8 @@ class AiBartender
       http.request(request) do |response|
         if response.code.to_i >= 400
           body = response.read_body
-          error_message = JSON.parse(body).dig("error", "message") rescue body
-          raise error_message.to_s
+          error_message = extract_error_message(body)
+          raise Error, error_message
         end
 
         buffer = +""
@@ -123,7 +130,7 @@ class AiBartender
             data = line.delete_prefix("data:").strip
             next if data == "[DONE]"
 
-            json = JSON.parse(data) rescue nil
+            json = parse_json(data)
             next unless json
 
             delta = extract_delta(json)
@@ -140,24 +147,32 @@ class AiBartender
   end
 
   def self.extract_text(body)
+    return "" unless body.is_a?(Hash)
+
     outputs = body.fetch("output", [])
     texts = outputs.flat_map do |item|
+      next [] unless item.is_a?(Hash)
+
       if item["type"] == "message"
-        item.fetch("content", []).filter_map { |content| content["text"] if content["type"] == "output_text" }
+        item.fetch("content", []).filter_map do |content|
+          content["text"] if content.is_a?(Hash) && content["type"] == "output_text"
+        end
       elsif item["type"] == "output_text"
-        item["text"]
+        item["text"].to_s
       end
     end
     texts.join("\n").strip
   end
 
   def self.extract_delta(payload)
+    return nil unless payload.is_a?(Hash)
+
     if payload["type"] == "response.output_text.delta"
       payload.dig("delta")
     else
       outputs = payload.fetch("output", [])
       outputs.each do |item|
-        next unless item["type"] == "output_text"
+        next unless item.is_a?(Hash) && item["type"] == "output_text"
         return item["text"]
       end
       nil
@@ -175,4 +190,21 @@ class AiBartender
       end
       .join("\n")
   end
+
+  def self.parse_json(raw)
+    JSON.parse(raw.to_s)
+  rescue JSON::ParserError => e
+    raise Error, "Invalid JSON from OpenAI: #{e.message}"
+  end
+  private_class_method :parse_json
+
+  def self.extract_error_message(body)
+    return "Unknown error from OpenAI" if body.nil? || body.empty?
+
+    parsed = JSON.parse(body)
+    parsed.dig("error", "message").presence || body.to_s
+  rescue JSON::ParserError
+    body.to_s
+  end
+  private_class_method :extract_error_message
 end

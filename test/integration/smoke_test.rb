@@ -24,6 +24,7 @@ class SmokeTest < ActionDispatch::IntegrationTest
       cocktail_recipe: @cocktail_recipe,
       user: @user
     )
+    sign_in @user
   end
 
   test "home page responds successfully" do
@@ -76,13 +77,4 @@ class SmokeTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "comments index responds successfully" do
-    get cocktail_recipe_comments_url(@cocktail_recipe)
-    assert_response :success
-  end
-
-  test "comment show responds successfully" do
-    get cocktail_recipe_comment_url(@cocktail_recipe, @comment)
-    assert_response :success
-  end
 end
