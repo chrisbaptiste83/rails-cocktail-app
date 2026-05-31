@@ -28,9 +28,6 @@ gem 'dotenv-rails'
 
 gem 'devise' 
 
-gem 'font_awesome5_rails'
-
-gem 'bootstrap', '~> 5.3'
 gem 'tailwindcss-rails'
 
 gem 'pry'

@@ -1,7 +1,7 @@
 class CocktailRecipesController < ApplicationController 
 
-    before_action :find_cocktail_recipe, only: [:show, :edit, :update, :destroy] 
     before_action :authenticate_user!
+    before_action :find_cocktail_recipe, only: [:show, :edit, :update, :destroy] 
     before_action :authorize_cocktail_recipe!, only: [:edit, :update, :destroy]
 
     def new 
@@ -55,7 +55,7 @@ class CocktailRecipesController < ApplicationController
    private
 
    def cocktail_recipe_params
-     params.require(:cocktail_recipe).permit(:user_id, :category_name, :title, :directions, :description, :avatar) 
+     params.require(:cocktail_recipe).permit(:category_name, :title, :directions, :description, :avatar) 
    end 
 
    def recipe_ingredient_params
