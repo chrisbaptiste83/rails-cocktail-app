@@ -58,12 +58,15 @@ class CocktailRecipe < ApplicationRecord
       delete_ingredients_from_recipe 
 
       ingredients_params[:recipe_ingredients_attributes].each do |k, recipe_ingredient|
+        ingredient = nil
         if recipe_ingredient[:ingredient][:name].present?
           ingredient_name = recipe_ingredient[:ingredient][:name]
           ingredient = Ingredient.find_or_create_by(name: ingredient_name)
         elsif recipe_ingredient[:ingredient_id].present?
           ingredient = Ingredient.find_by(id: recipe_ingredient[:ingredient_id]) 
         end
+        next if ingredient.nil?
+
         if recipe_ingredient[:quantity].present?
           RecipeIngredient.create(quantity: recipe_ingredient[:quantity], ingredient_id: ingredient.id, cocktail_recipe_id: self.id ) 
         end

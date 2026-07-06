@@ -31,5 +31,7 @@ module RailsCocktailApp
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.active_storage.variant_processor = :vips
+
+    config.middleware.use Rack::Attack
   end
 end

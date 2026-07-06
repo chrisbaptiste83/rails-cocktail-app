@@ -9,15 +9,16 @@ class CommentsController < ApplicationController
       @comment = current_user.comments.new(comments_params)
       @comment.cocktail_recipe = @cocktail_recipe
      if @comment.save
-        redirect_to cocktail_recipe_path(@comment.cocktail_recipe)
+        redirect_to cocktail_recipe_path(@comment.cocktail_recipe), notice: "Comment added."
      else
-        redirect_to cocktail_recipe_path(@comment.cocktail_recipe)
+        redirect_to cocktail_recipe_path(@comment.cocktail_recipe), alert: @comment.errors.full_messages.to_sentence
      end
    end 
 
    def destroy
-    @comment.destroy
-      redirect_to cocktail_recipe_url
+      recipe = @comment.cocktail_recipe
+      @comment.destroy
+      redirect_to cocktail_recipe_path(recipe), notice: "Comment removed."
    end
 
 
