@@ -35,7 +35,8 @@ class AiBartenderController < ApplicationController
     flash[:ai_bartender_glass] = glass
     redirect_to root_path
   rescue StandardError => e
-    flash[:ai_bartender_reply] = "The bartender is polishing glassware right now. Try again in a moment. (#{e.message})"
+    Rails.logger.error("[AiBartender#create] #{e.class}: #{e.message}")
+    flash[:ai_bartender_reply] = "The bartender is polishing glassware right now. Try again in a moment."
     flash[:ai_bartender_prompt] = prompt
     flash[:ai_bartender_strength] = strength
     flash[:ai_bartender_glass] = glass
@@ -69,7 +70,8 @@ class AiBartenderController < ApplicationController
     append_message("assistant", full_text)
     response.stream.write("event: done\ndata: {}\n\n")
   rescue StandardError => e
-    response.stream.write("data: #{JSON.generate(error: e.message)}\n\n")
+    Rails.logger.error("[AiBartender#stream] #{e.class}: #{e.message}")
+    response.stream.write("data: #{JSON.generate(error: "The bartender is polishing glassware right now. Try again in a moment.")}\n\n")
     response.stream.write("event: done\ndata: {}\n\n")
   ensure
     response.stream.close

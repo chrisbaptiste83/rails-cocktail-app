@@ -78,7 +78,11 @@
   </section>
 
   <div class="flex flex-wrap gap-3">
-    <%= link_to "Next Cocktail", @cocktail_recipe.next, class: "btn btn-primary" %>
-    <%= link_to "Previous Cocktail", @cocktail_recipe.previous, class: "btn btn-ghost" %>
+    <% if (nxt = @cocktail_recipe.next) %>
+      <%= link_to "Next Cocktail", nxt, class: "btn btn-primary" %>
+    <% end %>
+    <% if (prv = @cocktail_recipe.previous) %>
+      <%= link_to "Previous Cocktail", prv, class: "btn btn-ghost" %>
+    <% end %>
   </div>
 </div>
