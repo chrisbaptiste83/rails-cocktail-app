@@ -28,7 +28,7 @@ A full-stack Rails 8 cocktail recipe platform where users share, discover, and d
 | Frontend | Turbo, Stimulus, Tailwind CSS v4, daisyUI |
 | Storage | Active Storage + Cloudinary |
 | AI | OpenAI API (streaming via SSE) |
-| Deployment | Kamal 2 + Docker + Thruster |
+| Deployment | Google Cloud Run + Docker + Thruster |
 
 ## Prerequisites
 
@@ -104,14 +104,15 @@ bin/rails test:system       # Capybara system tests (requires Chrome)
 
 ## Deployment
 
-This app deploys via [Kamal](https://kamal-deploy.org/). Ensure your `.kamal/secrets` file has the required credentials, then:
+This app deploys via Google Cloud Run:
 
 ```bash
-kamal setup    # first deploy
-kamal deploy   # subsequent deploys
+gcloud run deploy rails-cocktail-app \
+  --image us-west1-docker.pkg.dev/PROJECT/REPO/rails-cocktail-app:latest \
+  --region us-west1
 ```
 
-A `/up` health check endpoint is exposed for kamal-proxy.
+A `/up` health check endpoint is exposed for Cloud Run's health probe.
 
 ## Project Structure
 
