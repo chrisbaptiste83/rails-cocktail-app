@@ -87,8 +87,6 @@ GEM
     bindex (0.8.1)
     bootsnap (1.19.0)
       msgpack (~> 1.2)
-    bootstrap (5.3.5)
-      popper_js (>= 2.11.8, < 3)
     builder (3.3.0)
     byebug (12.0.0)
     capybara (3.40.0)
@@ -140,9 +138,6 @@ GEM
     ffi (1.17.2-arm64-darwin)
     ffi (1.17.2-x86_64-linux-gnu)
     ffi (1.17.2-x86_64-linux-musl)
-    font_awesome5_rails (1.5.0)
-      nokogiri (>= 1.11.3)
-      railties (>= 4.2)
     gapic-common (1.3.0)
       faraday (>= 1.9, < 3.a)
       faraday-retry (>= 1.0, < 3.a)
@@ -311,7 +306,6 @@ GEM
     pg (1.6.3-arm64-darwin)
     pg (1.6.3-x86_64-linux)
     pg (1.6.3-x86_64-linux-musl)
-    popper_js (2.11.8)
     pp (0.6.3)
       prettyprint
     prettyprint (0.2.0)
@@ -466,14 +460,12 @@ DEPENDENCIES
   active_storage_validations
   bcrypt
   bootsnap (>= 1.4.2)
-  bootstrap (~> 5.3)
   byebug
   capybara (>= 2.15)
   dartsass-rails
   devise
   dotenv-rails
   faker
-  font_awesome5_rails
   google-cloud-env
   google-cloud-secret_manager
   image_processing (~> 1.2)

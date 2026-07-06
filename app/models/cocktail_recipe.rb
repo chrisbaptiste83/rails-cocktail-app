@@ -1,8 +1,8 @@
 class CocktailRecipe < ApplicationRecord 
     belongs_to :user
     belongs_to :category 
-    has_many :comments 
-    has_many :recipe_ingredients
+    has_many :comments, dependent: :destroy
+    has_many :recipe_ingredients, dependent: :destroy
     has_many :ingredients, through: :recipe_ingredients
 
     accepts_nested_attributes_for :recipe_ingredients, reject_if: lambda {|attributes| attributes['name'].blank?}
@@ -12,11 +12,15 @@ class CocktailRecipe < ApplicationRecord
 
     has_one_attached :avatar
 
-    validates :avatar, content_type: { in: ['image/png', 'image/jpeg', 'image/jpeg', 'image/gif'], message: 'must be a valid image format' }
+    validates :avatar, content_type: { in: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'], message: 'must be a valid image format' }
 
-    scope :most_comments, -> { order("comments_count DESC").first } 
+    def self.most_comments
+      order("comments_count DESC").first
+    end
     scope :five_latest_cocktail_recipes,  -> { order("created_at desc").limit(5)}
-    scope :of_the_day,  -> { order('RANDOM()').first}
+    def self.of_the_day
+      order('RANDOM()').first
+    end
 
     def category_name=(name)
       self.category = Category.find_or_create_by(name: name)
@@ -47,11 +51,8 @@ class CocktailRecipe < ApplicationRecord
     
 
     def delete_ingredients_from_recipe
-        ingredients.size.times do
-        ingredient = RecipeIngredient.find_by(cocktail_recipe_id: self.id)
-        ingredient.delete
-     end
-    end 
+      recipe_ingredients.destroy_all
+    end
 
     def add_ingredients_to_recipe(ingredients_params)
       delete_ingredients_from_recipe 

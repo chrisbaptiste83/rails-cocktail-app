@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_02_08_000110) do
+ActiveRecord::Schema[8.0].define(version: 2026_07_05_190740) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -73,7 +73,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_08_000110) do
     t.text "directions"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "comments_count"
+    t.integer "comments_count", default: 0, null: false
   end
 
   create_table "comments", force: :cascade do |t|
@@ -88,6 +88,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_08_000110) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_ingredients_on_name", unique: true
   end
 
   create_table "recipe_ingredients", force: :cascade do |t|
@@ -96,6 +97,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_08_000110) do
     t.integer "ingredient_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["cocktail_recipe_id", "ingredient_id"], name: "index_recipe_ingredients_on_cocktail_recipe_id_and_ingredient_id"
     t.index ["cocktail_recipe_id"], name: "index_recipe_ingredients_on_cocktail_recipe_id"
     t.index ["ingredient_id"], name: "index_recipe_ingredients_on_ingredient_id"
   end
@@ -119,4 +121,10 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_08_000110) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "ai_conversations", "users"
   add_foreign_key "ai_messages", "ai_conversations"
+  add_foreign_key "cocktail_recipes", "categories"
+  add_foreign_key "cocktail_recipes", "users"
+  add_foreign_key "comments", "cocktail_recipes"
+  add_foreign_key "comments", "users"
+  add_foreign_key "recipe_ingredients", "cocktail_recipes"
+  add_foreign_key "recipe_ingredients", "ingredients"
 end
