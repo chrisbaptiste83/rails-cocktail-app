@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_02_08_000110) do
+ActiveRecord::Schema[8.0].define(version: 2026_07_07_082924) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -60,7 +60,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_08_000110) do
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -68,7 +68,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_08_000110) do
   create_table "cocktail_recipes", force: :cascade do |t|
     t.integer "user_id"
     t.integer "category_id"
-    t.string "title"
+    t.string "title", null: false
     t.text "description"
     t.text "directions"
     t.datetime "created_at", null: false
@@ -85,13 +85,13 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_08_000110) do
   end
 
   create_table "ingredients", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "recipe_ingredients", force: :cascade do |t|
-    t.string "quantity"
+    t.string "quantity", null: false
     t.integer "cocktail_recipe_id"
     t.integer "ingredient_id"
     t.datetime "created_at", null: false

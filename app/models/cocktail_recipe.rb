@@ -5,9 +5,6 @@ class CocktailRecipe < ApplicationRecord
     has_many :recipe_ingredients
     has_many :ingredients, through: :recipe_ingredients
 
-    accepts_nested_attributes_for :recipe_ingredients, reject_if: lambda {|attributes| attributes['name'].blank?}
-    accepts_nested_attributes_for :ingredients, reject_if: lambda {|attributes| attributes['name'].blank?}
-
     validates :title, :description, :directions, :category_name, presence: true
 
     has_one_attached :avatar
@@ -31,7 +28,7 @@ class CocktailRecipe < ApplicationRecord
     end
      
     def self.search(search)
-      where("title LIKE ?", "%#{search}%") 
+      where("title ILIKE ?", "%#{search}%")
     end
 
     def previous
@@ -47,28 +44,27 @@ class CocktailRecipe < ApplicationRecord
     
 
     def delete_ingredients_from_recipe
-        ingredients.size.times do
-        ingredient = RecipeIngredient.find_by(cocktail_recipe_id: self.id)
-        ingredient.delete
-     end
-    end 
+      recipe_ingredients.destroy_all
+    end
 
     def add_ingredients_to_recipe(ingredients_params)
-      delete_ingredients_from_recipe 
+      ActiveRecord::Base.transaction do
+        delete_ingredients_from_recipe
 
-      ingredients_params[:recipe_ingredients_attributes].each do |k, recipe_ingredient|
-        if recipe_ingredient[:ingredient][:name].present?
-          ingredient_name = recipe_ingredient[:ingredient][:name]
-          ingredient = Ingredient.find_or_create_by(name: ingredient_name)
-        elsif recipe_ingredient[:ingredient_id].present?
-          ingredient = Ingredient.find_by(id: recipe_ingredient[:ingredient_id]) 
+        ingredients_params[:recipe_ingredients_attributes].each do |k, recipe_ingredient|
+          ingredient = nil
+          if recipe_ingredient[:ingredient][:name].present?
+            ingredient_name = recipe_ingredient[:ingredient][:name]
+            ingredient = Ingredient.find_or_create_by(name: ingredient_name)
+          elsif recipe_ingredient[:ingredient_id].present?
+            ingredient = Ingredient.find_by(id: recipe_ingredient[:ingredient_id])
+          end
+
+          next if ingredient.nil? || recipe_ingredient[:quantity].blank?
+
+          RecipeIngredient.create!(quantity: recipe_ingredient[:quantity], ingredient_id: ingredient.id, cocktail_recipe_id: self.id)
         end
-        if recipe_ingredient[:quantity].present?
-          RecipeIngredient.create(quantity: recipe_ingredient[:quantity], ingredient_id: ingredient.id, cocktail_recipe_id: self.id ) 
-        end
-  
       end
-  
     end
   end
 
