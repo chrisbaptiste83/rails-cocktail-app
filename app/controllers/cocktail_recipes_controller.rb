@@ -57,7 +57,8 @@ class CocktailRecipesController < ApplicationController
            )
           redirect_to @cocktail_recipe, notice: "Your recipe has successfully been updated"
         else 
-          redirect_to new_cocktail_recipe_path
+          @i = 2.times.collect { @cocktail_recipe.recipe_ingredients.build }
+          render :edit, status: :unprocessable_entity
         end
       end
 
