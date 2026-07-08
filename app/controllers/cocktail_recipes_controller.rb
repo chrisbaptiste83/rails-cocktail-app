@@ -25,6 +25,7 @@ class CocktailRecipesController < ApplicationController
       end
     end
     
+    # Note: Recipes are intentionally viewable by any authenticated user.
     def show   
       @comment = current_user.comments.build(cocktail_recipe: @cocktail_recipe)
     end 
