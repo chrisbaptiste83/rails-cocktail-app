@@ -1,4 +1,6 @@
 class CocktailRecipesController < ApplicationController 
+    RECIPES_PER_PAGE = 24
+    BARTENDER_FILTER_LIMIT = 100
 
     before_action :authenticate_user!
     before_action :find_cocktail_recipe, only: [:show, :edit, :update, :destroy] 
@@ -28,8 +30,13 @@ class CocktailRecipesController < ApplicationController
     end 
 
     def index 
-      @users = User.all 
-      @cocktail_recipes = CocktailRecipeIndexQuery.new(params).call
+      @page = [params.fetch(:page, 1).to_i, 1].max
+      @bartenders = User.order(:username).limit(BARTENDER_FILTER_LIMIT)
+      recipes = CocktailRecipeIndexQuery.new(params).call
+      @cocktail_recipe_total = recipes.count
+      @cocktail_recipes = recipes.limit(RECIPES_PER_PAGE).offset((@page - 1) * RECIPES_PER_PAGE)
+      @next_page = @page + 1 if @page * RECIPES_PER_PAGE < @cocktail_recipe_total
+      @previous_page = @page - 1 if @page > 1
     end 
 
 
@@ -38,11 +45,13 @@ class CocktailRecipesController < ApplicationController
     end
 
     def destroy 
+        return unless authorize_cocktail_recipe!
         @cocktail_recipe.destroy
         redirect_to cocktail_recipes_url
       end
      
     def update
+        return unless authorize_cocktail_recipe!
         if CocktailRecipeService.update_with_ingredients(
              @cocktail_recipe, cocktail_recipe_params, recipe_ingredient_params
            )
@@ -67,9 +76,10 @@ class CocktailRecipesController < ApplicationController
    end
     
    def authorize_cocktail_recipe!
-     unless @cocktail_recipe.user_id == current_user.id
-       redirect_to cocktail_recipes_url, alert: "You are not authorized to modify this recipe."
-     end
+     return true if @cocktail_recipe.user_id == current_user.id
+
+     redirect_to cocktail_recipes_url, alert: "You are not authorized to modify this recipe."
+     false
    end
 
 end

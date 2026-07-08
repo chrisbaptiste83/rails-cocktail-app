@@ -16,6 +16,7 @@ class CommentsController < ApplicationController
    end 
 
    def destroy
+      return unless authorize_comment!
       recipe = @comment.cocktail_recipe
       @comment.destroy
       redirect_to cocktail_recipe_path(recipe), notice: "Comment removed."
@@ -33,9 +34,10 @@ class CommentsController < ApplicationController
   end
 
   def authorize_comment!
-    unless @comment.user_id == current_user.id
-      redirect_to cocktail_recipe_path(@comment.cocktail_recipe), alert: "You are not authorized to delete this comment."
-    end
+    return true if @comment.user_id == current_user.id
+
+    redirect_to cocktail_recipe_path(@comment.cocktail_recipe), alert: "You are not authorized to delete this comment."
+    false
   end
 
 end
