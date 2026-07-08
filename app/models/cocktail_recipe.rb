@@ -23,7 +23,15 @@ class CocktailRecipe < ApplicationRecord
     end
 
     def category_name=(name)
-      self.category = Category.find_or_create_by(name: name)
+      normalized_name = name.to_s.strip
+      if normalized_name.blank?
+        self.category = nil
+        return
+      end
+
+      self.category = Category.find_or_create_by!(name: normalized_name)
+    rescue ActiveRecord::RecordNotUnique
+      self.category = Category.find_by!(name: normalized_name)
    end
   
    def category_name
@@ -75,4 +83,3 @@ class CocktailRecipe < ApplicationRecord
   
     end
   end
-
