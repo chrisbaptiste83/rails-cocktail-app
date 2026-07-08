@@ -1,6 +1,8 @@
 require "test_helper"
 
 class SmokeTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
     @category = Category.create!(name: "Classic")
     @ingredient = Ingredient.create!(name: "Gin")
@@ -76,5 +78,4 @@ class SmokeTest < ActionDispatch::IntegrationTest
     get user_cocktail_recipes_url(@user)
     assert_response :success
   end
-
 end

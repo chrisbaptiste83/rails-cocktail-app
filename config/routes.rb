@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   end 
 
   resources :cocktail_recipes do
-    resources :comments
+    resources :comments, only: [:create, :destroy]
   end
   
 end
