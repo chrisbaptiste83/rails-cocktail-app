@@ -28,7 +28,7 @@ A full-stack Rails 8 cocktail recipe platform where users share, discover, and d
 | Frontend | Turbo, Stimulus, Tailwind CSS v4, daisyUI |
 | Storage | Active Storage + Cloudinary |
 | AI | OpenAI API (streaming via SSE) |
-| Deployment | Google Cloud Run + Docker + Thruster |
+| Deployment | GCP Cloud Run via GitLab CI |
 
 ## Prerequisites
 
@@ -104,15 +104,11 @@ bin/rails test:system       # Capybara system tests (requires Chrome)
 
 ## Deployment
 
-This app deploys via Google Cloud Run:
+This app deploys via **GitLab CI** (`.gitlab-ci.yml`) to **GCP Cloud Run** (`trinitas-forge` project, `us-west1` region).
 
-```bash
-gcloud run deploy rails-cocktail-app \
-  --image us-west1-docker.pkg.dev/PROJECT/REPO/rails-cocktail-app:latest \
-  --region us-west1
-```
-
-A `/up` health check endpoint is exposed for Cloud Run's health probe.
+- Pushing to `main` automatically runs tests, builds the container image to Google Artifact Registry, and deploys to Cloud Run (`min-instances=1`).
+- Live URL: `https://rails-cocktail-app-o3clvemm7a-uw.a.run.app`
+- A `/up` health check endpoint is exposed for Cloud Run startup probes.
 
 ## Project Structure
 
