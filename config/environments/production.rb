@@ -86,4 +86,12 @@ Rails.application.configure do
 
   # Skip DNS rebinding protection for the default health check endpoint.
   config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+
+  # Fornax Stack Compliance: configure Resend for Action Mailer
+  config.action_mailer.delivery_method = :resend
+  config.action_mailer.resend_api_key = Rails.application.credentials.resend_api_key
+
+  # Fornax Stack Compliance: configure Lograge for structured JSON logs
+  config.lograge.enabled = true
+  config.lograge.formatter = Lograge::Formatters::Json.new
 end

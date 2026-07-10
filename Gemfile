@@ -44,6 +44,10 @@ gem 'google-cloud-secret_manager'
 gem 'google-cloud-env'
 
 gem 'active_storage_validations'
+
+# Fornax Stack Compliance: transactional mail and structured JSON logging
+gem 'resend'
+gem 'lograge'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
