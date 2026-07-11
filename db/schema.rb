@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_07_07_082924) do
+ActiveRecord::Schema[8.0].define(version: 2026_07_08_105000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -63,6 +63,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_07_082924) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_categories_on_name", unique: true
   end
 
   create_table "cocktail_recipes", force: :cascade do |t|
@@ -97,7 +98,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_07_082924) do
     t.integer "ingredient_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["cocktail_recipe_id", "ingredient_id"], name: "idx_recipe_ingredients_on_recipe_and_ingredient"
+    t.index ["cocktail_recipe_id", "ingredient_id"], name: "idx_recipe_ingredients_on_recipe_and_ingredient", unique: true
     t.index ["cocktail_recipe_id"], name: "index_recipe_ingredients_on_cocktail_recipe_id"
     t.index ["ingredient_id"], name: "index_recipe_ingredients_on_ingredient_id"
   end
