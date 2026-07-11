@@ -36,6 +36,6 @@ class CocktailRecipesControllerTest < ActionDispatch::IntegrationTest
     sign_in @alice
     patch cocktail_recipe_path(@mojito), params: { cocktail_recipe: { title: "" } }
     assert_response :unprocessable_entity
-    assert_template :edit
+    assert_select "form", minimum: 1
   end
 end
