@@ -1,22 +1,34 @@
 class CocktailRecipe < ApplicationRecord 
     belongs_to :user
     belongs_to :category 
-    has_many :comments 
-    has_many :recipe_ingredients
+    has_many :comments, dependent: :destroy
+    has_many :recipe_ingredients, dependent: :destroy
     has_many :ingredients, through: :recipe_ingredients
 
     validates :title, :description, :directions, :category_name, presence: true
 
     has_one_attached :avatar
 
-    validates :avatar, content_type: { in: ['image/png', 'image/jpeg', 'image/jpeg', 'image/gif'], message: 'must be a valid image format' }
+    validates :avatar, content_type: { in: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'], message: 'must be a valid image format' }
 
-    scope :most_comments, -> { order("comments_count DESC").first } 
+    def self.most_comments
+      order("comments_count DESC").first
+    end
     scope :five_latest_cocktail_recipes,  -> { order("created_at desc").limit(5)}
-    scope :of_the_day,  -> { order('RANDOM()').first}
+    def self.of_the_day
+      order('RANDOM()').first
+    end
 
     def category_name=(name)
-      self.category = Category.find_or_create_by(name: name)
+      normalized_name = name.to_s.strip
+      if normalized_name.blank?
+        self.category = nil
+        return
+      end
+
+      self.category = Category.find_or_create_by!(name: normalized_name)
+    rescue ActiveRecord::RecordNotUnique
+      self.category = Category.find_by!(name: normalized_name)
    end
   
    def category_name
@@ -67,4 +79,3 @@ class CocktailRecipe < ApplicationRecord
       end
     end
   end
-

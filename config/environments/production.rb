@@ -21,7 +21,7 @@ Rails.application.configure do
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"
 
-  # Store uploaded files on the persistent Kamal volume.
+  # Store uploaded files via ImageKit.
   config.active_storage.service = :imagekit
 
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
@@ -57,7 +57,7 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "example.com" }
+  config.action_mailer.default_url_options = { host: ENV.fetch("APP_HOST", "rails-cocktail-app-o3clvemm7a-uw.a.run.app"), protocol: "https" }
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
   # config.action_mailer.smtp_settings = {
@@ -80,7 +80,7 @@ Rails.application.configure do
 
   # Enable DNS rebinding protection and other `Host` header attacks.
   config.hosts = [
-    ENV["APP_HOST"], # custom domain, if configured
+    ENV.fetch("APP_HOST", "rails-cocktail-app-o3clvemm7a-uw.a.run.app"), # custom domain, if configured
     /.*\.run\.app\z/ # default Cloud Run service URL
   ].compact
 

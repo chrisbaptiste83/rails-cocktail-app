@@ -32,4 +32,14 @@ class RecipeIngredientTest < ActiveSupport::TestCase
       )
     end
   end
+
+  test "rejects duplicate ingredient for the same recipe" do
+    assert_raises(ActiveRecord::RecordInvalid) do
+      RecipeIngredient.create!(
+        cocktail_recipe: @ri.cocktail_recipe,
+        ingredient: @ri.ingredient,
+        quantity: "1 oz"
+      )
+    end
+  end
 end

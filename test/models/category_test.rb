@@ -29,4 +29,11 @@ class CategoryTest < ActiveSupport::TestCase
   test "search returns empty when no match" do
     assert Category.search("zzznomatch").empty?
   end
+
+  test "name must be unique" do
+    duplicate = Category.new(name: @category.name)
+
+    assert_not duplicate.valid?
+    assert_includes duplicate.errors[:name], "has already been taken"
+  end
 end

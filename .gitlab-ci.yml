@@ -1,0 +1,109 @@
+stages:
+  - test
+  - build
+  - deploy
+
+variables:
+  PROJECT_ID: trinitas-forge
+  REGION: us-west1
+  SERVICE: rails-cocktail-app
+  IMAGE: us-west1-docker.pkg.dev/trinitas-forge/app-images/rails-cocktail-app
+
+# ── Test ──────────────────────────────────────────────────────────────────────
+
+test:
+  stage: test
+  image: ruby:3.4.2-slim
+  services:
+    - postgres:16-alpine
+  variables:
+    POSTGRES_DB: rails_cocktail_app_test
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: postgres
+    DATABASE_URL: postgresql://postgres:postgres@postgres/rails_cocktail_app_test
+    RAILS_ENV: test
+    BUNDLE_WITHOUT: ""
+  before_script:
+    - apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs git libyaml-dev
+    - gem install bundler --no-document
+    - bundle install --jobs 4 --retry 3
+    - bundle exec rails db:test:prepare
+  script:
+    - bundle exec rails test
+    - bundle exec brakeman -q --no-pager
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == "main"
+
+# ── Build ─────────────────────────────────────────────────────────────────────
+
+build:
+  stage: build
+  image: google/cloud-sdk:slim
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+  id_tokens:
+    GITLAB_ID_TOKEN:
+      aud: ${GCP_WORKLOAD_IDENTITY_PROVIDER}
+  before_script:
+    - apt-get update -qq && apt-get install -y docker.io
+    - echo "$GITLAB_ID_TOKEN" > /tmp/oidc-token
+    - gcloud iam workload-identity-pools create-cred-config ${GCP_WORKLOAD_IDENTITY_PROVIDER}
+      --output-file=/tmp/cred-config.json
+      --credential-source-file=/tmp/oidc-token
+      --credential-source-type=text
+    - gcloud auth login --cred-file=/tmp/cred-config.json
+    - gcloud auth configure-docker us-west1-docker.pkg.dev --quiet
+    - gcloud config set project $PROJECT_ID
+  script:
+    - export DOCKER_BUILDKIT=1
+    - docker build -t $IMAGE:$CI_COMMIT_SHA -t $IMAGE:latest .
+    - docker push $IMAGE:$CI_COMMIT_SHA
+    - docker push $IMAGE:latest
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+
+# ── Deploy ────────────────────────────────────────────────────────────────────
+
+deploy:
+  stage: deploy
+  image: google/cloud-sdk:slim
+  id_tokens:
+    GITLAB_ID_TOKEN:
+      aud: ${GCP_WORKLOAD_IDENTITY_PROVIDER}
+  before_script:
+    - echo "$GITLAB_ID_TOKEN" > /tmp/oidc-token
+    - gcloud iam workload-identity-pools create-cred-config ${GCP_WORKLOAD_IDENTITY_PROVIDER}
+      --output-file=/tmp/cred-config.json
+      --credential-source-file=/tmp/oidc-token
+      --credential-source-type=text
+    - gcloud auth login --cred-file=/tmp/cred-config.json
+    - gcloud config set project $PROJECT_ID
+  script:
+    - |
+      gcloud run deploy $SERVICE \
+        --image $IMAGE:$CI_COMMIT_SHA \
+        --region $REGION \
+        --project $PROJECT_ID \
+        --service-account rails-cocktail-app-service@${PROJECT_ID}.iam.gserviceaccount.com \
+        --vpc-connector run-to-vpc \
+        --vpc-egress private-ranges-only \
+        --port 8080 \
+        --cpu 1 \
+        --memory 512Mi \
+        --no-cpu-throttling \
+        --cpu-boost \
+        --min-instances 1 \
+        --max-instances 20 \
+        --allow-unauthenticated \
+        --set-env-vars=RAILS_ENV=production,RAILS_LOG_LEVEL=info,WEB_CONCURRENCY=1,RAILS_MAX_THREADS=3 \
+        --set-secrets=RAILS_MASTER_KEY=rails-cocktail-app-rails-master-key:latest,DATABASE_URL=rails-cocktail-app-database-url:latest,REDIS_URL=rails-cocktail-app-redis-url:latest,IMAGEKIT_PRIVATE_KEY=rails-cocktail-app-imagekit-private-key:latest,IMAGEKIT_URL_ENDPOINT=rails-cocktail-app-imagekit-url-endpoint:latest,IMAGEKIT_PUBLIC_KEY=imagekit-public-key:latest \
+        --quiet
+  environment:
+    name: production
+    url: https://rails-cocktail-app-o3clvemm7a-uw.a.run.app
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"

@@ -6,7 +6,7 @@
         <h1 class="page-hero-title mt-3">Cocktails</h1>
         <p class="page-hero-lead mt-3">Search the lounge archive by title or filter by bartender to find the perfect pour.</p>
         <div class="recipe-meta mt-4">
-          <span class="recipe-badge"><i class="fas fa-wine-glass-alt"></i> <%= @cocktail_recipes.count %> pours</span>
+          <span class="recipe-badge"><i class="fas fa-wine-glass-alt"></i> <%= @cocktail_recipe_total %> pours</span>
         </div>
       </div>
       <div class="page-actions">
@@ -27,7 +27,7 @@
     <div class="panel-card smoke">
       <h3 class="text-xl font-display">Filter by Bartender</h3>
       <%= form_tag("/cocktail_recipes", method: "get", class: "mt-4 space-y-3") do %>
-        <%= select_tag "user", options_from_collection_for_select(User.all, "id", "username"), include_blank: "Choose a bartender", class: "select select-bordered w-full" %>
+        <%= select_tag "user", options_from_collection_for_select(@bartenders, "id", "username", params[:user]), include_blank: "Choose a bartender", class: "select select-bordered w-full" %>
         <%= submit_tag "Filter", class: "btn btn-ghost w-full" %>
       <% end %>
     </div>
@@ -35,5 +35,15 @@
 
   <section>
     <%= render partial: "cocktails", locals: {cocktail_recipes: @cocktail_recipes} %>
+    <% if @previous_page || @next_page %>
+      <div class="page-actions mt-8">
+        <% if @previous_page %>
+          <%= link_to "Previous", cocktail_recipes_path(request.query_parameters.merge(page: @previous_page)), class: "btn btn-ghost" %>
+        <% end %>
+        <% if @next_page %>
+          <%= link_to "Next", cocktail_recipes_path(request.query_parameters.merge(page: @next_page)), class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    <% end %>
   </section>
 </div>
