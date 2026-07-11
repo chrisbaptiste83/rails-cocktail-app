@@ -26,9 +26,10 @@ test:
     RAILS_ENV: test
     BUNDLE_WITHOUT: ""
   before_script:
-    - apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs git libyaml-dev
+    - apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs npm git libyaml-dev
     - gem install bundler --no-document
     - bundle install --jobs 4 --retry 3
+    - npm install -g yarn && yarn install --frozen-lockfile
     - bundle exec rails db:test:prepare
   script:
     - bundle exec rails test
