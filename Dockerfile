@@ -1,4 +1,4 @@
-ARG RUBY_VERSION=3.4.2
+ARG RUBY_VERSION=4.0.5
 FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 
 WORKDIR /rails

@@ -13,7 +13,7 @@ variables:
 
 test:
   stage: test
-  image: ruby:3.4.2-slim
+  image: ruby:4.0.5-slim
   services:
     - postgres:16-alpine
   variables:
